@@ -1,0 +1,90 @@
+body{
+    background-image: url("./image/background.jpg");
+    background-size: cover;
+}
+.form {
+
+/*background-image: url("image/background.jpg");*/
+
+    position:absolute;
+    top: 30%;
+    right:15%;
+    width: 70%;
+    height:70%;
+    margin-left: -10%;
+    margin-top: -10%;
+
+    text-align: center;
+
+}
+.email {
+    position: relative;
+    width: 350px;
+    padding-top: 4%;
+    margin-left: 1%;
+    margin-top: 5%;
+    border: 1px solid gray;
+    border-radius: 5px;
+
+}
+
+.mtp{
+    width: 350px;
+    padding-top: 4%;
+    margin-left: 1%;
+    margin-top: 5%;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+.login {
+    width: 350px;
+    padding-top: 2%;
+    margin-left: 1%;
+    margin-top: 6%;
+    border: 1px solid gray;
+    border-radius: 5px;
+    background-color: aqua;
+}
+.hint {
+
+    font-size: 80%;
+    width: 50%;
+    color: rgb(36,51,81);
+
+}
+.forgot {
+
+}
+.creer{
+padding-left: 100px;
+    font-size: 80%;
+    color: rgb(36,51,81);
+}
+input::placeholder{
+    position: relative;
+    bottom: 10px;
+    left: 10px;
+    text-align: left;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+
+.avatar {
+    width: 150px;
+    height: 150px;
+}
+.connecter {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: rgb(36,51,81);
+}
+input[value=Connecter] {
+    position: relative;
+    bottom: 5px;
+    font-size: 1.1em;
+    color: rgb(36,51,81);
+    font-weight: bold;
+}
+
+
