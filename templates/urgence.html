@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>urgence</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='csssss/index.css') }}" type="text/css"">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
+	 <script type="text/javascript">
+      var socket = io.connect('http://' + document.domain + ':' + location.port);
+	  
+      socket.on( 'connect', function() {
+	  
+        socket.emit( 'my event', {
+          data: 'User Connected'
+        } )
+        var form = $( 'form' ).on( 'submit', function( e ) {
+          e.preventDefault()
+          let user_input = $( 'input.message' ).val()
+          socket.emit( 'my event', {
+            message : user_input
+          } )
+          $( 'input.message' ).val( '' ).focus()
+        } )
+		
+      } )
+      socket.on( 'my response', function( msg ) {
+        console.log( msg )
+        if( typeof msg.message !== 'undefined' ) {
+          $( 'h3' ).remove()
+          $( 'div.message_holder' ).append( '<b></b> '+msg.message+'<b></b>' )
+        }
+      })
+    </script>
+
+<!--  <link rel="stylesheet" href="style.css">
+  <script src="script.js"></script> -->
+</head>
+<body>
+<div class="div">
+<p>décrivez votre problème</p>
+</div>
+<h3 >No message yet..</h3>
+	
+    <div class="message_holder"></div>
+	
+	
+<div class="div">
+<form action="" method="POST">
+      <input type="text" class="message" placeholder="Messages"/>
+      <input type="submit"/>
+</form>
+</div>
+</body>
+</html>
