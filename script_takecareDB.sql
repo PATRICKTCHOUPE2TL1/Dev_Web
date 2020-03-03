@@ -71,7 +71,7 @@ ENGINE = InnoDB;
 -- Table `takecare`.`consultations`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `takecare`.`consultations` (
-  `medecin_idmedecin` INT NOT NULL,
+  `medecin_idmedecin` INTEGER NOT NULL,
   `Patient_idPatient` INT NOT NULL,
   PRIMARY KEY (`medecin_idmedecin`, `Patient_idPatient`),
   INDEX `fk_medecin_has_Patient_Patient1_idx` (`Patient_idPatient` ASC) VISIBLE,
