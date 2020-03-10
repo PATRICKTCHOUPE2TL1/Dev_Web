@@ -23,9 +23,6 @@ class App extends React.Component{
 			  </header>
 			<div>
 				<body className = "App-center" id="body">
-				
-				
-				
 				</body>
 			</div>
 			<footer className="App-footer" id="plus-d-info">
