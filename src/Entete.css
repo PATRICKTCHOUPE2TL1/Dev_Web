@@ -1,0 +1,22 @@
+.btn-outline-success{
+    border-radius: none;
+    border: none;
+    text-decoration: none;
+    
+    
+    
+}
+.btn-outline-success:hover {
+background-color: none;
+font-size: larger;
+background-color: transparent;
+color :green;
+text-decoration: none;
+
+}
+.btn-outline-success:visited {
+    border-radius: none;
+
+    border: transparent;
+    background-color:transparent
+}

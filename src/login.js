@@ -1,6 +1,6 @@
 import React , { Component } from 'react'
 import './login.css'
-import Avatar2 from "./image/Avatar2.png"
+import Avatar2 from "../image/Avatar2.png"
 
 
 
@@ -35,7 +35,7 @@ class Login extends Component {
     render(){
         return(
 
-            <form className= "form" onSubmit={this.handleOnsubit}>
+            <form className= "formLog" onSubmit={this.handleOnsubit}>
                     <img src ={Avatar2} alt ="loginimage" className="avatar"/>
 
 
@@ -52,14 +52,13 @@ class Login extends Component {
                     <input type ="password" placeholder= "Password" required  className="mtp"
                     onChange={this.handlePasswordChange}/>
                 </div>
+                <span><hr className ="ligne2"></hr></span>
+                <a href="https://www.google.com" className="hint"><b> mot de passe oublier ?</b></a>
 
                 <div>
-                    <input type = "submit" className="login"  value ="Connecter"/>
+                    <input type = "submit" className="login2"  value ="Connecter"/>
                 </div>
-                <div className="forgot">
-                    <a href="https://www.google.com" className="hint"><b> mot de passe oublier ?</b></a>
-                    <a href="https://www.google.com" className="creer"><b>creer un compte</b></a>
-                </div>
+    
                 <span className="signin">
 
                 </span>

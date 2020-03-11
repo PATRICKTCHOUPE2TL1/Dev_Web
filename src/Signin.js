@@ -1,5 +1,8 @@
 import React,{Component} from 'react'
 import './SignIn.css'
+import Avatar2 from "../image/Avatar2.png"
+
+
 
 class SignIn extends Component {
 
@@ -12,8 +15,8 @@ class SignIn extends Component {
             email : ' ',
             motDepasse :' ',
             dateNaiss : ' ',
-            nationalite : ' ',
             sexe : ' ',
+           
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleNomChange = this.handleNomChange.bind(this);
@@ -21,8 +24,8 @@ class SignIn extends Component {
         this.handleEmailChange =this.handleEmailChange.bind(this);
         this.handlePasswordChange =this.handlePasswordChange.bind(this);
         this.handleDateNaiss = this.handleDateNaiss.bind(this);
-        this.handleNationaliteChange = this.handleNationaliteChange.bind(this);
         this.handleSexeChange =this.handleSexeChange.bind(this);
+       
     }
     handleNomChange = event =>{
         this.setState({
@@ -50,78 +53,78 @@ class SignIn extends Component {
             dateNaiss : event.target.value
         })
     };
-    handleNationaliteChange = event =>{
-        this.setState({
-            nationalite : event.target.value
-        })
-    };
+   
     handleSexeChange = event =>{
         this.setState({
             sexe: event.target.value
         })
     };
-    handleSubmit = event =>{
+
+  
+   
+    handleSubmit = event =>{ 
+        this.ConfirmPasswd();
+        
         console.log(this.state.nom);
+        console.log(this.state.password);
+        console.log(this.state.ConfirmPasswd);
+
+        console.log(this.state.prenom);
         event.preventDefault();
+        //prevent the reloading of the page when the form is submitted
     };
+    getId = id=>{
+        return document.getElementById(id);
+    }
+    handleCheckBox = () =>{
+        {this.getId("contrat").checked ? this.getId("mySubmit").disabled = false: this.getId("mySubmit").disabled = true}
+    }
+    ConfirmPasswd = () =>{
+       {this.getId("password").value===this.getId("confpassword").value ? console.log(true): console.log(false)} 
+    }
+
 
 
     render() {
+        
         return (
-            <form onSubmit={this.handleSubmit }>
-                <div>
-                    <legend>Cree un Compte</legend>
-                </div>
-                <div>
-                    <label htmlFor= 'nom'>Nom :</label>
-                    <input type ="text" id = 'nom' placeholder= "username" required  onChange={this.handleNomChange}/>
-                </div>
-                <div>
-                    <label htmlFor= 'prenom'>PreNom :</label>
-                    <input type ="text" id ='prenom' placeholder= "username" required  onChange={this.handlePrenomChange}/>
-                </div>
-                <div>
-                    <label htmlFor='email'>Email :</label>
-                    <input type ="text" id='email' placeholder= "Email" required  onChange={this.handleEmailChange}/>
-                </div>
-                <div>
-                    <label htmlFor='password'> Mot de passe :</label>
-                    <input type ="password" id="password" placeholder= "password" required onChange={this.handlePasswordChange}/>
-                </div>
-                <div>
-                    <label htmlFor="confpassword"> Confirmer Mot de passe :</label>
-                    <input type ="password" id="confpassword" placeholder= "password" required />
-                </div>
-                <div>
-                <label htmlFor= "dateNaiss">Date de Naissance</label>
-                <input type = "date" id ="dateNaiss" required onChange={this.handleDateNaiss}/>
+            <main>
+            
+            <form  className="formSign" onSubmit={this.handleSubmit} >
+                <fieldset>
+            <img src ={Avatar2} alt ="loginimage" className="avatar"/>
+              
+            <div>
+                <legend className="signup">Cree un Compte</legend>
+            </div>
+            <div id="ident">
+               
+                <input type ="text" id = 'nom' placeholder= "Nom *" required  onChange={this.handleNomChange} className="nom"/>
+          
+                <input type ="text" id ='prenom' placeholder= "Prenom * " required  onChange={this.handlePrenomChange} className="prenom"/>
+            </div>
+            <div>
+               
+                <input type ="text" id='email' placeholder= "AddressEmail *" required  onChange={this.handleEmailChange} className="email2"/>
+            </div>
+            <div>
+                
+                <input type ="password" id="password" placeholder= "Mot de passe *" required onChange={this.handlePasswordChange} className ="password"/>
+            
+                <input type ="password" id="confpassword" placeholder= "Confirmer mot de passe *" required className="confmtp"/>
+            </div>
+            <hr className="ligne"></hr>
+            
+           <div className = "contrat">
+               <span className="texte" > J'accepte les <a href = "http://www.google.com">conditions d'utilisations</a></span> <input type ="checkbox" id="contrat" value="agree" onClick ={this.handleCheckBox}></input>
+           </div>
 
-                </div>
-                <div>
-                    <label htmlFor ="country">Nationalité :</label>
-                    <select id="country">
-                        <option value="cameroun">Cameroun</option>
-                        <option value ="gabon"> Gabon</option>
-                    </select>
-                </div>
-                <div>
-                    <label>Sexe :</label>
-                </div>
-                <div>
-                    <label htmlFor="male">Male :</label>
-                    <input type='radio' name ="sexe" value ="male" id = "male"/>
-                </div>
-                <div>
-                    <label htmlFor="female">Female :</label>
-                    <input type='radio' name ="sexe" value ="Female" id="female"/>
-                </div>
-
-
-                <div>
-                    <input type="submit" value ="Creer compte" className="creer"/>
-                </div>
-
-            </form>
+            <div className="valider1" >
+                <input type="submit"  id="mySubmit" value ="Valider" className="creer" disabled/>
+            </div>
+            </fieldset>
+             </form>
+             </main>
         )
 
     }
