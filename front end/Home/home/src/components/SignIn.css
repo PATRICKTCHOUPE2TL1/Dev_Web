@@ -1,0 +1,149 @@
+body{
+ /*  background-color: lightblue;*/
+/*background-image: url("../image/person-leaning.jpg");*/
+ background-size: 85%; /* The image used */
+
+ /* Full height */
+ height: 100%;
+
+ /* Center and scale the image nicely */
+
+ background-position: center;
+ background-repeat: no-repeat;
+ background-size: cover;
+
+}
+body, html {
+  height: 100%;
+}
+
+.formSign{
+
+
+    /*background-color:rgb(153,217, 234);*/
+    
+        position:absolute;
+        top: 30%;
+        right:15%;
+        width: 70%;
+        height:80%;
+        margin-left: -10%;
+        margin-top: -10%;
+       
+        text-align: center;
+    
+ }
+
+ .nom{
+  border :solid 2px rgb(185, 183, 183);
+    margin-top: 4%;
+    width:160px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    margin-right: 10px;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    background-color: transparent;
+    font-size: 0.85em;
+
+ }
+ input::placeholder{
+  color: rgb(36,51,81);
+   font-weight: bold;
+
+ }
+ .prenom{
+  border :solid 2px rgb(185, 183, 183);
+   padding-top: 8px;
+   padding-bottom: 8px;
+    margin-top: 4%;
+      width :160px;
+      border-left: none;
+    border-right: none;
+    border-top: none;
+    background-color: transparent;
+    font-size: 0.85em;
+    
+}
+ .email2{
+  border :solid 2px rgb(185, 183, 183);
+   padding-top: 8px;
+   padding-bottom: 8px;
+    width:334px;
+    margin-top: 4%;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    background-color: transparent;
+    font-size: 0.85em;
+    
+   }
+ .password{
+  border :solid 2px rgb(185, 183, 183);
+   padding-top: 8px;
+   padding-bottom: 8px;
+    margin-top: 4%;
+    width:160px;
+    margin-right: 10px;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    background-color: transparent;
+    font-size: 0.85em;
+ }
+ .confmtp{
+  border :solid 2px rgb(185, 183, 183);
+   padding-top: 8px;
+   padding-bottom: 8px;
+    margin-top: 4%;
+    width:160px;
+    font-size: 0.85em;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    background-color: transparent;
+    
+ }
+ .creer {
+     margin-top: 6%;
+     width: 100px;
+     border-radius: 5px;
+     border : 1px solid gray;
+     padding-top: 3px;
+     padding-bottom: 3px;
+ }
+ .signup{
+   font-weight: bold;
+   font-size: 1.1em;
+   color: rgb(36,51,81);
+ }
+ .text{
+  font-size :0.4em;
+  
+
+  }
+
+  .contrat{
+
+      margin-top: 20px;
+      font-weight: bold;
+        
+  }
+  .avatar {
+    width: 100px;
+    height: 100px;
+}
+.ligne{
+
+margin-top: 40px;
+background-color: white;
+width: 400px
+}
+input:focus{
+border: transparent;
+}
+
+
+ 
+
