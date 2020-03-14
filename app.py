@@ -1,16 +1,17 @@
-from flask import Flask , render_template,request
+from flask import Flask , render_template,request,jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_mysqldb import MySQL
 import mysql.connector
 from flask_socketio import SocketIO
-
+from flask_cors import CORS
 
 
 app = Flask(__name__)
-
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 2592000
 app.config['SECRET_KEY'] = 'vnkdjnfjknfl1232#'
+app.config['CORS_HEADERS'] = 'application/json'
 socketio = SocketIO(app)
 
 db = SQLAlchemy(app)
@@ -47,16 +48,19 @@ def index():
         print(i)
         print("------------------------------------------------------------------------------------")
     cur.close()
-    return render_template("index.html")
+    #return render_template("index.html")
+    return jsonify(res)
     
 @app.route('/inscription' ,methods=["POST"])    
 def enregistrement():
     if request.method == "POST":
+        print("okok")
         connection = mysql.connector.connect(host='localhost',database='medecine',user='root',password='IloveMVC', auth_plugin='mysql_native_password')
         cur = connection.cursor()
         cur.execute("select MAX(id) from patient;")
         num = int(''.join(map(str,cur.fetchone())))+1
         userDetails = request.form
+        print(userDetails)
         nom = userDetails["nom"]
         prenom = userDetails["prenom"]
         email = userDetails["email"]
@@ -66,8 +70,8 @@ def enregistrement():
         cur.execute("INSERT INTO patient VALUES (%s,%s, %s, %s, %s, %s);", (num,nom, prenom,email,id_med,id_med))
         connection.commit()
         cur.close()
-        print(userDetails)
-        return render_template("inscription.html",userDetails = userDetails,medecin = med)
+        return jsonify(userDetails)
+        #return render_template("inscription.html",userDetails = userDetails,medecin = med)
 @app.route('/inscription_m' ,methods=["POST"]) 
 def rech_med ():
     if request.method == "POST":
@@ -83,7 +87,8 @@ def rech_med ():
         connection.commit()
         cur.close()
         print(userDetails)
-        return render_template("inscription_m.html",nom = nom,prenom = prenom,specialite = specialite)
+        return jsonify(userDetails)
+        #return render_template("inscription_m.html",nom = nom,prenom = prenom,specialite = specialite)
 @app.route('/ask' ,methods=["POST"])    
 def demande():
     if request.method == "POST":
@@ -109,7 +114,8 @@ def demande():
         if ret=='reponse : ' :
             ret = 'Pas de correspondance'
         cur.close()
-        return ret
+        return jsonify(ret)
+        #return ret
 @app.route('/ask_m' ,methods=["POST"]) 
 def ask4med ():
     if request.method == "POST":
@@ -133,7 +139,8 @@ def ask4med ():
         if ret=='reponse : ' :
             ret = 'Pas de correspondance'
         cur.close()
-        return ret
+        return jsonify(ret)
+        #return ret
 @app.route('/urgence' )
 def urg():
     return render_template("urgence.html")
@@ -148,5 +155,5 @@ def handle_my_custom_event(json, methods=['GET', 'POST']):
 
     
 if __name__ == "__main__":
-        app.run(debug = True, host='0.0.0.0', port='80')
+        app.run(debug = True, host='0.0.0.0', port='3001')
         
