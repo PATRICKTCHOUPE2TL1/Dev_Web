@@ -28,24 +28,31 @@ padding: 100px ;
 background-color: #f4f5f9;
 flex:var(--condiv-flex);
 }
-nav
-{
-padding:60px 30px 0px 30px ;
-flex:var(--sidebar-flex);
-background: rgb(238,103,143);
-background: linear-gradient(180deg, rgba(238,103,143,1) 50%, rgba(132,124,252,1) 80%);
+.navelt{
+  text-align: left;
+  font-size: 0.8em;
+  text-decoration: none;
 }
-nav ul
+#barnav
+{
+  width :15%;
+  background: red
+/*padding:60px 30px 0px 30px ;
+flex:var(--sidebar-flex);
+*/
+/*background: linear-gradient(180deg, rgba(238,103,143,1) 50%, rgba(132,124,252,1) 80%);*/
+}
+#barnav ul
 {
   font-size:var(--fontsize-nav) ;
-  text-align: center;
+  
   list-style-type: none;
   text-decoration: none;
   color: white !important;
 }
-nav ul li
+#barnav ul li
 {
-  margin:40px;
+margin:30px;
 }
 .active
 {

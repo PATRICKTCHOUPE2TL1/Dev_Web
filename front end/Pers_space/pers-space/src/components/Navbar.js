@@ -5,10 +5,10 @@ constructor(props)
 {
 super(props);
 this.state={ 
-'NavItemActive':''
+//'NavItemActive':''
 }
 }
-activeitem=(x)=>
+/*activeitem=(x)=>
 {
 if(this.state.NavItemActive.length>0){
 document.getElementById(this.state.NavItemActive).classList.remove('active');
@@ -16,16 +16,15 @@ document.getElementById(this.state.NavItemActive).classList.remove('active');
 this.setState({'NavItemId':x},()=>{
 document.getElementById(this.state.NavItemActive).classList.add('active');
 });
-};
+};*/
 render() {
 return (
-<nav>
+<nav id ="barnav">
 <ul>
-<Navitem item="Home" tolink="/"  activec={this.activeitem}></Navitem>
-<Navitem item="About" tolink="/about"  activec={this.activeitem}></Navitem>
-<Navitem item="Education" tolink="/education"  activec={this.activeitem}></Navitem>
-<Navitem item="Skills" tolink="/skills"  activec={this.activeitem}></Navitem>
-<Navitem item="Contact" tolink="/contact"  activec={this.activeitem}></Navitem>
+<Navitem item="Nos Medecins" tolink="/"  activec={this.activeitem}></Navitem>
+<Navitem item="Mes données" tolink="/mesdonnées"  activec={this.activeitem}></Navitem>
+<Navitem item="Discussion" tolink="/discussion"  activec={this.activeitem}></Navitem>
+<Navitem item="Mon medecin" tolink="/monmedecin"  activec={this.activeitem}></Navitem>
 </ul>
 </nav>
 )
