@@ -2,6 +2,7 @@ import React,{Component} from 'react'
 import './SignIn.css'
 import Avatar2 from "../../image/Avatar2.png"
 import { Link } from "react-router-dom"
+import axios from 'axios'
 
 
 
@@ -64,15 +65,18 @@ class SignIn extends Component {
   
    
     handleSubmit = event =>{ 
-        this.ConfirmPasswd();
-        
-        console.log(this.state.nom);
-        console.log(this.state.password);
-        console.log(this.state.ConfirmPasswd);
-
-        console.log(this.state.prenom);
         event.preventDefault();
-        //prevent the reloading of the page when the form is submitted
+      
+        axios
+             .post('http://127.0.0.1:5000/postdata', this.state)
+             .then(reponse =>{
+                 console.log(reponse)
+             })
+             .catch(erreur =>{
+                 console.log(erreur)
+             })
+        
+      
     };
     getId = id=>{
         return document.getElementById(id);
@@ -123,7 +127,7 @@ class SignIn extends Component {
             
 
             <div className="valider1" >
-               <Link to ='/not found'> <input type="submit"  id="mySubmit" value ="Valider" className="creer" disabled/></Link>
+                <input type="submit"  id="mySubmit" value ="Valider" className="creer" disabled/>
             </div>
             </fieldset>
              </form>

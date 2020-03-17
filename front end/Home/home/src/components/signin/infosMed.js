@@ -1,49 +1,27 @@
-import React, {Component} from 'react'
-import axios from 'axios'
+import React ,{component} from 'react'
 
-class  MesDonnees extends Component {
+class InfosMed extends component {
     constructor(props){
         super(props)
         this.state ={
             Nom : " ",
             Prenom : " ",
-            DateNaiss: " ",
             Address : " ",
             Sprecialisation : " ",
             NumeroRRNA : " ",
             Civilite : " ",
             Specialite : " ",
-            carteId :" "
+            AutreSpecialisation =" ",
+            carteId =" "
 
-           
 
         }
-        
         this.handleNomChange = this.handleNomChange.bind(this);
         this.handlePrenomChange = this.handlePrenomChange.bind(this);
         this.handleAddressChange = this.handleAddressChange.bind(this);
         this.handleRRNAChange =this.handleRRNAChange.bind(this);
        
 }
-
-componentDidMount() {
-    axios.get('http://127.0.0.1:5000/users')
-    .then(response =>{
-        let value = response.data
-
-        this.setState(
-            {
-                 Nom: value[0][1] ,
-                 Prenom: value[0][2],
-                 DateNaiss: value[0][5]
-              })   
-    })
-    .catch(error => {
-        console.log(error)
-    })
-    
-  }
-
 handleNomChange = event =>{
     this.setState({
         Nom : event.target.value
@@ -68,17 +46,16 @@ this.setState({
     render() {
         return(
             <main>
-                {console.log(this.state.Prenom)}
             
             <form  className="creercompte" onSubmit={this.handleSubmit} >
-               
+                <fieldset>
             
 
             <div id="ident">
                
-                <input type ="text" id = 'nom' placeholder= "Nom *" value={this.state.Nom} onChange={this.handleNomChange} className="nom2"/>
+                <input type ="text" id = 'nom' placeholder= "Nom *"  onChange={this.handleNomChange} className="nom2"/>
           
-                <input type ="text" id ='prenom' placeholder= "Prenom * " value={this.state.Prenom}  onChange={this.handlePrenomChange} className="prenom2"/>
+                <input type ="text" id ='prenom' placeholder= "Prenom * "   onChange={this.handlePrenomChange} className="prenom2"/>
             </div>
 
             <div>
@@ -90,10 +67,10 @@ this.setState({
                 <input type ="text"  placeholder= "Numero RRNA"  onChange={this.handleRRNAChange} className="RRNA"/>
             </div>
             <div>
-                <input type ="text" placeholder ="DateNaiss" className="DateNaiss" onChange = {this.handleDateNaiss} />
+                <input type ="text" placeholder ="DateNaiss" className="DateNaiss" onChange = {this.handleDateNaiss}/>
             </div>
             <div>
-            <input type ="text" placeholder ="NumeroTel" className="NumeroTel"  onChange = {this.handleNumeroTel} />
+            <input type ="text" placeholder ="NumeroTel" className="NumeroTel" onChange = {this.handleNumeroTel}/>
 
             </div>
             <div>
@@ -124,7 +101,7 @@ this.setState({
  
             
            <div className = "contrat">
-               <span className="texte" > J'accepte les <a href = "http://www.google.com">conditions d'utilisations</a></span> <input type ="checkbox" id="contrat" value="agree" ></input>
+               <span className="texte" > J'accepte les <Link to = '/Login'><a href = "http://www.google.com">conditions d'utilisations</a></Link></span> <input type ="checkbox" id="contrat" value="agree" ></input>
                
            </div>
             
@@ -132,10 +109,10 @@ this.setState({
             <div className="valider2" >
                 <input type="submit"  id="mySubmit" value ="Valider" className="creer"/>
             </div>
+            </fieldset>
              </form>
              </main>
         )
     }
 }
-
-export default MesDonnees
+export default InfosMed
