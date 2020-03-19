@@ -1,4 +1,27 @@
 .contain{
+font: 13px/20px PTSansRegular,Arial,Helvetica,sans-serif;
+font-family: Roboto, Arial, Helvetica, sans-serif;
+font-weight: 400;
+letter-spacing: 0px;
+font-style: normal;
+line-height: 1.7;
+color: #5c6770;
+box-sizing: border-box;
+background-size: cover;
+position: relative;
+
+widows: 1906px;
+height:680px;
+background-color: rgba(255,255,255,0);
+background-image: url("../../image/hellocare-patient.jpg");
+background-position: center top;
+background-repeat: no-repeat;
+padding-top: 10%;
+padding-right: 30px;
+padding-bottom: 10%;
+padding-left: 10px;
+}
+.text3{
     font: 13px/20px PTSansRegular,Arial,Helvetica,sans-serif;
     font-family: Roboto, Arial, Helvetica, sans-serif;
     font-weight: 400;
@@ -38,13 +61,7 @@
     padding-left: 0;
     padding-right: 0;
     margin-left: 150px ;
-    color: rgb(10, 14, 10);
-    }
-    i{
-        color:red;
-        font-size: 15px;
-        margin-left: 150px ;
-    }
-    button{
-        margin-left: 150px ;
-    }
+}
+button{
+    margin-left: 150px ;
+}
