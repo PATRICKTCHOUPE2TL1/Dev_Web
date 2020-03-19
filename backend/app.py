@@ -26,11 +26,18 @@ def index():
     mysql.connection.commit()
     cur.close()
     return 'success'
+
 @app.route('/postdata',methods =['GET','POST'])
 def recieve():
-    data = request.form
-    print(data)
-    return data
+    if request.method =='POST' :
+        json_data = request.get_json()
+        cur = mysql.connection.cursor() 
+        cur.execute("INSERT INTO utilisateur VALUES(%s,%s,%s,%s,%s,%s)",(20,json_data.get('nom'),json_data.get('prenom'),json_data.get('email'),"0465429916","2019-03-01"))
+        mysql.connection.commit()
+        cur.close()
+        return json_data
+
+    
 
 @app.route('/users', methods =['GET','POST'])
 def users():
@@ -49,7 +56,6 @@ def users():
     finally:
         cur.close()
 
-@app.route('/forms',methods =['GET'])
 
 @app.errorhandler(404)
 def not_found(error=None):

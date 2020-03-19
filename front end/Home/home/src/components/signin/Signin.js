@@ -66,11 +66,12 @@ class SignIn extends Component {
    
     handleSubmit = event =>{ 
         event.preventDefault();
-      
+        
         axios
              .post('http://127.0.0.1:5000/postdata', this.state)
              .then(reponse =>{
                  console.log(reponse)
+                 console.log(reponse.data)
              })
              .catch(erreur =>{
                  console.log(erreur)
@@ -104,19 +105,19 @@ class SignIn extends Component {
             </div>
             <div id="ident">
                
-                <input type ="text" id = 'nom' placeholder= "Nom *" required  onChange={this.handleNomChange} className="nom"/>
+                <input type ="text" id = 'nom' placeholder= "Nom *"   onChange={this.handleNomChange} className="nom"/>
           
-                <input type ="text" id ='prenom' placeholder= "Prenom * " required  onChange={this.handlePrenomChange} className="prenom"/>
+                <input type ="text" id ='prenom' placeholder= "Prenom * "   onChange={this.handlePrenomChange} className="prenom"/>
             </div>
             <div>
                
-                <input type ="text" id='email' placeholder= "Adresse Email *" required  onChange={this.handleEmailChange} className="email2"/>
+                <input type ="text" id='email' placeholder= "Adresse Email *"   onChange={this.handleEmailChange} className="email2"/>
             </div>
             <div>
                 
-                <input type ="password" id="password" placeholder= "Mot de passe *" required onChange={this.handlePasswordChange} className ="password"/>
+                <input type ="password" id="password" placeholder= "Mot de passe *" onChange={this.handlePasswordChange} className ="password"/>
             
-                <input type ="password" id="confpassword" placeholder= "Confirmer mot de passe *" required className="confmtp"/>
+                <input type ="password" id="confpassword" placeholder= "Confirmer mot de passe *"  className="confmtp"/>
             </div>
             <hr className="ligne"></hr>
             

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>documentation API</title>
+        <link rel ="stylesheet" href="doc.css">
+    </head>
+    <body>
+        <main>
+        <h1>DOCUMENTATION API</h1>
+        <h2>Introduction</h2>
+        <p>
+            Cette documentation devrait vous aider à vous familiariser avec les ressources
+             disponibles et comment les utiliser grace a des requêtes HTTP.Cette API nous permet d'effectuer facilement des requettes depuis
+            notre base de données</p>
+        
+        <h2>Commencer</h2>
+        <p>Pour effectuer des requête vous pouvez soit :<br>
+            <ul>
+                <li>utiliser la commande curl dans un terminale <i>exemple : curl http://127.0.0.1:5000/utilisateur</i> </li>
+                <li>utiliser <a href="https://www.postman.com/">postman</a> : il vous suffit juste d'entrer l'url dans la barre d'address qui ce trouve sur la page d'accueil.</li>
+                <li>Vous pouvez juste entrer l'url dans un navigateur pour consulter la resource</li>
+            </ul>
+        </p>
+        <h2>Resources</h2>
+        <p>vous trouverez ici toutes les operations que nous pouvons effectuer sur cette api
+            <ul>
+                <li><b>consulter toutes les données disponible dans la base de données: </b>ceci peut etre fait en accedant a l'url racine <a href=http://127.0.0.1:5000>http://127.0.0.1:5000</a></li>
+                <li><b>consulter les données d'une table specifique :</b>le format pour cette requette est la suivante : <i>url_racine/nom_table</i>  exemple <a href=http://127.0.0.1:5000/utilisateur>http://127.0.0.1:5000/utilisateur</a></li>
+                <li><b>consulter juste une colone d'une table specifique :</b>le format por cette requette est la suivante: <i> url_racine/nom_table/nom_colone </i> exemple <a href=http://127.0.0.1:5000/utilisateur/prenom></a>http://127.0.0.1:5000/utilisateur/prenom</li>
+                
+                
+            </ul>
+
+            <b class="note">Il n'ya pas de limite en  cequi concerne le nombre de requette que vous pouvez effectuer sur cette api</b>
+              
+        </p>
+        <h2>Recherche</h2>
+        <p>vous pouvez effectuer des reserches plus approfondis grace en ajoutant <b style="background-color:yellow; color: black;">/search?</b><br> par exemple : <br>
+            si nous souhaitons avoir le <i>id</i> d'un medecin qui reside a paris, nous pouvons le faire grace a la requette suivantes<br>
+            <a href =http://127.0.0.1:5000/medecin/idmedecin/search?args1=localisation&args2=paris>http://127.0.0.1:5000/medecin/nom/search?args1=localisation&args2=paris</a><br><br>
+            si nous souhaitons plutot avoir toutes les informations sur ce medecin et pas seulement son <i>id</i>, on peut effectuer la requette suivantes <br>
+            <a href =http://127.0.0.1:5000/medecin/search?args1=localisation&args2=paris>http://127.0.0.1:5000/medecin/search?args1=localite&args2=paris</a>
+
+        </p>
+        <h2>Encodage</h2>
+         <p>cette api supporte un seul format de donné a savoir le JSON</p>
+
+    </main>
+
+    </body>
+</html>
