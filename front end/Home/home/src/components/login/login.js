@@ -1,8 +1,8 @@
-import React , { Component } from 'react'
+import React , { Component,bcrypt} from 'react'
 import './login.css'
 import Avatar2 from "../../image/Avatar2.png"
 import { Link } from "react-router-dom"
-
+//import bcrypt from 'bcrypt'
 
 
 class Login extends Component {
@@ -31,6 +31,56 @@ class Login extends Component {
     handleOnsubit = event =>{
         console.log(this.state.email);
         event.preventDefault();
+		var pass = this.state.password; 
+		var requete = 'http://127.0.0.1:5000/ask/' + this.state.email;
+		/*
+		console.log('pas ok1')
+		const bcrypt = require('bcrypt');
+		console.log('ok1');
+		var salt = bcrypt.genSaltSync(10);
+		var hash = bcrypt.hashSync(this.state.password, salt);*/
+		var bcrypt = require('bcryptjs');
+			bcrypt.genSalt(10, function(err, salt) {
+				bcrypt.hash(pass, salt, function(err, hash) {
+					
+					fetch(requete, {
+						mode : 'cors',
+						method: "POST",
+						body : JSON.stringify(hash),
+						header : {
+							'Accept': 'application/json',
+							'Content-Type': 'application/json',
+							'Access-Control-Allow-Origin' : '*',
+							"Access-Control-Allow-Credentials" : true 
+						}
+					}).then(response => response.json()).then(data=> console.log(data));
+					
+					console.log(hash);
+				});
+			});
+		console.log(this.state.password);
+		
+		
+		/*
+		var saltRounds = 10;
+		bcrypt.hash(this.state.password, saltRounds, function(err, hash) {
+			console.log('ok2');
+			console.log(hash);
+		var requete = 'http://127.0.0.1:5000/ask/' + this.state.email;
+		fetch(requete, {
+			mode : 'cors',
+			method: "POST",
+			body : JSON.stringify(hash),
+			header : {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json',
+				'Access-Control-Allow-Origin' : '*',
+                "Access-Control-Allow-Credentials" : true 
+			}
+		}).then(response => response.json()).then(data=> console.log(data));
+		});*/
+		
+		
     };
 
     render(){
