@@ -62,20 +62,31 @@ class SignIn extends Component {
         })
     };
 
-  
+  //"proxy" : "http://127.0.0.1:5000",
    
     handleSubmit = event =>{ 
         event.preventDefault();
-        
+		console.log(JSON.stringify(this.state));
+		fetch('http://127.0.0.1:5000/postdata', {
+			mode : 'no-cors',
+			method: "POST",
+			body : JSON.stringify(this.state),
+			header : {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json',
+				'Access-Control-Allow-Origin' : '*'
+			}
+		}).then(reponse=>{console.log(reponse)})
+        /*
         axios
-             .post('http://127.0.0.1:5000/postdata', this.state)
+             .post('http://localhost:5000/postdata', this.state)
              .then(reponse =>{
                  console.log(reponse)
                  console.log(reponse.data)
              })
              .catch(erreur =>{
                  console.log(erreur)
-             })
+             })*/
         
       
     };
