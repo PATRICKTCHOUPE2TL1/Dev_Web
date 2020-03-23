@@ -115,14 +115,25 @@ def demande(email):
             ret = 'mot de passe incorrect'
         
         return jsonify(ret)
+@app.route('/medecin' ,methods=["POST"]) 
+def med():
+    connection = mysql.connector.connect(host='localhost',database='takecare',user='root',password='IloveMVC', auth_plugin='mysql_native_password')
+    cur = connection.cursor()
+    cur.execute("select * from medecin join utilisateur on utilisateur.userId = medecin.idmedecin;")
+    medDetails = cur.fetchall();
+    cur.close()
+    return jsonify(medDetails)
+    
+@app.route('/utilisateur/<nom>' ,methods=["POST"])
+def util(nom):
+    connection = mysql.connector.connect(host='localhost',database='takecare',user='root',password='IloveMVC', auth_plugin='mysql_native_password')
+    cur = connection.cursor()
+    cur.execute("select * from patient join utilisateur on utilisateur.userId = patient.idPatient where utilisateur.nom = '%s';"%nom)
+    utilDetails = cur.fetchall();
+    print(utilDetails)
+    cur.close()
+    return jsonify(utilDetails)
 
-@app.route('/urgence' )
-def urg():
-    return render_template("urgence.html")
-@app.route('/urgencep' )
-def p2p():
-    type_u="medecin"#a changer
-    return render_template("urgence_p2p.html",type_u = type_u)  
 @socketio.on('connect')
 def start ( methods=['GET', 'POST']):
     print('user connected')
