@@ -5,7 +5,7 @@ class  MesDonnees extends Component {
     constructor(props){
         super(props)
         this.state ={
-            Nom : " ",
+            Nom : "Cartman",
             Prenom : " ",
             DateNaiss: " ",
             Address : " ",
@@ -13,7 +13,8 @@ class  MesDonnees extends Component {
             NumeroRRNA : " ",
             Civilite : " ",
             Specialite : " ",
-            carteId :" "
+            carteId :" ",
+			numTel : " "
 
            
 
@@ -26,22 +27,32 @@ class  MesDonnees extends Component {
        
 }
 
-componentDidMount() {
-    axios.get('http://127.0.0.1:5000/users')
-    .then(response =>{
-        let value = response.data
-
-        this.setState(
-            {
-                 Nom: value[0][1] ,
-                 Prenom: value[0][2],
-                 DateNaiss: value[0][5]
-              })   
-    })
-    .catch(error => {
-        console.log(error)
-    })
-    
+componentWillMount() {
+	this.util();
+  }
+  
+  
+  util = ()=>{
+	  var requete = 'http://127.0.0.1:5000/utilisateur/'+ this.state.Nom;
+		fetch(requete, {
+						mode : 'cors',
+						method: "POST",
+						//body : JSON.stringify(hash),
+						header : {
+							'Accept': 'application/json',
+							'Content-Type': 'application/json',
+							'Access-Control-Allow-Origin' : '*',
+							"Access-Control-Allow-Credentials" : true 
+						}
+					}).then(response => response.json()).then(data=> {
+						console.log(data);
+						this.setState({
+							Prenom : data[0][7],
+							DateNaiss : data[0][10],
+							Address : data[0][3],
+							numTel : data[0][9]
+						});
+						});
   }
 
 handleNomChange = event =>{
@@ -90,10 +101,10 @@ this.setState({
                 <input type ="text"  placeholder= "Numero RRNA"  onChange={this.handleRRNAChange} className="RRNA"/>
             </div>
             <div>
-                <input type ="text" placeholder ="DateNaiss" className="DateNaiss" onChange = {this.handleDateNaiss} />
+                <input type ="text" value ={this.state.numTel}  placeholder ="DateNaiss" className="DateNaiss" onChange = {this.handleDateNaiss} />
             </div>
             <div>
-            <input type ="text" placeholder ="NumeroTel" className="NumeroTel"  onChange = {this.handleNumeroTel} />
+            <input type ="text" placeholder ="NumeroTel" value ={this.state.DateNaiss} className="NumeroTel"  onChange = {this.handleNumeroTel} />
 
             </div>
             <div>
