@@ -12,7 +12,8 @@ CORS(app, resources={r"/*": {"origins": "*"}})
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 2592000
 app.config['SECRET_KEY'] = 'vnkdjnfjknfl1232#'
 app.config['CORS_HEADERS'] = 'application/json'
-socketio = SocketIO(app)
+socketio = SocketIO(app, cors_allowed_origins="*")
+#socketio.set('origins', '*');
 bcrypt = Bcrypt(app)
 db = SQLAlchemy(app)
 
@@ -122,12 +123,17 @@ def urg():
 def p2p():
     type_u="medecin"#a changer
     return render_template("urgence_p2p.html",type_u = type_u)  
+@socketio.on('connect')
+def start ( methods=['GET', 'POST']):
+    print('user connected')
+    socketio.emit('my response', callback=messageReceived)
 @socketio.on('my event')
 def handle_my_custom_event(json, methods=['GET', 'POST']):
     print('received my event: '+ str(json))
-    socketio.emit('my response', json, callback=messageReceived)
+    socketio.emit('message', json, callback=messageReceived)
 
     
 if __name__ == "__main__":
         app.run(debug = True, host='0.0.0.0', port='5000')
+        socketio.run(app)
         
