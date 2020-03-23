@@ -65,13 +65,28 @@ def enregistrement():
         nom = userDetails["nom"]
         prenom = userDetails.get("prenom")
         email = userDetails.get("email")
-        #med = userDetails["medecin"]
-        #cur.execute("select idMed from medecins where nom = '%s';"%med)
-        #id_med = int(''.join(map(str,cur.fetchone())))
-        cur.execute("INSERT INTO utilisateur VALUES (%s,%s, %s, %s, %s, %s);", (num,nom, prenom,email,"0465429916","2019-03-01"))
-        connection.commit()
-        cur.close()
-        return userDetails
+        tel = userDetails.get("tel")
+        dateNaiss = userDetails.get("dateNaiss")
+        password = userDetails.get("password")
+        
+        
+        #recherche d'intégrité
+        #cur.execute("select MAX(userId) from utilisateur;")
+        cur.execute("select email from utilisateur;")
+        val = cur.fetchall();
+        ret = '';
+        for i in val :
+            if i[0] == email : 
+                print(i[0])
+                ret = 'erreur, cet email est deja utilisé'
+        if ret == '':
+            cur.execute("INSERT INTO utilisateur VALUES (%s,%s, %s, %s, %s, %s,%s);", (num,nom, prenom,email,tel,dateNaiss,password))
+            connection.commit()
+            cur.close()
+            return userDetails
+        else :
+            print(jsonify(ret))
+            return jsonify(ret)
         #return render_template("inscription.html",userDetails = userDetails,medecin = med)
 
 @app.route('/ask/<email>' ,methods=["POST"])    
