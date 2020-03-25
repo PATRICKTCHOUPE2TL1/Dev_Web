@@ -68,7 +68,7 @@ def enregistrement():
         tel = userDetails.get("tel")
         dateNaiss = userDetails.get("dateNaiss")
         password = userDetails.get("password")
-        
+        genre = userDetails.get("genre")
         
         #recherche d'intégrité
         #cur.execute("select MAX(userId) from utilisateur;")
@@ -83,6 +83,23 @@ def enregistrement():
             cur.execute("INSERT INTO utilisateur VALUES (%s,%s, %s, %s, %s, %s,%s);", (num,nom, prenom,email,tel,dateNaiss,password))
             connection.commit()
             cur.close()
+            if genre == "medecin" :
+                rrps = userDetails.get("RRPS")
+                specialite = userDetails.get("specialite")
+                localisation = userDetails.get("localisation")
+                cur.execute("INSERT INTO medecin VALUES (%s,%s, %s, %s);", (num,secialite, localisation,rrps))
+                connection.commit()
+                cur.close()
+            elif genre == "patient" :
+                poids = userDetails.get("poids")
+                gp = userDetails.get("gp")
+                localisation = userDetails.get("localisation")
+                taille = userDetails.get("taille")
+                cur.execute("INSERT INTO medecin VALUES (%s,%s, %s, %s);", (num,poids,gp, localisation,taille))
+                connection.commit()
+                cur.close()
+            else : 
+                return jsonify("choisissez un medecin ou patient")
             return userDetails
         else :
             print(jsonify(ret))
@@ -148,7 +165,32 @@ def util(nom):
     print(utilDetails)
     cur.close()
     return jsonify(utilDetails)
-
+@app.route('/update/<email>' ,methods=["POST"]) 
+def update(email):
+    connection = mysql.connector.connect(host='localhost',database='takecare',user='root',password='IloveMVC', auth_plugin='mysql_native_password')
+    cur = connection.cursor()
+    userDetails = request.get_json(force = True)
+    print(userDetails)
+    nom = userDetails["Nom"]
+    prenom = userDetails.get("Prenom")
+    tel = userDetails.get("numTel")
+    dateNaiss = userDetails.get("DateNaiss")
+    gp = userDetails.get("gp")
+    poids = userDetails.get("poids")
+    localisation = userDetails.get("localisation")
+    taille = userDetails.get("taille")
+    password = userDetails.get("pw")
+    ret = 'ok'
+    
+    cur.execute("UPDATE utilisateur SET nom = '%s' , prenom = '%s' , tel = '%s'  WHERE email = '%s' "%(nom,prenom,tel,email))
+    connection.commit()
+    cur.execute("select userId from utilisateur where email = '%s';"% email)
+    num = int(''.join(map(str,cur.fetchone())))
+    cur.execute("UPDATE patient SET poids = %s , groupe_sanguin = '%s' , localisation = '%s' , taille = '%s'  WHERE idPatient = %s "%(poids,gp,localisation,taille,num))
+    connection.commit()
+    
+    cur.close()
+    return jsonify(ret)
 @socketio.on('connect')
 def start ( methods=['GET', 'POST']):
     print('user connected')
