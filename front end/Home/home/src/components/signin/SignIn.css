@@ -1,12 +1,12 @@
 body{
- /*  background-color: lightblue;*/
+ 
 /*background-image: url("../image/person-leaning.jpg");*/
  background-size: 85%; /* The image used */
 
  /* Full height */
  height: 100%;
 
- /* Center and scale the image nicely */
+
 
  background-position: center;
  background-repeat: no-repeat;
