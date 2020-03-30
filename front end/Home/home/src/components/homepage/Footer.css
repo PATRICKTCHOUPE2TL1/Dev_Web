@@ -8,7 +8,7 @@
 }
 .footer-middle{
     background: var(--mainBlue);
-    padding-bottom: 2rem;
+    padding-bottom: 2em;
     color: var(--mainWhite);
 }
 a{
