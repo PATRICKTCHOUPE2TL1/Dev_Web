@@ -8,7 +8,7 @@
 }
 .footer-middle{
     background: var(--mainBlue);
-    padding-bottom: 2em;
+    padding-bottom: 2rem;
     color: var(--mainWhite);
 }
 a{
@@ -17,4 +17,7 @@ a{
 a:hover{
     color:red;
 }
-
+.Advise{
+    color:black;
+    font-style: normal;
+}
