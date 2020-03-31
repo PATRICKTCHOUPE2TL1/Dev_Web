@@ -25,8 +25,7 @@ CREATE TABLE IF NOT EXISTS `takecare`.`utilisateur` (
   `nom` VARCHAR(45) NOT NULL,
   `prenom` VARCHAR(45) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
-  `tel` VARCHAR(45) NOT NULL,
-  `date_naissance` DATE NOT NULL,
+  `motdepasse` VARCHAR(300) NOT NULL,
   PRIMARY KEY (`userId`))
 ENGINE = InnoDB;
 
