@@ -1,9 +1,8 @@
 import React , { Component } from 'react'
 import './login.css'
 import Avatar2 from "../../image/Avatar2.png"
-import { Link } from "react-router-dom"
-
-
+import { Link,Redirect } from "react-router-dom"
+import axios from 'axios'
 
 class Login extends Component {
     constructor(props){
@@ -29,8 +28,25 @@ class Login extends Component {
         })
     };
     handleOnsubit = event =>{
-        console.log(this.state.email);
         event.preventDefault();
+        axios
+             .post('http://127.0.0.1:5000/login', this.state)
+             .then(reponse =>{
+                 console.log(reponse)
+                if(reponse.data=="patient"){
+                    this.props.history.push('/EspacePatient');
+                  }else if(reponse.data=="medecin"){
+                    this.props.history.push('/Medecin');
+
+                  }else {
+                      console.log(reponse)
+                  }
+                 
+             })
+             .catch(erreur =>{
+                 console.log(erreur)
+             })
+        
     };
 
     render(){
@@ -58,7 +74,7 @@ class Login extends Component {
                 <Link to ='/signin'><span className='test'>creer un compte </span></Link>
 
                 <div>
-                    <input type = "submit" className="login2"  value ="Connecter"/>
+                    <input type = "submit" className="login2"  id="soumettre" value ="Connecter"/>
                 </div>
     
                 <span className="signin">

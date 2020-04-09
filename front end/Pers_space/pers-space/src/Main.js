@@ -1,8 +1,8 @@
 import React from 'react';
-import Discussion from './content/Discussion'
-import EspaceMedecin from './content/EspaceMedecin'
-import MesDonnees from './content/MesDonnees'
-import MonMedecin from './content/MonMedecin';
+import Agenda from './content2/Agenda'
+import Message from './content2/Message'
+import MesDonnees from './content2/MesDonnees'
+import MesPatient from './content2/MesPatient';
 
 import { Switch, Route } from 'react-router-dom'
 
@@ -15,9 +15,10 @@ const Main = () =>{
             <Navbar />
             <Switch>
             <Route exact path='/' component={EspaceMedecin}/>
-            <Route path = '/mesdonnées' component = {MesDonnees}/>
-            <Route path = '/discussion' component ={ Discussion}/>
-            <Route path = '/monmedecin' component ={MonMedecin} />
+            <Route path = '/mesdonnéesMed' component = {MesDonnees}/>
+            <Route path = '/Agenda' component ={ Agenda}/>
+            <Route path = '/Message' component ={Message} />
+            <Route path = '/MesPatient' component ={MesPatient} />
             
 
 

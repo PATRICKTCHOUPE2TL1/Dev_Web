@@ -46,3 +46,10 @@
 [0317/152659.201:ERROR:crash_report_database_win.cc(469)] failed to stat report
 [0317/182919.741:ERROR:crash_report_database_win.cc(469)] failed to stat report
 [0318/203734.190:ERROR:crash_report_database_win.cc(469)] failed to stat report
+[0319/095607.433:ERROR:crash_report_database_win.cc(469)] failed to stat report
+[0322/104131.989:ERROR:crash_report_database_win.cc(469)] failed to stat report
+[0325/225859.664:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0329/112652.299:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0329/190806.225:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0330/190738.082:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0331/203402.545:ERROR:crash_report_database_win.cc(428)] unexpected header

@@ -1,8 +1,9 @@
 import React,{Component} from 'react'
 import './SignIn.css'
 import Avatar2 from "../../image/Avatar2.png"
-import { Link } from "react-router-dom"
+import { Link, Redirect } from "react-router-dom"
 import axios from 'axios'
+import EspacePatient from "../../EspacePatient"
 
 
 
@@ -16,8 +17,8 @@ class SignIn extends Component {
             prenom : ' ',
             email : ' ',
             motDepasse :' ',
-            dateNaiss : ' ',
-            sexe : ' ',
+            status: ' '
+    
            
         };
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -25,9 +26,9 @@ class SignIn extends Component {
         this.handlePrenomChange = this.handlePrenomChange.bind(this);
         this.handleEmailChange =this.handleEmailChange.bind(this);
         this.handlePasswordChange =this.handlePasswordChange.bind(this);
-        this.handleDateNaiss = this.handleDateNaiss.bind(this);
-        this.handleSexeChange =this.handleSexeChange.bind(this);
-       
+        this.handleStatusMedecin = this.handleStatusMedecin.bind(this);
+        this.handleStatusPatient = this.handleStatusPatient.bind(this)
+        this.chkPassword = this.chkPassword.bind(this)
     }
     handleNomChange = event =>{
         this.setState({
@@ -46,36 +47,97 @@ class SignIn extends Component {
         })
     };
     handlePasswordChange = event =>{
-        this.setState({
-            password: event.target.value
-        })
-    };
-    handleDateNaiss = event =>{
-        this.setState({
-            dateNaiss : event.target.value
-        })
-    };
-   
-    handleSexeChange = event =>{
-        this.setState({
-            sexe: event.target.value
-        })
-    };
 
-  
+        this.setState({
+            motDepasse: event.target.value
+        })
+    };
+    handleStatusPatient = event =>{
+        this.setState({
+            status: event.target.value
+        })
+    };handleStatusMedecin= event =>{
+        this.setState({
+            status : event.target.value
+        })
+    };
+    
+    chkPassword = () =>{
+
+        let eml = this.getId('email').value
+        let mdp = this.getId('password').value
+        let confmdp = this.getId('confpassword').value
+        let reg = /@/;
+        let reg2 =/.com/;
+        if((!reg.test(eml)||(!reg2.test(eml)))){
+
+            this.getId('msg').innerText  = "Address Email non valide\r"
+            this.getId('email').focus()
+
+        }
+        if(mdp != "" && mdp == confmdp) {
+            console.log("0")
+
+            if(mdp < 6) {
+                this.getId('msg').innerText += "mot de passe dois contenir au moins 6 character\r"
+                console.log("1")
+
+              return false
+              
+            }
+             let re = /[0-9]/;
+            if(!re.test(mdp)) {
+                this.getId('msg').innerText += "mot de passe dois contenir au moins un chiffre\r"
+
+                console.log("2")
+
+              return false
+            }
+            re = /[a-z]/;
+            if(!re.test(mdp)) {
+                this.getId('msg').innerText  += "mot de passe dois contenir au moins une lettre en miniscule\r"
+
+                console.log("3")
+
+              return false;
+            }
+            re = /[A-Z]/;
+            if(!re.test(mdp)) {
+                this.getId('msg').innerText  += "mot de passe dois contenir au moins une lettre en majiscule \r"
+
+                console.log("4")
+
+              return false;
+            }
+          } else {
+            this.getId('msg').innerText  += "les mots de passe doivent etre identique\r"
+
+            console.log("5")
+
+            return false;
+          }
+
+    }
    
     handleSubmit = event =>{ 
+ 
         event.preventDefault();
-        
-        axios
+        if(this.chkPassword() == false){
+            
+            this.getId('msg').style.display = "block";
+            
+            this.getId('password').focus()
+        }else{
+            console.log(true)
+          /*  axios
              .post('http://127.0.0.1:5000/postdata', this.state)
              .then(reponse =>{
                  console.log(reponse)
-                 console.log(reponse.data)
              })
              .catch(erreur =>{
                  console.log(erreur)
-             })
+             })*/
+            }
         
       
     };
@@ -88,6 +150,8 @@ class SignIn extends Component {
     ConfirmPasswd = () =>{
        {this.getId("password").value===this.getId("confpassword").value ? console.log(true): console.log(false)} 
     }
+    
+    
 
 
 
@@ -119,16 +183,27 @@ class SignIn extends Component {
             
                 <input type ="password" id="confpassword" placeholder= "Confirmer mot de passe *"  className="confmtp"/>
             </div>
-            <hr className="ligne"></hr>
-            
-           <div className = "contrat">
-               <span className="texte" > J'accepte les <Link to = '/Login'><a href = "http://www.google.com">conditions d'utilisations</a></Link></span> <input type ="checkbox" id="contrat" value="agree" onClick ={this.handleCheckBox}></input>
-               
-           </div>
+            <div className="sts">
+            <span className="status">vous etes :</span>
+
+            <label  id = "medecin" for="medecin">medecin</label>
+            <input type="radio" id="medecin2" name="status" value="medecin" onChange={this.handleStatusMedecin}/>
             
 
+            <label  id = "patient" for="patient">patient</label>
+
+            <input type="radio" id="patient2" name="status" value="patient"  onChange = {this.handleStatusPatient}/>
+            </div>
+            
             <div className="valider1" >
-                <input type="submit"  id="mySubmit" value ="Valider" className="creer" disabled/>
+                <input type="submit"  id="mySubmit" value ="Valider" className="creer"/>
+            </div>
+            <hr className="ligne"></hr>
+           
+            <div>
+                <textarea id ="msg" className="signlog" >
+
+                </textarea>
             </div>
             </fieldset>
              </form>

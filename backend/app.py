@@ -1,7 +1,8 @@
-from flask import Flask, request
+from flask import Flask, request,redirect
 from flask_mysqldb import MySQL
 from flask import jsonify
 from flask_cors import CORS
+from flask_bcrypt import Bcrypt
 import yaml
 
 
@@ -9,7 +10,9 @@ app =Flask(__name__)
 
 #configure db
 #we load the file cotaining our database identifiers
+
 db = yaml.load(open('db.yaml'))
+app.config['CORS_HEADERS'] = 'Content-Type'
 app.config['MYSQL_HOST']=db['mysql_host']
 app.config['MYSQL_USER']=db['mysql_user']
 app.config['MYSQL_PASSWORD']=db['mysql_password']
@@ -17,27 +20,70 @@ app.config['MYSQL_DB']=db['mysql_db']
 
 mysql =MySQL(app)
 CORS(app)
+bcrypt = Bcrypt(app)
+
 
 @app.route('/', methods =['GET' ,'POST'])
 def index():
-    #we connect to our database
-    cur = mysql.connection.cursor() 
-    cur.execute("INSERT INTO utilisateur(userId, nom, prenom,email,tel,date_naissance) VALUES(%s,%s,%s,%s,%s,%s)",(1,"tekadam","tresor","tresortek7@gmail.com","0465429916","2019-03-01"))
-    mysql.connection.commit()
-    cur.close()
-    return 'success'
+    try:
+        query2 = "select email from utilisateur"
+        cur2 = mysql.connection.cursor()
+        cur2.execute(query2)
+        resultValue = cur2.fetchall()
+        resp = jsonify(resultValue)
+        resp.status_code=200
+        return resp
+         
+    except Exception as e:
+        print(e)
+    finally:
+        cur2.close()
+
+
+
 
 @app.route('/postdata',methods =['GET','POST'])
 def recieve():
     if request.method =='POST' :
         json_data = request.get_json()
+        pw_hash = bcrypt.generate_password_hash(json_data.get('motDepasse'),10)
         cur = mysql.connection.cursor() 
-        cur.execute("INSERT INTO utilisateur VALUES(%s,%s,%s,%s,%s,%s)",(20,json_data.get('nom'),json_data.get('prenom'),json_data.get('email'),"0465429916","2019-03-01"))
-        mysql.connection.commit()
-        cur.close()
-        return json_data
+        cur.execute("select email from utilisateur")
+        emails= cur.fetchall()
+        notif =' '
+        for i in emails :
+            if json_data.get("email") == i[0]:
+                notif = "cette utilisateur existe deja"
+                print(notif)
+                return(notif)
+            
+        if notif == ' ' :
+            cur.execute("INSERT INTO utilisateur(nom, prenom,email,motdepasse,statut) VALUES(%s,%s,%s,%s,%s)",(json_data.get('nom'),json_data.get('prenom'),json_data.get('email'),pw_hash,json_data.get('status')))
+            mysql.connection.commit()
+            cur.close()
+            return "success"
 
-    
+
+@app.route('/login', methods =['GET','POST'])
+def connexion():
+    if request.method =='POST' :
+        json_data = request.get_json()
+        value = "'%s'" %json_data.get('email')
+        query ="select motdepasse from utilisateur where {} = {}".format("email",value)
+        cur = mysql.connection.cursor() 
+        cur.execute(query)
+        pwd = cur.fetchall()
+        pwd2 = pwd[0][0]
+        if bcrypt.check_password_hash(pwd2,json_data.get('password')) :
+            cur = mysql.connection.cursor() 
+            query2 ="select statut from utilisateur where {} = {}".format("email",value)
+            cur.execute(query2)
+            state =cur.fetchall()
+            state = jsonify(state)
+            return state    
+        else :
+            return("une erreur est survenue")
+       
 
 @app.route('/users', methods =['GET','POST'])
 def users():

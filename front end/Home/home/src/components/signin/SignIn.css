@@ -45,7 +45,7 @@ body, html {
     border-right: none;
     border-top: none;
     background-color: transparent;
-    font-size: 0.85em;
+    font-size: 0.7em;
 
  }
  input::placeholder{
@@ -63,7 +63,7 @@ body, html {
     border-right: none;
     border-top: none;
     background-color: transparent;
-    font-size: 0.85em;
+    font-size: 0.7em;
     
 }
  .email2{
@@ -76,7 +76,7 @@ body, html {
     border-right: none;
     border-top: none;
     background-color: transparent;
-    font-size: 0.85em;
+    font-size: 0.7em;
     
    }
  .password{
@@ -90,15 +90,15 @@ body, html {
     border-right: none;
     border-top: none;
     background-color: transparent;
-    font-size: 0.85em;
+    font-size: 0.7em;
  }
  .confmtp{
   border :solid 2px rgb(185, 183, 183);
    padding-top: 8px;
    padding-bottom: 8px;
     margin-top: 4%;
-    width:160px;
-    font-size: 0.85em;
+    width:162px;
+    font-size: 0.70em;
     border-left: none;
     border-right: none;
     border-top: none;
@@ -106,7 +106,7 @@ body, html {
     
  }
  .creer {
-     margin-top: 6%;
+     margin-top: 4%;
      width: 100px;
      border-radius: 5px;
      border : 1px solid gray;
@@ -126,22 +126,47 @@ body, html {
 
   .contrat{
 
-      margin-top: 20px;
       font-weight: bold;
         
   }
   .avatar {
-    width: 100px;
-    height: 100px;
+    width: 60px;
+    height: 60px;
 }
 .ligne{
 
 margin-top: 40px;
 background-color: white;
-width: 400px
+width: 70%;
+margin-left: 15%;
 }
 input:focus{
 border: transparent;
+}
+.status{
+  color: rgb(36,51,81);
+  font-weight: bold;
+  font-size: 0.80em;
+  
+  
+
+}
+.sts{
+  margin-top: 4%;
+}
+#medecin{
+  margin-left: 50px;
+  font-size: 0.80em;
+}
+#patient{
+  margin-left: 65px;
+  font-size: 0.80em;
+}
+
+input[type=radio] {
+  margin-left: 5px;
+  height: 0.65em;
+  width: 0.65em;
 }
 
 
