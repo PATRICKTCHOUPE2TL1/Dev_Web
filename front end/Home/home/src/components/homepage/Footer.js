@@ -7,8 +7,6 @@ function Footer() {
         <div className="main-footer">
             <div className="footer-middle">
             <div className="container">
-            <div><p className="Advise">Takecare n'est pas un <b>service d'urgence</b>,en cas d'urgences contactez le <em>115</em> depuis l'Europe.</p></div>
-
                 <div className="row">
                     <div className="col-md-3 col-sm-6">
                             <br/><h4>Contact Us</h4>

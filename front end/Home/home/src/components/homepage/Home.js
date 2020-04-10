@@ -10,7 +10,7 @@ const Home = () =>{
             </p><br></br>
             <p>
             <Link to = 'Signin'><button type="button" class="btn btn-success btn-lg" >Créer un compte gratuit</button></Link><br/><br></br>
-            <Link to = '/Login' ><a href="#" className="link"><i>Vous avez déjà un compte ?</i></a></Link>
+            <Link to = '/Login' ><a href="#"><i>Vous avez déjà un compte ?</i></a></Link>
             </p>
         </div>
     )
