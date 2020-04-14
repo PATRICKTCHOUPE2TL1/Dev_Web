@@ -27,7 +27,7 @@ return (
 <EspaceMedecin />
 </Route>*
 
-<Route path="/mesdonnées">
+<Route exact path="/mesdonnées">
 <MesDonnees />
 </Route>
 
