@@ -1,6 +1,5 @@
 import React from 'react';
 
-import './PersonalSpace.css';
 import Discussion from './content/Discussion'
 import EspaceMedecin from './content/EspaceMedecin'
 import MesDonnees from './content/MesDonnees'
@@ -12,6 +11,9 @@ Route,
 } from "react-router-dom";
 import Navbar from './componnents2/Navbar';
 import MonMedecin from './content/MonMedecin';
+import './PersonalSpace.css';
+
+
 function EspacePatient() {
 return (
 <div>

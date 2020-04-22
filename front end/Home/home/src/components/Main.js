@@ -1,9 +1,10 @@
 import React ,  {Component} from "react"
 import Signin from "./signin/Signin"
+import Medecin from "../Medecin"
+
 import EspacePatient from "../EspacePatient"
 import Accueil from "./homepage/Accueil"
 import Login from "./login/login"
-import Medecin from "../Medecin"
 
 
 import { Switch, Route } from 'react-router-dom'

@@ -122,22 +122,22 @@ class SignIn extends Component {
     handleSubmit = event =>{ 
  
         event.preventDefault();
-        if(this.chkPassword() == false){
+      /*  if(this.chkPassword() == false){
             
             this.getId('msg').style.display = "block";
             
             this.getId('password').focus()
-        }else{
+        }else{*/
             console.log(true)
-          /*  axios
+            axios
              .post('http://127.0.0.1:5000/postdata', this.state)
              .then(reponse =>{
                  console.log(reponse)
              })
              .catch(erreur =>{
                  console.log(erreur)
-             })*/
-            }
+             })
+           // }
         
       
     };

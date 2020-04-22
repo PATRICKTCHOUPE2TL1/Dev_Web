@@ -1,6 +1,4 @@
 import React from 'react';
-
-import './App.css';
 import Agenda from './content2/Agenda'
 import Message from './content2/Message'
 import MesDonnees from './content2/MesDonnees'
@@ -13,9 +11,10 @@ Route,
 } from "react-router-dom";
 import Navbar from './components3/Navbar';
 import MesPatient from './content2/MesPatient';
+import './Medecin.css'
 
 
-function App() {
+function EspaceMedecin() {
 return (
 <div>
 <Entete />  
@@ -45,4 +44,4 @@ return (
 )
 }
 
-export default App;
+export default EspaceMedecin;
