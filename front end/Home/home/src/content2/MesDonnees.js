@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import axios from 'axios'
+import './MesDonneesMed.css'
 
 class  MesDonnees extends Component {
     constructor(props){
@@ -8,9 +9,8 @@ class  MesDonnees extends Component {
             Nom : " ",
             Prenom : " ",
             DateNaiss: " ",
-            Address : " ",
-            Sprecialisation : " ",
-            NumeroRRNA : " ",
+            AutreSpecialite : " ",
+            PaysDeResidence : " ",
             Civilite : " ",
             Specialite : " ",
             carteId :" "
@@ -21,8 +21,8 @@ class  MesDonnees extends Component {
         
         this.handleNomChange = this.handleNomChange.bind(this);
         this.handlePrenomChange = this.handlePrenomChange.bind(this);
-        this.handleAddressChange = this.handleAddressChange.bind(this);
-        this.handleRRNAChange =this.handleRRNAChange.bind(this);
+        this.handleAutreSpecialite = this.handleAutreSpecialite.bind(this);
+        this.handlePayResidenceChange =this.handlePayResidenceChange.bind(this);
        
 }
 
@@ -54,14 +54,14 @@ this.setState({
     Prenom : event.target.value
 })
 }
-handleAddressChange = event => {
+handlePayResidenceChange = event => {
 this.setState({
-    Address : event.target.value
+    PaysDeResidence : event.target.value
 })
 }
-handleRRNAChange = event =>{
+handleAutreSpecialite = event =>{
 this.setState({
-    NumeroRRNA : event.target.value
+   AutreSpecialite : event.target.value
 })
 }
 
@@ -70,74 +70,80 @@ this.setState({
             <main>
                 {console.log(this.state.Prenom)}
             
-            <form  className="creercompte" onSubmit={this.handleSubmit} >
+            <form  onSubmit={this.handleSubmit}  className = "profilMed" >
+                <span id="profile">Mon Profil</span>
                
             <div>
             <label for="avatar">Choose a profile picture:</label>
 
-<input type="file"
-       id="avatar" name="avatar"
-       accept="image/png, image/jpeg" />
+            <input type="file"
+                id="avatar" name="avatar"
+                accept="image/png, image/jpeg" />
 
             </div>
 
             <div id="ident">
+                                                                  
                
                 <input type ="text" id = 'nom' placeholder= "Nom *" value={this.state.Nom} onChange={this.handleNomChange} className="nom2"/>
           
                 <input type ="text" id ='prenom' placeholder= "Prenom * " value={this.state.Prenom}  onChange={this.handlePrenomChange} className="prenom2"/>
-            </div>
-
-            <div>
-               
-                <input type ="text"  placeholder= "Address *"   onChange={this.handleAddressChange} className="Address"/>
-            </div>
-            <div>
-               
-                <input type ="text"  placeholder= "Numero RRNA"  onChange={this.handleRRNAChange} className="RRNA"/>
-            </div>
-            <div>
-                <input type ="text" placeholder ="DateNaiss" className="DateNaiss" onChange = {this.handleDateNaiss} />
-            </div>
-            <div>
-            <input type ="text" placeholder ="NumeroTel" className="NumeroTel"  onChange = {this.handleNumeroTel} />
-
-            </div>
-            <div>
-                
-               <select>
-                   <option>Monsieur</option>
-                   <option>Madame</option>
-                   <option>Docteur</option>
-                   <option>Professeur</option>
+                <select name ="civilite" id="civilite">
+                    <option value =" " disabled selected>Civilite</option>
+                   <option value="monsieur">Monsieur</option>
+                   <option value ="madame">Madame</option>
+                   <option value ="docteur">Docteur</option>
+                   <option value ="professeur">Professeur</option>
                </select>
             </div>
-            <div>
-                <select>
-                    <option>Generaliste</option>
-                    <option>Dentiste</option>
-                    <option>chirugien</option>
-                </select>
 
-            </div>
             <div>
-                <select>
+            <select value =" specialite" id ="specialite">
+                    <option value =" " disabled selected>votre specialite</option>
+                    <option value ="generaliste">Generaliste</option>
+                    <option value ="dentiste">Dentiste</option>
+                    <option value="chirugien">chirugien</option>
+                </select>
+            <select value =" Autrespecialite" id ="AutreSpecialite">
+                    <option value =" " disabled selected>Autre specialite</option>
+                    <option value ="generaliste">Generaliste</option>
+                    <option value ="dentiste">Dentiste</option>
+                    <option value="chirugien">chirugien</option>
+                </select>
+            <select  value ="pays" id ="pays">
+                <option disabled selected>Pays de residence</option>
                 <option>England</option>
                 <option>France</option>
                 <option>Belguim</option>
                 </select>
-              
-            </div>
- 
-            
-           <div className = "contrat">
-               <span className="texte" > J'accepte les <a href = "http://www.google.com">conditions d'utilisations</a></span> <input type ="checkbox" id="contrat" value="agree" ></input>
                
-           </div>
+            </div>
             
+            <div>
+                <input type ="date" id ="dateNaiss"  className="DateNaiss" onChange = {this.handleDateNaiss} />
+              <input type="file" id="pieceId" name="carteID" accept="image/png, image/jpeg" />
 
+            </div>
+            
+            <div>
+               <textarea id ="aboutMed" placeholder ="Parlez moi de vous"></textarea>
+
+            </div>
+            <hr />
+            <span id ="addressMed"> Mon Address</span>
+            <div>
+                <input type = "text" value=" " id ="addressCab" placeholder="Address de votre Cabinet"></input>
+                <input type = "text" value=" " id ="villeCab" placeholder="ville"></input>
+                <input type = "text" value=" " id ="codePostal" placeholder="Code Postal"></input>
+            </div>
+            <div>
+            <input type = "text" value=" " id ="mailMed" placeholder="Votre Address Mail"></input>
+            <input type ="text" placeholder ="NumeroTel" id="NumeroTel"  onChange = {this.handleNumeroTel} />
+            </div>
+           
             <div className="valider2" >
-                <input type="submit"  id="mySubmit" value ="Valider" className="creer"/>
+                <button id ="sauv" value="sauvegarder">sauvegarder</button>
+                <button id = " modifier" value ="modifier ">Editer</button>
             </div>
              </form>
              </main>

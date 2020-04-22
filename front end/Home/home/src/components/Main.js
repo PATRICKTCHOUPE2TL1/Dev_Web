@@ -22,8 +22,8 @@ class Main extends Component {
           
         <Switch>
           <Route exact path='/' component={Accueil}/>
-          <Route path = '/EspacePatient' component = {EspacePatient}/>
-          <Route path = '/Medecin' component = {Medecin}/>
+          <Route exact path = '/EspacePatient' component = {EspacePatient}/>
+          <Route exact path = '/Medecin' component = {Medecin}/>
           <Route exact path = '/signin' component={Signin}/>
           <Route exact path = '/Login' component = {Login}/>
           

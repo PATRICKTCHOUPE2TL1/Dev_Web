@@ -1,0 +1,151 @@
+.profilMed{
+    position:absolute;
+        top: 30%;
+        right:15%;
+        width: 70%;
+        height:80%;
+        margin-left: -10%;
+        margin-top: -10%;
+       
+        text-align: center;
+}
+#nom {
+    padding-top: 10px;
+    padding-right: 5px;
+    padding-right: 5px;
+    padding-bottom: 10px;
+    width: 300px
+}
+#prenom {
+    margin-left: 50px;
+    padding-top: 10px;
+    padding-right: 5px;
+    padding-right: 5px;
+    padding-bottom: 10px;
+    width: 300px
+}
+#civilite {
+    margin-left: 50px;
+    padding-top: 10px;
+    padding-right: 5px;
+    padding-right: 5px;
+    padding-bottom: 10px;
+    width: 300px
+}
+#specialite {
+    margin-top: 30px;
+    margin-left: 50px;
+    padding-top: 10px;
+    padding-right: 5px;
+    padding-right: 5px;
+    padding-bottom: 10px;
+    width: 300px
+}
+#AutreSpecialite{
+    margin-top: 30px;
+
+    margin-left: 50px;
+    padding-top: 10px;
+    padding-right: 5px;
+    padding-right: 5px;
+    padding-bottom: 10px;
+    width: 300px
+}
+#pays{
+    margin-top: 30px;
+
+    margin-left: 50px;
+    padding-top: 10px;
+    padding-right: 5px;
+    padding-right: 5px;
+    padding-bottom: 10px;
+    width: 300px
+}
+#dateNaiss {
+    margin-top: 30px;
+
+    margin-left: 50px;
+    padding-top: 10px;
+    padding-right: 5px;
+    padding-right: 5px;
+    padding-bottom: 10px;
+    width: 300px
+}
+#pieceId{
+    margin-top: 30px;
+
+    margin-left: 50px;
+    padding-top: 30px;
+    padding-right: 5px;
+    padding-right: 5px;
+    padding-bottom: 10px;
+    width: 300px
+}
+#aboutMed{
+    margin-top: 30px;
+
+    margin-left: 50px;
+    padding-top: 30px;
+    padding-right: 5px;
+    padding-right: 5px;
+    padding-bottom: 10px;
+    width: 80%;
+}
+#addressCab{
+    margin-top: 30px;
+
+    margin-left: 50px;
+    padding-top: 30px;
+    padding-right: 5px;
+    padding-right: 5px;
+    padding-bottom: 10px;
+    width: 300px;
+}
+#villeCab{
+    margin-top: 30px;
+
+    margin-left: 50px;
+    padding-top: 30px;
+    padding-right: 5px;
+    padding-right: 5px;
+    padding-bottom: 10px;
+    width: 300px;
+}
+#codePostal{
+    margin-top: 30px;
+
+    margin-left: 50px;
+    padding-top: 30px;
+    padding-right: 5px;
+    padding-right: 5px;
+    padding-bottom: 10px;
+    width: 300px;
+}
+#mailMed{
+    margin-top: 30px;
+
+    margin-left: 50px;
+    padding-top: 30px;
+    padding-right: 5px;
+    padding-right: 5px;
+    padding-bottom: 10px;
+    width: 300px;
+}
+#NumeroTel{
+    margin-top: 30px;
+
+    margin-left: 50px;
+    padding-top: 30px;
+    padding-right: 5px;
+    padding-right: 5px;
+    padding-bottom: 10px;
+    width: 300px;
+}
+#sauv {
+    margin-top: 30px;
+
+}
+#modifier{
+    margin-top: 30px;
+
+}
