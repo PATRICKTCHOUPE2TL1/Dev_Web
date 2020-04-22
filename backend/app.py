@@ -5,7 +5,6 @@ from flask_cors import CORS
 from flask_bcrypt import Bcrypt
 import yaml
 
-
 app =Flask(__name__)
 
 #configure db

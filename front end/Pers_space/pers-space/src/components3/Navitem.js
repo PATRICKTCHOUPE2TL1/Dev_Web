@@ -10,4 +10,4 @@ return (
 )
 }
 }
-export default Navitem
+export default Navitem;

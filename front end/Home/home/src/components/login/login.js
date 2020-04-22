@@ -1,6 +1,8 @@
 import React , { Component } from 'react'
 import './login.css'
-import Avatar2 from "../../image/Avatar2.png"
+import av from "../../image/av.png"
+import ava from "../../image/ava.svg"
+import infis from "../../image/infis.svg"
 import { Link,Redirect } from "react-router-dom"
 import axios from 'axios'
 
@@ -51,37 +53,31 @@ class Login extends Component {
 
     render(){
         return(
+            <div className="containe">
+            <div className="img">
+                <img src={infis} alt="infirmiéres"></img>
+            </div>
+            <div className="login-container">
+                    <form onSubmit={this.handleOnsubit}>
+                        <img className="avatar" src={ava} alt="avatar"></img>
+                        <h2>Mon espace sante</h2>
+                        <div className="input-div one focus">
+                            <div>
+                                <input className="email" placeholder= "Adresse email"  type="text" name = "email" required  onChange={this.handleUserNameChange}></input>
+                            </div>
+                        </div>
+                        <div className="input-div two foc">
+                            <div>
+                                <input className="mdp" type="password" placeholder= "Mot de passe"required onChange={this.handlePasswordChange}></input>
+                            </div>
+                        </div>
+                        <Link to ='/'><a href="#" className="lglk">Mot de passe oublié ?</a></Link><br></br>
+                        <Link to ='/signin'><a href="#" className="lglk">Créer un compte ?</a></Link><br></br>
 
-            <form className= "formLog" onSubmit={this.handleOnsubit}>
-                    <img src ={Avatar2} alt ="loginimage" className="avatar"/>
-
-
-                <div>
-                <legend className="connecter">Se connecter</legend>
-                </div>
-                <div >
-
-                <input type ="text2" name = "email" placeholder= "Adresse Email"   required
-                       onChange={this.handleUserNameChange} className="email"/>
-                </div>
-                <div>
-
-                    <input type ="password" placeholder= "Password" required  className="mtp"
-                    onChange={this.handlePasswordChange}/>
-                </div>
-                <span><hr className ="ligne2"></hr></span>
-                <Link to ='/'><a href="#"><span  className="hint"> mot de passe oublié ?</span></a></Link>
-                <Link to ='/signin'><span className='test'>creer un compte </span></Link>
-
-                <div>
-                    <input type = "submit" className="login2"  id="soumettre" value ="Connecter"/>
-                </div>
-    
-                <span className="signin">
-
-                </span>
-
-            </form>
+                        <input type="submit" className="login" value="Se connecter"></input>
+                    </form>
+            </div>
+        </div>
 
         )
     }

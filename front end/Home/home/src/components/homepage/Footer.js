@@ -19,21 +19,19 @@ function Footer() {
                             </ul>
                     </div>
                     <div className="col-md-3 col-sm-6">
-                            <br/><h4>Lorem ipsum</h4>
+                            <br/><h4>Actualités</h4>
                             <ul className="list-unstyled">
-                                <li>Lorem ipsum</li>
-                                <li>Lorem ipsum</li>
-                                <li>Lorem ipsum</li>
-                                <li>Lorem ipsum</li>
+                                <li><a href="https://www.info-coronavirus.be/fr/" target = "blank">Covid-19 : Précautions</a></li>
+                                <li><a href="https://gisanddata.maps.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6" target = "blank">Carte mondiale des cas</a></li>
+                                <li><a href="https://huis.vub.ac.be/corona/intro.php?taal=Fra" target = "blank">Test préventif</a></li>
                             </ul>
                     </div>
                     <div className="col-md-3 col-sm-6">
-                            <br/><h4>Lorem ipsum</h4>
+                            <br/><h4><a href="#">Lorem ipsum</a></h4>
                             <ul className="list-unstyled">
-                                <li>Lorem ipsum</li>
-                                <li>Lorem ipsum</li>
-                                <li>Lorem ipsum</li>
-                                <li>Lorem ipsum</li>
+                                <li><a href="#">Lorem</a></li>
+                                <li><a href="#">ipsum</a></li>
+                                <li><a href="#">picsum</a></li>
                             </ul>
                     </div>
                 </div>

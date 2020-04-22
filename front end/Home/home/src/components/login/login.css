@@ -1,20 +1,56 @@
-
-.formLog {
-
-/*background-image: url("image/background.jpg");*/
-
-    position:absolute;
-    top: 30%;
-    right:15%;
-    width: 70%;
-    height:70%;
-    margin-left: -10%;
-    margin-top: -10%;
-      text-align: center;
-
+*{
+    padding : 0;
+    margin: 0;
+    box-sizing: border-box;
 }
-.email {
-    border :solid 2px rgb(185, 183, 183);
+body{
+    background-color: rgb(0,253,253) ;
+}
+.containe{
+    width:100vw;
+    height: 100vh;
+    display:grid;
+    grid-template-columns: repeat(2,1fr);
+    grid-gap: 7rem;
+    padding: 0 2rem;
+}
+.img{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.img img{
+    width: 500px;
+}
+.login-container{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin-left: 150px;
+}
+form{
+    width: 360px;
+}
+form h2{
+    font-size: 1.9rem;
+    text-transform: uppercase;
+    margin-right: 40px;
+    color: black;
+}
+.avatar{
+    margin-right: 40px;
+    width: 100px;
+}
+.input-div{
+    position: relative;
+    display: grid;
+    grid-template-columns: 7% 93%;
+    margin: 25px 0;
+    padding: 5px 0;
+}
+.email{
+    position: absolute;
+    border :solid 2px red;
     padding-top: 8px;
     padding-bottom: 8px;
      margin-top: 4%;
@@ -24,89 +60,57 @@
      border-top: none;
      background-color: transparent;
      font-size: 0.85em;
-   
-
 }
-
-.mtp{
-    border :solid 2px rgb(185, 183, 183);
-   padding-top: 8px;
-   padding-bottom: 8px;
-    margin-top: 4%;
-      width :300px;
-      border-left: none;
-    border-right: none;
-    border-top: none;
-    background-color: transparent;
-    font-size: 0.85em;
+.mdp{
+    position: absolute;
+    border :solid 2px red;
+    padding-top: 8px;
+    padding-bottom: 8px;
+     margin-top: 4%;
+       width :300px;
+       border-left: none;
+     border-right: none;
+     border-top: none;
+     background-color: transparent;
+     font-size: 0.85em;
 }
-.login2 {
-    margin-top: 6%;
-    width: 100px;
-    border-radius: 5px;
-    border : 1px solid gray;
-    padding-top: 3px;
-    padding-bottom: 3px;
+.input-div.one{
+    margin-top: 0;
 }
-
-
-.creer2{
-padding-left: 100px;
-    font-size: 80%;
-    color: rgb(12, 25, 27);
+.input-div.two{
+    margin-bottom: 4px;
 }
-input::placeholder{
+.input-div > div{
     position: relative;
-    bottom: 10px;
-    left: 10px;
-    text-align: left;
-    font-size: 1.2em;
-    font-weight: bold;
+    height: 45px;
 }
-
-
-.avatar {
-    width: 150px;
-    height: 150px;
+.lglk{
+    display: block;
+    text-align: center;
+    margin-right: 40px;
+    text-decoration: underline;
+    color: blue;
+    font-size: 0.9rem;
+    transition: .3s;
 }
-.connecter {
-    font-weight: bold;
-    font-size: 1.1em;
-    color: rgb(36,51,81);
+.lglk:hover{
+    color:red;
 }
-input[value=Connecter] {
-    padding-top: 4px;
-    padding-bottom: 4px;
-
-    position: relative;
-    bottom: 5px;
-    font-size: 1em;
-    color: rgb(36,51,81);
-    font-weight: bold;
+.login{
+    display: block;
+    width: 60%;
+    height: 40px;
+    border-radius: 10px;
+    margin-left: 40px;
+    font-size: 1.2rem;
+    outline: none;
+    border:none;
+    background-image: linear-gradient(to right,rgb(123, 233, 123),rgb(123, 233, 123),rgb(123, 233, 123));
+    cursor:pointer;
+    color:#fff;
+    background-size: 100%;
+    transition: .5s;
 }
-.text2{
-font-size :0.5em;
+.login:hover{
+    color : black;
 }
-.contrat{
-    margin-top: 10px;
-    
-}
-.ligne2{
-    margin-top: 60px;
-background-color: white;
-width: 400px
-}
-
-.hint {
-
-    font-size: 0.8em;
-    
-    
-
-}
-.test{
-    font-size:0.8em;
-    margin-left: 100px;
-
-}
-
