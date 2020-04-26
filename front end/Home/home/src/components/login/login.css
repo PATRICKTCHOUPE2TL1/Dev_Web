@@ -3,13 +3,11 @@
     margin: 0;
     box-sizing: border-box;
 }
-body{
-    background-color: rgb(0,253,253) ;
-}
 .containe{
     width:100vw;
     height: 100vh;
     display:grid;
+    background-color: rgb(0,253,253) ;
     grid-template-columns: repeat(2,1fr);
     grid-gap: 7rem;
     padding: 0 2rem;
@@ -113,4 +111,38 @@ form h2{
 }
 .login:hover{
     color : black;
+}
+@media screen and (max-width: 1050px){
+    .containe{
+        grid-gap: 5rem;
+    }
+}
+
+@media screen and (max-width: 1000px){
+    form{
+        width:290px;
+    }
+
+    form h2{
+        font-size: 2.4rem;
+        margin: 8px 0;
+    }
+
+    .img img{
+        width: 400px;
+    }
+}
+@media screen and (max-width: 900px){
+    .img{
+        display: none;
+    }
+    .containe{
+        grid-template-columns: 1fr;
+    }
+    .wave{
+        display: none;
+    }
+    .login-container{
+        justify-content:center;
+    }
 }

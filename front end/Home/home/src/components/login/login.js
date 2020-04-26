@@ -1,6 +1,6 @@
 import React , { Component } from 'react'
 import './login.css'
-import av from "../../image/av.png"
+import docs from "../../image/docs.svg"
 import ava from "../../image/ava.svg"
 import infis from "../../image/infis.svg"
 import { Link,Redirect } from "react-router-dom"
@@ -55,7 +55,7 @@ class Login extends Component {
         return(
             <div className="containe">
             <div className="img">
-                <img src={infis} alt="infirmiéres"></img>
+                <img src={docs} alt="infirmiéres"></img>
             </div>
             <div className="login-container">
                     <form onSubmit={this.handleOnsubit}>
@@ -74,7 +74,7 @@ class Login extends Component {
                         <Link to ='/'><a href="#" className="lglk">Mot de passe oublié ?</a></Link><br></br>
                         <Link to ='/signin'><a href="#" className="lglk">Créer un compte ?</a></Link><br></br>
 
-                        <input type="submit" className="login" value="Se connecter"></input>
+                        <input type="submit" className="btn btn-success btn-lg" value="Se connecter"></input>
                     </form>
             </div>
         </div>
