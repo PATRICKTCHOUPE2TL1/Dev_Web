@@ -1,14 +1,21 @@
-from flask import Flask, request,redirect
+from flask import Flask, request,redirect,session
+
 from flask_mysqldb import MySQL
 from flask import jsonify
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 from flask_bcrypt import Bcrypt
+import secrets
 import yaml
 
 app =Flask(__name__)
+SESSION_TYPE = 'redis'
+app.config.from_object(__name__)
+
 
 #configure db
 #we load the file cotaining our database identifiers
+secretKey = secrets.token_urlsafe(18)
+app.config["SECRET_KEY"]=secretKey
 
 db = yaml.load(open('db.yaml'))
 app.config['CORS_HEADERS'] = 'Content-Type'
@@ -16,9 +23,11 @@ app.config['MYSQL_HOST']=db['mysql_host']
 app.config['MYSQL_USER']=db['mysql_user']
 app.config['MYSQL_PASSWORD']=db['mysql_password']
 app.config['MYSQL_DB']=db['mysql_db']
+SESSION_TYPE = 'redis'
+
 
 mysql =MySQL(app)
-CORS(app)
+CORS(app, supports_credentials=True)
 bcrypt = Bcrypt(app)
 
 
@@ -37,9 +46,6 @@ def index():
         print(e)
     finally:
         cur2.close()
-
-
-
 
 @app.route('/postdata',methods =['GET','POST'])
 def recieve():
@@ -64,7 +70,8 @@ def recieve():
 
 
 @app.route('/login', methods =['GET','POST'])
-def connexion():
+@cross_origin(supports_credentials=True)
+def login():
     if request.method =='POST' :
         json_data = request.get_json()
         value = "'%s'" %json_data.get('email')
@@ -75,14 +82,37 @@ def connexion():
         pwd2 = pwd[0][0]
         if bcrypt.check_password_hash(pwd2,json_data.get('password')) :
             cur = mysql.connection.cursor() 
-            query2 ="select statut from utilisateur where {} = {}".format("email",value)
+            query2 ="select userId from utilisateur where {} = {}".format("email",value)
             cur.execute(query2)
-            state =cur.fetchall()
+            userId = cur.fetchall()
+            userId2 = userId[0][0]
+            session['loggedin'] = True
+            session['id']= userId2
+            session['username'] = value
+            query3 ="select statut from utilisateur where {} = {}".format("email",value)
+            cur.execute(query3)
+            state = cur.fetchall()
             state = jsonify(state)
-            return state    
+            return state
         else :
-            return("une erreur est survenue")
-       
+            return("L'utilisateur n'xiste pas veuillez verifier votre email ou motdepasse")
+
+@app.route('/logout', methods =['GET','POST'])
+@cross_origin(supports_credentials=True)
+def logout():
+    session.pop('loggedin',None)
+    session.pop('id',None)
+    session.pop("username",None)
+    return 'success'
+
+@app.route('/profil', methods =['GET','POST'])
+@cross_origin(supports_credentials=True)
+def profil():
+    if 'username' in session:
+        return 'alreadyIn'
+    else:
+        return 'notIn'
+               
 
 @app.route('/users', methods =['GET','POST'])
 def users():

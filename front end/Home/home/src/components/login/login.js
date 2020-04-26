@@ -1,4 +1,5 @@
 import React , { Component } from 'react'
+import {withRouter} from 'react-router-dom'
 import './login.css'
 import av from "../../image/av.png"
 import ava from "../../image/ava.svg"
@@ -31,8 +32,11 @@ class Login extends Component {
     };
     handleOnsubit = event =>{
         event.preventDefault();
+       
+        axios.defaults.withCredentials = true
+
         axios
-             .post('http://127.0.0.1:5000/login', this.state)
+             .post('http://127.0.0.1:5000/login', this.state,)
              .then(reponse =>{
                  console.log(reponse)
                 if(reponse.data=="patient"){
@@ -82,4 +86,4 @@ class Login extends Component {
         )
     }
 }
-export default Login
+export default withRouter(Login)

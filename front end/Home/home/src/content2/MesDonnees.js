@@ -74,12 +74,7 @@ this.setState({
                 <span id="profile">Mon Profil</span>
                
             <div>
-            <label for="avatar">Choose a profile picture:</label>
-
-            <input type="file"
-                id="avatar" name="avatar"
-                accept="image/png, image/jpeg" />
-
+            
             </div>
 
             <div id="ident">

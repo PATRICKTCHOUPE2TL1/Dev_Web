@@ -14,9 +14,11 @@ import MesPatient from './content2/MesPatient';
 import './Medecin.css'
 
 
-function EspaceMedecin() {
+function MedSpace() {
 return (
 <div>
+{console.log("i am a medic")}
+
 <Entete />  
 <Router>
 <div className="App3">
@@ -24,7 +26,7 @@ return (
 
 <Route exact path="/">
 <MesDonnees />
-</Route>*
+</Route>
 
 <Route path="/Message">
 <Message />
@@ -44,4 +46,4 @@ return (
 )
 }
 
-export default EspaceMedecin;
+export default MedSpace;
