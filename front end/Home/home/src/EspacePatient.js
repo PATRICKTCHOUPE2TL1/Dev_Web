@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import Discussion from './content/Discussion'
 import EspaceMedecin from './content/EspaceMedecin'
@@ -14,9 +14,17 @@ import MonMedecin from './content/MonMedecin';
 import './PersonalSpace.css';
 
 
-function EspacePatient() {
+class EspacePatient extends Component {
+    constructor(props){
+        super(props)
+        this.state = {
+            id : props.userId
+        }
+    }
+    render(){
 return (
 <div>
+
 <Entete />  
 <Router>
 <div className="App2">
@@ -24,10 +32,11 @@ return (
 
 <Route exact path="/">
 <EspaceMedecin />
-</Route>*
+</Route>
 
-<Route path="/mesdonnées">
-<MesDonnees />
+<Route path="/mesdonnées" userId = {this.props.user}>
+
+<MesDonnees userId ={this.state.id}/>
 </Route>
 
 <Route path="/Discussion">
@@ -43,5 +52,5 @@ return (
 </div>
 )
 }
-
+}
 export default EspacePatient;
