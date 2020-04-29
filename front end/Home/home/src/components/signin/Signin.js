@@ -4,6 +4,7 @@ import av2 from "../../image/av2.svg"
 import infis from "../../image/infis.svg"
 import { Link, Redirect } from "react-router-dom"
 import axios from 'axios'
+import {FaRegIdCard} from "react-icons/fa";
 import EspacePatient from "../../EspacePatient"
 
 class SignIn extends Component {
@@ -163,7 +164,7 @@ class SignIn extends Component {
                     </div>
              <div className="signup-container">
                 <form onSubmit={this.handleSubmit} >
-                    <img src ={av2} alt ="loginimage" className="icon"/>
+                    <FaRegIdCard className="icon" size='3em' color='rgb(243,33,86)' />
                         <h2>Créer votre compte</h2>
                     <div id="ident">
                         <input type ="text" id = 'nom' placeholder= "Nom *" required   onChange={this.handleNomChange} className="nom"/>

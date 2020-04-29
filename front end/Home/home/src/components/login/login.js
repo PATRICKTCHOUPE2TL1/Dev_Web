@@ -2,7 +2,6 @@ import React , { Component } from 'react'
 import './login.css'
 import docs from "../../image/docs.svg"
 import ava from "../../image/ava.svg"
-import infis from "../../image/infis.svg"
 import { Link,Redirect } from "react-router-dom"
 import axios from 'axios'
 
@@ -16,7 +15,6 @@ class Login extends Component {
         this.handleUserNameChange = this.handleUserNameChange.bind(this);
         this.handlePasswordChange = this. handlePasswordChange.bind(this);
         this.handleOnsubit = this.handleOnsubit.bind(this)
-
     }
     handleUserNameChange = event => {
         this.setState({
