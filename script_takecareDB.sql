@@ -34,59 +34,60 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `takecare`.`medecin`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `takecare`.`medecin` (
-  `idmedecin` INT NOT NULL,
-  `specialite` VARCHAR(45) NOT NULL,
-  `localisation` VARCHAR(45) NOT NULL,
-  `RPPS` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`idmedecin`),
-  UNIQUE INDEX `RPPS_UNIQUE` (`RPPS` ASC) VISIBLE,
-  CONSTRAINT `idmedecin`
-    FOREIGN KEY (`idmedecin`)
-    REFERENCES `takecare`.`utilisateur` (`userId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+create table medecin(
+idMed int not null auto_increment,
+civilite varchar(120) null,
+specialite date null,
+convention varchar(120) null,
+dateNaiss varchar(120) null,
+numeroRue varchar(120) null,
+numeroRue2 varchar(120) null,
+cite varchar(120) null,
+region varchar(120) null,
+codePostal int null,
+pays varchar(120) null,
+phone int null,
+autre varchar(360) null,
+carteIdt varchar(360) null,
+preuveMed varchar(360) null
+userId int not null,
+primary key(idMed),
+foreign key(userId) references utilisateur(userId));
+
+
 
 
 -- -----------------------------------------------------
 -- Table `takecare`.`Patient`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `takecare`.`Patient` (
-  `idPatient` INT NOT NULL,
-  `poids` INT NOT NULL,
-  `groupe_sanguin` VARCHAR(5) NOT NULL,
-  `localisation` VARCHAR(45) NOT NULL,
-  `taille` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`idPatient`),
-  CONSTRAINT `idPatient`
-    FOREIGN KEY (`idPatient`)
-    REFERENCES `takecare`.`utilisateur` (`userId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+create table patient(
+idPat int not null auto_increment,
+genre varchar(120) null,
+dateNaiss date null,
+numeroRue varchar(120) null,
+numeroRue2 varchar(120) null,
+cite varchar(120) null,
+region varchar(120) null,
+codePostal int null,
+pays varchar(120) null,
+phone int null,
+poids int null,
+taille int null,
+groupeSanguin varchar(6) null,
+allergies varchar(10) null,
+autreAllergie varchar(360) null,
+autre varchar(360) null,
+userId int not null,
+primary key(idPat),
+foreign key(userId) references utilisateur(userId));
+
+
 
 
 -- -----------------------------------------------------
 -- Table `takecare`.`consultations`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `takecare`.`consultations` (
-  `medecin_idmedecin` INTEGER NOT NULL,
-  `Patient_idPatient` INT NOT NULL,
-  PRIMARY KEY (`medecin_idmedecin`, `Patient_idPatient`),
-  INDEX `fk_medecin_has_Patient_Patient1_idx` (`Patient_idPatient` ASC) VISIBLE,
-  INDEX `fk_medecin_has_Patient_medecin1_idx` (`medecin_idmedecin` ASC) VISIBLE,
-  CONSTRAINT `fk_medecin_has_Patient_medecin1`
-    FOREIGN KEY (`medecin_idmedecin`)
-    REFERENCES `takecare`.`medecin` (`idmedecin`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_medecin_has_Patient_Patient1`
-    FOREIGN KEY (`Patient_idPatient`)
-    REFERENCES `takecare`.`Patient` (`idPatient`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

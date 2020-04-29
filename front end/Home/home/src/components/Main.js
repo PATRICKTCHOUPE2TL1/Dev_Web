@@ -17,7 +17,9 @@ class Main extends Component {
     constructor(props){
         super(props)
         this.state = {
-          isLogIn : true
+          isLogIn : true,
+          id : " ",
+          statut: " "
         }
         this.profil = this.profil.bind(this)
     }
@@ -28,20 +30,21 @@ class Main extends Component {
           .post('http://127.0.0.1:5000/profil', this.state)
           .then(reponse =>{
               console.log(reponse)
-             if(reponse.data==="alreadyIn"){
+             if(reponse.data==="notIn"){
               this.setState({
-                  isLogIn : true,
+                  isLogIn : false,
               })
               
-               }else if(reponse.data==="notIn"){
+               }else{
                   this.setState({
-                      isLogIn : false,
+                      isLogIn : true,
+                      id:reponse.data[0],
+                      status:reponse.data[1]
                   })
-     
-                  
-               }else {
-                   console.log(reponse)
-               }
+                  console.log("i am here")
+                  console.log(reponse)
+                  console.log(this.state.id)
+                }
               
           })
           .catch(erreur =>{
@@ -60,8 +63,8 @@ class Main extends Component {
           <Route exact path='/' component={Accueil}/>
           <Route exact path = '/signin' component={Signin}/>
           <Route exact path = '/Login' component = {Login}/>
-          {this.state.isLogIn ? ( <Route exact path = '/EspacePatient' component = {EspacePatient}/>):(<Redirect to ='/Login' />)}
-          {this.state.isLogIn ? (<Route exact path = '/Medecin' component = {Medecin}/>) : (<Redirect to ='/Login' />)}
+       {this.state.isLogIn ? ( <Route exact path = '/EspacePatient' user ="hello" render ={(props) => <EspacePatient userId ={this.state.id} />} />):(<Redirect to ='/Login' />)}
+          {this.state.isLogIn ? (<Route exact path = '/Medecin'    render ={(props) => <Medecin userId ={this.state.id} />} />) : (<Redirect to ='/Login' />)}
           
           
         </Switch>

@@ -1,9 +1,8 @@
-import React from 'react';
+import React , {Component} from 'react';
 import Agenda from './content2/Agenda'
 import Message from './content2/Message'
 import MesDonnees from './content2/MesDonnees'
 import Entete from './components3/header'
-
 
 import
 {
@@ -15,18 +14,27 @@ import MesPatient from './content2/MesPatient';
 import './Medecin.css'
 
 
-function MedSpace() {
-return (
-<div>
-{console.log("i am a medic")}
+class MedSpace extends Component {
+    constructor(props){
+        super(props)
+        this.state ={
+            id : props.userId
 
+        }
+    }
+    render(){
+return (
+ 
+<div>
+{console.log("hihi")}
+{console.log(this.state.id)}
 <Entete />  
 <Router>
 <div className="App3">
 <Navbar />
 
-<Route exact path="/">
-<MesDonnees />
+<Route exact path="/" userId = {this.props.user}>
+<MesDonnees userId ={this.state.id} />
 </Route>
 
 <Route path="/Message">
@@ -45,6 +53,7 @@ return (
 </Router>}
 </div>
 )
+    }
 }
 
 export default MedSpace;

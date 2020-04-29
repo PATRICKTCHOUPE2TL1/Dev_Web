@@ -32,6 +32,7 @@ bcrypt = Bcrypt(app)
 
 
 @app.route('/', methods =['GET' ,'POST'])
+@cross_origin(supports_credentials=True)
 def index():
     try:
         query2 = "select email from utilisateur"
@@ -48,6 +49,7 @@ def index():
         cur2.close()
 
 @app.route('/postdata',methods =['GET','POST'])
+@cross_origin(supports_credentials=True)
 def recieve():
     if request.method =='POST' :
         json_data = request.get_json()
@@ -65,8 +67,21 @@ def recieve():
         if notif == ' ' :
             cur.execute("INSERT INTO utilisateur(nom, prenom,email,motdepasse,statut) VALUES(%s,%s,%s,%s,%s)",(json_data.get('nom'),json_data.get('prenom'),json_data.get('email'),pw_hash,json_data.get('status')))
             mysql.connection.commit()
-            cur.close()
-            return "success"
+            email = "'%s'" %json_data.get('email')
+            cur.execute("select userId from utilisateur where email = {}".format(email))
+            userId = cur.fetchall()
+            userId = userId[0][0]
+            if(json_data.get('status') =="patient") :
+                cur.execute("insert into patient(userId) VALUES({})".format(userId))
+                mysql.connection.commit()
+                cur.close()
+                return "successPat"
+            else:
+                cur.execute("insert into medecin(userId) VALUES({})".format(userId))
+                mysql.connection.commit()
+                cur.close()
+                return "successMed"
+                          
 
 
 @app.route('/login', methods =['GET','POST'])
@@ -109,27 +124,117 @@ def logout():
 @cross_origin(supports_credentials=True)
 def profil():
     if 'username' in session:
-        return 'alreadyIn'
+        resultValue = session['id']
+        userID="'%s'" %resultValue
+        cur =mysql.connection.cursor()
+        cur.execute("select statut from utilisateur where userId = {}".format(userID))
+        resultReq = cur.fetchall()
+        resultReq =resultReq[0][0]
+        reponseReq =[resultValue,resultReq]
+        resp2=jsonify(reponseReq)
+        resp2.status_code=200
+        return resp2
     else:
         return 'notIn'
                
 
-@app.route('/users', methods =['GET','POST'])
-def users():
-    #retrieve data from db
-    try: 
-        data = request.json
-        print(data)
+@app.route('/fetchPatient', methods =['GET','POST'])
+@cross_origin(supports_credentials=True)
+def fetchPatient():
+    if request.method =='POST' :
+        json_data = request.get_json()
         cur =mysql.connection.cursor()
-        cur.execute("SELECT * FROM utilisateur")
-        resultValue = cur.fetchall()
-        resp=jsonify(resultValue)
-        resp.status_code=200
-        return resp
-    except Exception as e:
-        print(e)
-    finally:
-        cur.close()
+        userId=json_data.get('userIdt')
+        cur.execute("select * from patient join utilisateur where utilisateur.userId = {}".format(userId))
+        patientData = cur.fetchall()
+        patientData=jsonify(patientData)
+        patientData.status_code=200
+        return patientData
+
+@app.route('/fetchMed', methods =['GET','POST'])
+@cross_origin(supports_credentials=True)
+def fetchPMed():
+    if request.method =='POST' :
+        json_data = request.get_json()
+        cur =mysql.connection.cursor()
+        userIdMed=json_data.get('userIdtMed')
+        cur.execute("select * from medecin join utilisateur where utilisateur.userId = {}".format(userIdMed))
+        MedData = cur.fetchall()
+        MedData=jsonify(MedData)
+        MedData.status_code=200
+        return MedData
+    
+        
+@app.route('/savedata',methods =['GET','POST'])
+@cross_origin(supports_credentials=True)
+def save():
+    if request.method =='POST' :
+        json_data = request.get_json()
+        cur = mysql.connection.cursor() 
+        userIdt="'%s'" %json_data.get('userIdt')
+        Genre= "'%s'" %json_data.get('Genre')
+        DateNaiss= "'%s'" %json_data.get('DateNaiss')
+        NumeroRue="'%s'" %json_data.get('NumeroRue')
+        NumeroRue2="'%s'" %json_data.get('noNumeroRue2m')
+        cite="'%s'" %json_data.get('cite')
+        Region="'%s'" %json_data.get('Region')
+        codePostal="'%s'" %json_data.get('codePostal')
+        Pays="'%s'" %json_data.get('Pays')
+        Phone="'%s'" %json_data.get('Phone')
+        Poids="'%s'" %json_data.get('Poids')
+        Taille="'%s'" %json_data.get('Taille')
+        GroupeSanguin="'%s'" %json_data.get('GroupeSanguin')
+        allergies="'%s'" %json_data.get('allergies')
+        autreAllergie="'%s'" %json_data.get('autreAllergie')
+        Autre="'%s'" %json_data.get('Autre')
+        queryUpdate ="UPDATE patient SET genre ={},dateNaiss={},numeroRue={},numeroRue2={},cite={},region={},codePostal={},pays={} WHERE userId ={}".format(Genre,DateNaiss,NumeroRue,NumeroRue2,cite,Region,codePostal,Pays,userIdt)
+        cur.execute(queryUpdate)
+        mysql.connection.commit()
+        queryUpdate2 ="UPDATE patient SET phone={},poids={},taille={},groupeSanguin={},allergies={},autreAllergie={},autre={} WHERE userId ={}".format(Phone,Poids,Taille,GroupeSanguin,allergies,autreAllergie,Autre,userIdt)
+        cur.execute(queryUpdate2)
+        mysql.connection.commit()
+        cur.close()    
+        return "update success"
+
+@app.route('/savedataMed',methods =['GET','POST'])
+@cross_origin(supports_credentials=True)
+def savedataMed():
+        if request.method =='POST' :
+            json_data = request.get_json()
+            cur = mysql.connection.cursor() 
+            userIdtMed="'%s'" %json_data.get('userIdtMed')
+            Civilite= "'%s'" %json_data.get('Civilite')
+            DateNaiss= "'%s'" %json_data.get('DateNaiss')
+            NumeroRue="'%s'" %json_data.get('NumeroRue')
+            NumeroRue2="'%s'" %json_data.get('noNumeroRue2m')
+            Convention="'%s'" %json_data.get('Convention')
+            specialite="'%s'" %json_data.get('specialite')
+            cite="'%s'" %json_data.get('cite')
+            Region="'%s'" %json_data.get('Region')
+            codePostal="'%s'" %json_data.get('codePostal')
+            Pays="'%s'" %json_data.get('Pays')
+            Phone="'%s'" %json_data.get('Phone')
+            Autre="'%s'" %json_data.get('Autre')
+            queryUpdate3 ="UPDATE medecin SET civilite ={},dateNaiss={},numeroRue={},numeroRue2={},cite={},region={},codePostal={},pays={} WHERE userId ={}".format(Civilite,DateNaiss,NumeroRue,NumeroRue2,cite,Region,codePostal,Pays,userIdtMed)
+            cur.execute(queryUpdate3)
+            mysql.connection.commit()
+            queryUpdate4 ="UPDATE medecin SET phone={},autre={},specialite={},convention={} WHERE userId ={}".format(Phone,Autre,specialite,Convention, userIdtMed)
+            cur.execute(queryUpdate4)
+            mysql.connection.commit()
+            cur.close()    
+            return "update Med success"
+
+
+
+        
+    
+
+         
+
+        
+
+
+
 
 
 @app.errorhandler(404)

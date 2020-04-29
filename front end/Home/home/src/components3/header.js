@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {withRouteur, withRouter} from 'react-router-dom'
+import { withRouter} from 'react-router-dom'
 import axios from 'axios'
 import { Link,Redirect } from "react-router-dom"
 
