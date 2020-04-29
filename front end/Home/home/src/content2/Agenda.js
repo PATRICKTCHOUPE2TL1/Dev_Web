@@ -33,7 +33,6 @@ class Agenda extends Component {
     }
 }
 
-
 export default Agenda;
 
 /*function JsonResult updateData(EditParams param){
