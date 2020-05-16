@@ -1,6 +1,8 @@
 import React ,{Component} from "react"
 import './MedSpace.css'
 import av from "../image/av.png"
+import axios from 'axios'
+
 
 
 
@@ -19,6 +21,20 @@ class Profil extends Component{
     }
    this.handleOnclick = this.handleOnclick.bind(this)
     }
+handleContact =() =>{
+  axios
+            .post('http://127.0.0.1:5000/addCons', this.state)
+            .then(response => {
+                console.log(response)
+            })
+            .catch(erreur => {
+                console.log(erreur)
+            })
+
+          console.log(this.state)
+
+}
+
    handleOnclick = ()=>{
     this.props.callBackFromParent(this.state.id)}
  
@@ -38,7 +54,7 @@ class Profil extends Component{
         <p className="title">{this.props.specialite}</p>
         <p>{this.props.autre}</p>
         <p>example@example.com</p>
-        <p><button className="button" >Contact</button></p>
+        <p><button className="button" onClick = {() =>this.handleContact()} >Contact</button></p>
         
         <button type ="button" className="button"  onClick ={() =>this.handleOnclick()}>Cnsulter Profil</button>
         

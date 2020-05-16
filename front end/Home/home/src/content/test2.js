@@ -1,13 +1,70 @@
 import React ,{Component} from 'react'
 import './Test2.css'
 import av from "../image/av.png"
+import axios from 'axios'
+import ProfMed from './profilNosMed'
+import Discussion from './Discussion'
+
+
+
 class Test2 extends Component{
 
 constructor(props){
-    super(props)
+	super(props)
+	this.state = {
+		MedInfos : " ",
+		renderProfil : false,
+		renderDiscuss : false
+	}
+	this.handleMessage = this.handleMessage.bind(this)
+	this.handleProfil = this.handleProfil.bind(this)
 }
 
+componentDidMount() {
+	axios
+		.get('http://127.0.0.1:5000/getConsMed')
+		.then(response => {
+			console.log(response.data[0])
+			this.setState({
+				MedInfos : response.data[0]
+			})
+
+		})
+		.catch(erreur => {
+			console.log(erreur)
+		})
+
+}
+handleProfil = () =>{
+
+	this.setState({
+		renderProfil : true,
+		renderDiscuss :false
+
+	})
+
+}
+handleMessage = () =>{
+
+		this.setState({
+			renderProfil : false,
+			renderDiscuss :true
+		})
+}
+
+
 render(){
+ 
+	const renderComp = () =>{
+		if(this.state.renderProfil ===true){
+			return <ProfMed userId ={this.state.MedInfos[15]} />
+		}else if(this.state.renderDiscuss ===true){
+			return <p><Discussion /></p>
+		}else {
+			return <p>default</p>
+		}
+	}
+
     return(
         <div>
             <div class="container">
@@ -18,15 +75,18 @@ render(){
 				
 				<div className="profile-usertitle">
 					<div className="profile-usertitle-name">
-						Marcus Doe <span class="fa fa-envelope small pull-right"> </span>
+						{this.state.MedInfos[17] + ' '+this.state.MedInfos[18]}<span class="fa fa-envelope small pull-right"> </span>
 					</div>
 					<div className="profile-usertitle-job">
-						Developer
+						{this.state.MedInfos[2]}
 					</div>
 				</div>
+				<div class="text-center">
+				<img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar" />
+				</div>
 				<div className="profile-userbuttons">
-					<button type="button" id="follow">Follow</button>
-					<button type="button" id="follow">Message</button>
+					<button type="button" id="follow" onClick ={() =>{this.handleProfil()}}>Profil</button>
+					<button type="button" id="follow" onClick ={() =>{this.handleMessage()}}>Discussion</button>
 				</div>
 				<div className="profile-usermenu">
 					<ul className="nav">
@@ -56,7 +116,8 @@ render(){
 		</div>
 		<div className="col-md-9">
             <div className="profile-content">
-			   Some user related content goes here...
+			{renderComp()}
+			   
             </div>
 		</div>
 	</div>

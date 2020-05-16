@@ -107,7 +107,6 @@ def login():
             userId = cur.fetchall()
             userId2 = userId[0][0]
             
-            print("yes")
                 
             session['loggedin'] = True
             session['id']= userId2
@@ -278,6 +277,27 @@ def get_Med():
     finally:
         cur2.close()
 
+@app.route('/addCons', methods =['GET','POST'])
+@cross_origin(supports_credentials=True)
+def addCons():
+    print('ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo')
+    print(session['id'])
+    if request.method =='POST' :
+        json_data = request.get_json()
+        idMed =json_data.get("id")
+        idPat =session['id']
+        test =int(idMed)
+        print(type(idMed))
+        print(type (idPat))
+        print(type(test))
+        
+        cur =mysql.connection.cursor() 
+        cur.execute("insert into consultation(patId,medId) VALUES(%s,%s)",(idPat,idMed))
+        mysql.connection.commit()
+        cur.close()
+        return "insert success"
+
+
 @app.route('/profilMed', methods =['GET','POST'])
 @cross_origin(supports_credentials=True)
 def profPMed():
@@ -293,18 +313,22 @@ def profPMed():
         MedData2.status_code=200
         return MedData2
 
-
-
-
-        
-    
-
-         
-
-        
-
-
-
+@app.route('/getConsMed', methods =['GET','POST'])
+@cross_origin(supports_credentials=True)
+def consMed():
+    idPat = session['id']
+    cur =mysql.connection.cursor()
+    cur.execute("select medId from consultation where consultation.patId ={} ".format(idPat))
+    medId = cur.fetchall()
+    medId = medId[0][0]
+    medId2 = int(medId)
+    print('**********************************************************')
+    print(medId2)
+    cur.execute("select * from medecin join utilisateur where medecin.userId = {} and utilisateur.userId = {}".format(medId2,medId2))
+    myDocInfos = cur.fetchall()
+    myDocInfos = jsonify(myDocInfos)
+    myDocInfos.status_code =200
+    return myDocInfos
 
 
 @app.errorhandler(404)
