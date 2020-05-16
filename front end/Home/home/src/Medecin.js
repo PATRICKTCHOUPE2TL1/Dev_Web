@@ -3,10 +3,15 @@ import Agenda from './content2/Agenda'
 import Message from './content2/Message'
 import MesDonnees from './content2/MesDonnees'
 import Entete from './components3/header'
+
+import
+{
+BrowserRouter as Router,
+Route,
+} from "react-router-dom";
 import Navbar from './components3/Navbar';
 import MesPatient from './content2/MesPatient';
 import './Medecin.css'
-import{BrowserRouter as Router,Route,} from "react-router-dom";
 
 
 class MedSpace extends Component {
@@ -21,14 +26,13 @@ class MedSpace extends Component {
 return (
  
 <div>
-{console.log("hihi")}
-{console.log(this.state.id)}
-<Entete />  
+   <Entete />
+   <Navbar />
 <Router>
 <div className="App3">
-<Navbar />
 
-<Route exact path="/" userId = {this.props.user}>
+
+<Route  path="/Medecin/Profile" userId = {this.props.user}>
 <MesDonnees userId ={this.state.id} />
 </Route>
 

@@ -1,7 +1,9 @@
 import React , { Component } from 'react'
+import {withRouter} from 'react-router-dom'
 import './login.css'
-import docs from "../../image/docs.svg"
+import av from "../../image/av.png"
 import ava from "../../image/ava.svg"
+import infis from "../../image/infis.svg"
 import { Link,Redirect } from "react-router-dom"
 import axios from 'axios'
 
@@ -15,6 +17,7 @@ class Login extends Component {
         this.handleUserNameChange = this.handleUserNameChange.bind(this);
         this.handlePasswordChange = this. handlePasswordChange.bind(this);
         this.handleOnsubit = this.handleOnsubit.bind(this)
+
     }
     handleUserNameChange = event => {
         this.setState({
@@ -29,8 +32,11 @@ class Login extends Component {
     };
     handleOnsubit = event =>{
         event.preventDefault();
+       
+        axios.defaults.withCredentials = true
+
         axios
-             .post('http://127.0.0.1:5000/login', this.state)
+             .post('http://127.0.0.1:5000/login', this.state,)
              .then(reponse =>{
                  console.log(reponse)
                 if(reponse.data=="patient"){
@@ -46,13 +52,14 @@ class Login extends Component {
              .catch(erreur =>{
                  console.log(erreur)
              })
+        
     };
 
     render(){
         return(
             <div className="containe">
             <div className="img">
-                <img src={docs} alt="infirmiéres"></img>
+                <img src={infis} alt="infirmiéres"></img>
             </div>
             <div className="login-container">
                     <form onSubmit={this.handleOnsubit}>
@@ -71,7 +78,7 @@ class Login extends Component {
                         <Link to ='/'><a href="#" className="lglk">Mot de passe oublié ?</a></Link><br></br>
                         <Link to ='/signin'><a href="#" className="lglk">Créer un compte ?</a></Link><br></br>
 
-                        <input type="submit" className="btn btn-success btn-lg" value="Se connecter"></input>
+                        <input type="submit" className="login" value="Se connecter"></input>
                     </form>
             </div>
         </div>
@@ -79,4 +86,4 @@ class Login extends Component {
         )
     }
 }
-export default Login
+export default withRouter(Login)

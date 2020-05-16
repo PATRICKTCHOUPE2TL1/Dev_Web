@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import Navbar from './../components3/Navbar';
+import Navbar from './../componnents2/Navbar'
 import axios from 'axios'
 
-class MesDonnees extends Component {
+class ProfMed extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -40,7 +40,6 @@ class MesDonnees extends Component {
         this.handlespecialiteChange = this.handlespecialiteChange.bind(this)
         this.handleConventionChange = this.handleConventionChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
-        this.editerForm = this.editerForm.bind(this)
 
 
     }
@@ -48,7 +47,7 @@ class MesDonnees extends Component {
     componentDidMount() {
         console.log(this.state.userIdtMed)
         axios
-            .get('http://127.0.0.1:5000/fetchMed')
+            .post('http://127.0.0.1:5000/profilMed', this.state)
             .then(response => {
                 let value = response.data
                 console.log("verif")
@@ -155,49 +154,12 @@ class MesDonnees extends Component {
         })
     }
     handleSubmit = event => {
-        event.preventDefault();
-        console.log(this.state)
-        axios
-            .post('http://127.0.0.1:5000/savedataMed', this.state)
-            .then(reponse => {
-                console.log(reponse)
-            })
-            .catch(erreur => {
-                console.log(erreur)
-            })
-
-        let form = document.getElementById("profPatient");
-        let elements = form.elements;
-        for (let i = 0, len = elements.length; i < len; ++i) {
-            elements[i].readOnly = true;
-        }
-        document.getElementById('save').style.display = 'none';
-        document.getElementById('civilite').disabled = true
-        document.getElementById('pays').disabled = true
-        document.getElementById('modifier').style.display = 'block'
-
+       console.log("success")
     }
-    editerForm = () => {
-        let form = document.getElementById("profPatient");
-        let elements = form.elements;
-        for (let i = 0, len = elements.length; i < len; ++i) {
-            elements[i].readOnly = false;
-        }
-        document.getElementById('save').style.display = 'block';
-        document.getElementById('civilite').disabled = false
-        document.getElementById('pays').disabled = false
-        document.getElementById('specialite').disabled = false
-        document.getElementById('convention').disabled = false
-
-        document.getElementById('modifier').style.display = 'none'
-
-
-
-    }
+    
     render() {
         return (
             <main>
-
                 <div class="container bootstrap snippet">
                     <div class="row">
                         <div class="col-sm-10"><h1>User name</h1></div>
@@ -327,12 +289,13 @@ class MesDonnees extends Component {
                                     <textarea rows="3" onChange={this.handleAutreChange} readOnly value={this.state.Autre}></textarea>
                                 </div>
                                 <div className="btn-block">
-                                    <button type="button" id="modifier" onClick={this.editerForm} >Modifier</button>
+                                    <button type="button" id="modifier"  >Retour</button>
                                     <input type="submit" value="Enregistrer" id="save" style={{ display: 'none' }} />
 
                                 </div>
 
                             </form>
+
                         </div>
                     </div>
 
@@ -343,4 +306,4 @@ class MesDonnees extends Component {
     }
 }
 
-export default MesDonnees
+export default ProfMed

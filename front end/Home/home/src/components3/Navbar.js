@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import Navitem from './Navitem';
-import {FaCalendarCheck,FaFacebookMessenger,FaInfoCircle, FaRegBell} from "react-icons/fa";
-import {IoIosPeople} from "react-icons/io"
-
 class Navbar extends Component {
 constructor(props)
 {
@@ -11,14 +8,23 @@ this.state={
 //'NavItemActive':''
 }
 }
+/*activeitem=(x)=>
+{
+if(this.state.NavItemActive.length>0){
+document.getElementById(this.state.NavItemActive).classList.remove('active');
+}
+this.setState({'NavItemId':x},()=>{
+document.getElementById(this.state.NavItemActive).classList.add('active');
+});
+};*/
 render() {
 return (
 <nav id ="barnav">
 <ul>
-<Navitem item={<FaInfoCircle color='rgb(128,255,255)'/>} tolink="/"  activec={this.activeitem}></Navitem>
-<Navitem item={<FaFacebookMessenger color='rgb(128,255,255)'/>} tolink="/Message"  activec={this.activeitem}></Navitem>
-<Navitem item={<IoIosPeople color='rgb(128,255,255)'/>} tolink="/MesPatient"  activec={this.activeitem}></Navitem>
-<Navitem item={<FaCalendarCheck color='rgb(128,255,255)'/>} tolink="/Agenda"  activec={this.activeitem}></Navitem>
+<Navitem item="MesDonnees" tolink="/Medecin/Profile"  activec={this.activeitem}></Navitem>
+<Navitem item="Message" tolink="/Message"  activec={this.activeitem}></Navitem>
+<Navitem item="MesPatient" tolink="/MesPatient"  activec={this.activeitem}></Navitem>
+<Navitem item="Agenda" tolink="/Agenda"  activec={this.activeitem}></Navitem>
 </ul>
 </nav>
 )

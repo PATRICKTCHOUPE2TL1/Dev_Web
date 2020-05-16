@@ -1,4 +1,5 @@
 from flask import Flask, request,redirect,session
+from flask_socketio import SocketIO,send,join_room,leave_room,emit
 
 from flask_mysqldb import MySQL
 from flask import jsonify
@@ -30,6 +31,10 @@ mysql =MySQL(app)
 CORS(app, supports_credentials=True)
 bcrypt = Bcrypt(app)
 
+SocketIO = SocketIO(app,cors_allowed_origins='*')
+app.host='localhost'
+
+
 
 @app.route('/', methods =['GET' ,'POST'])
 @cross_origin(supports_credentials=True)
@@ -41,6 +46,7 @@ def index():
         resultValue = cur2.fetchall()
         resp = jsonify(resultValue)
         resp.status_code=200
+        
         return resp
          
     except Exception as e:
@@ -66,7 +72,7 @@ def recieve():
             
         if notif == ' ' :
             cur.execute("INSERT INTO utilisateur(nom, prenom,email,motdepasse,statut) VALUES(%s,%s,%s,%s,%s)",(json_data.get('nom'),json_data.get('prenom'),json_data.get('email'),pw_hash,json_data.get('status')))
-            mysql.connection.commit()
+            
             email = "'%s'" %json_data.get('email')
             cur.execute("select userId from utilisateur where email = {}".format(email))
             userId = cur.fetchall()
@@ -89,25 +95,28 @@ def recieve():
 def login():
     if request.method =='POST' :
         json_data = request.get_json()
-        value = "'%s'" %json_data.get('email')
-        query ="select motdepasse from utilisateur where {} = {}".format("email",value)
+        
+        value = json_data.get('email')
         cur = mysql.connection.cursor() 
-        cur.execute(query)
+        cur.execute("select motdepasse from utilisateur where email = %s", [json_data.get('email')])
         pwd = cur.fetchall()
         pwd2 = pwd[0][0]
         if bcrypt.check_password_hash(pwd2,json_data.get('password')) :
             cur = mysql.connection.cursor() 
-            query2 ="select userId from utilisateur where {} = {}".format("email",value)
-            cur.execute(query2)
+            cur.execute("select userId from utilisateur where email = %s",[json_data.get('email')])
             userId = cur.fetchall()
             userId2 = userId[0][0]
+            
+            print("yes")
+                
             session['loggedin'] = True
             session['id']= userId2
+           
             session['username'] = value
-            query3 ="select statut from utilisateur where {} = {}".format("email",value)
-            cur.execute(query3)
+            cur.execute("select statut from utilisateur where email = %s",[json_data.get('email')])
             state = cur.fetchall()
             state = jsonify(state)
+           
             return state
         else :
             return("L'utilisateur n'xiste pas veuillez verifier votre email ou motdepasse")
@@ -115,9 +124,13 @@ def login():
 @app.route('/logout', methods =['GET','POST'])
 @cross_origin(supports_credentials=True)
 def logout():
-    session.pop('loggedin',None)
-    session.pop('id',None)
-    session.pop("username",None)
+    session.pop('loggedin')
+    session.pop('id')
+    session.pop("username")
+    session['loggedin'] =False
+    
+   
+
     return 'success'
 
 @app.route('/profil', methods =['GET','POST'])
@@ -141,10 +154,10 @@ def profil():
 @app.route('/fetchPatient', methods =['GET','POST'])
 @cross_origin(supports_credentials=True)
 def fetchPatient():
-    if request.method =='POST' :
-        json_data = request.get_json()
+    if request.method =='GET' :
         cur =mysql.connection.cursor()
-        userId=json_data.get('userIdt')
+        userId=session['id']
+       
         cur.execute("select * from patient join utilisateur where utilisateur.userId = {}".format(userId))
         patientData = cur.fetchall()
         patientData=jsonify(patientData)
@@ -154,16 +167,41 @@ def fetchPatient():
 @app.route('/fetchMed', methods =['GET','POST'])
 @cross_origin(supports_credentials=True)
 def fetchPMed():
-    if request.method =='POST' :
-        json_data = request.get_json()
+    if request.method =='GET' :
         cur =mysql.connection.cursor()
-        userIdMed=json_data.get('userIdtMed')
-        cur.execute("select * from medecin join utilisateur where utilisateur.userId = {}".format(userIdMed))
+        userIdMed=session['id']
+        userNameMed = session['username']
+        userNameMed ="'%s'"%userNameMed
+       
+        
+        cur.execute("select * from medecin join utilisateur where medecin.userId = {} and utilisateur.email ={} ".format(userIdMed,userNameMed))
         MedData = cur.fetchall()
         MedData=jsonify(MedData)
         MedData.status_code=200
         return MedData
-    
+
+
+@SocketIO.on('join')
+def on_join():
+    user = session['username']
+    room = session['id']
+    join_room(room)
+    send(user +'has join conversation', room = room)
+
+@SocketIO.on('leave')
+def on_leave():
+    user = session['username']
+    room = session['id']
+    leave_room(room)
+    send(user +'has left the conversation',room = room)
+
+
+@SocketIO.on("message")
+def handleMessage(msg):
+    print(msg)
+    send(msg,broadcast=True)
+    return None
+
         
 @app.route('/savedata',methods =['GET','POST'])
 @cross_origin(supports_credentials=True)
@@ -171,18 +209,18 @@ def save():
     if request.method =='POST' :
         json_data = request.get_json()
         cur = mysql.connection.cursor() 
-        userIdt="'%s'" %json_data.get('userIdt')
+        userIdt=json_data.get('userIdt')
         Genre= "'%s'" %json_data.get('Genre')
         DateNaiss= "'%s'" %json_data.get('DateNaiss')
         NumeroRue="'%s'" %json_data.get('NumeroRue')
         NumeroRue2="'%s'" %json_data.get('noNumeroRue2m')
         cite="'%s'" %json_data.get('cite')
         Region="'%s'" %json_data.get('Region')
-        codePostal="'%s'" %json_data.get('codePostal')
+        codePostal=json_data.get('codePostal')
         Pays="'%s'" %json_data.get('Pays')
-        Phone="'%s'" %json_data.get('Phone')
-        Poids="'%s'" %json_data.get('Poids')
-        Taille="'%s'" %json_data.get('Taille')
+        Phone=json_data.get('Phone')
+        Poids=json_data.get('Poids')
+        Taille=json_data.get('Taille')
         GroupeSanguin="'%s'" %json_data.get('GroupeSanguin')
         allergies="'%s'" %json_data.get('allergies')
         autreAllergie="'%s'" %json_data.get('autreAllergie')
@@ -217,12 +255,44 @@ def savedataMed():
             Autre="'%s'" %json_data.get('Autre')
             queryUpdate3 ="UPDATE medecin SET civilite ={},dateNaiss={},numeroRue={},numeroRue2={},cite={},region={},codePostal={},pays={} WHERE userId ={}".format(Civilite,DateNaiss,NumeroRue,NumeroRue2,cite,Region,codePostal,Pays,userIdtMed)
             cur.execute(queryUpdate3)
-            mysql.connection.commit()
             queryUpdate4 ="UPDATE medecin SET phone={},autre={},specialite={},convention={} WHERE userId ={}".format(Phone,Autre,specialite,Convention, userIdtMed)
             cur.execute(queryUpdate4)
             mysql.connection.commit()
             cur.close()    
             return "update Med success"
+
+
+
+@app.route('/get_Med',methods=['GET','POST'])
+def get_Med():
+    try:
+        query2 = "select utilisateur.userId,nom,prenom,specialite,autre from utilisateur join medecin where medecin.userId =utilisateur.userId"
+        cur2 = mysql.connection.cursor()
+        cur2.execute(query2)
+        resultValue = cur2.fetchall()
+        resp = jsonify(resultValue)
+        resp.status_code=200
+        return resp
+    except Exception as e:
+        print(e)
+    finally:
+        cur2.close()
+
+@app.route('/profilMed', methods =['GET','POST'])
+@cross_origin(supports_credentials=True)
+def profPMed():
+    if request.method =='POST' :
+        json_data = request.get_json()
+        value4 ="'%s'" %json_data.get("userIdtMed")
+        print("hahahahahaaaaaaaaaaaaaaahhhhhhhhhhhhhhhhhh")
+        print(value4)
+        cur =mysql.connection.cursor() 
+        cur.execute("select * from medecin join utilisateur where medecin.userId = {} and utilisateur.userId ={} ".format(value4,value4))
+        MedData2 = cur.fetchall()
+        MedData2=jsonify(MedData2)
+        MedData2.status_code=200
+        return MedData2
+
 
 
 

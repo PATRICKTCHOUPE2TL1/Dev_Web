@@ -1,6 +1,6 @@
 import React from 'react';
 import Discussion from './content/Discussion'
-import EspaceMedecin from './content/EspaceMedecin'
+import NosMedecin from './content/NosMedecins'
 import MesDonnees from './content/MesDonnees'
 import MonMedecin from './content/MonMedecin';
 
@@ -14,7 +14,7 @@ const Main = () =>{
         <main>
             <Navbar />
             <Switch>
-            <Route exact path='/' component={EspaceMedecin}/>
+            <Route exact path='/MonProfil' component={NosMedecin}/>
             <Route path = '/mesdonnées' component = {MesDonnees}/>
             <Route path = '/discussion' component ={ Discussion}/>
             <Route path = '/monmedecin' component ={MonMedecin} />

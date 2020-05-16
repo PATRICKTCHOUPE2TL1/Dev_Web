@@ -1,0 +1,68 @@
+@import url(https://fonts.googleapis.com/css?family=Droid+Sans);
+
+*{
+  box-sizing: border-box;
+}
+
+body{  
+  background-color: #222;   
+  color: white;
+  font-family: 'Droid Sans', sans-serif;
+  font-size: 12px;
+  user-select: none;
+}
+
+a{
+  color: white;
+  text-decoration: none;
+}
+
+.container{
+  border: solid 1px rgba(#FFF, 0.5);
+  margin: 0 auto;
+  width: 100%;  
+  max-width: 640px;
+}
+
+.react-target{  
+  padding: 10px 15px;
+}
+
+.list-title{
+  font-size: 22px;  
+  padding-bottom: 10px;
+}
+
+.list-item{
+  box-sizing: border-box;
+  border-bottom: solid 1px rgba(#FFF, 0.5);
+  cursor: pointer;
+  padding: 5px;
+  transition: all 400ms;
+}
+
+.list-item:hover{
+  color: #222;
+  background: #fafafa;
+}
+
+.picture{
+    border-radius: 50%;
+    height: 60px;
+    width: 60px;
+    display: inline-block;
+}
+
+.info{
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 15px;
+}
+
+.info > .name{
+  font-size: 16px;
+}
+
+.info > span{
+    display: block;
+}

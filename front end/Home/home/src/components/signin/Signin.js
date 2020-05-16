@@ -1,11 +1,11 @@
 import React,{Component} from 'react'
 import './SignIn.css'
-import av2 from "../../image/av2.svg"
-import infis from "../../image/infis.svg"
+import Avatar2 from "../../image/Avatar2.png"
 import { Link, Redirect } from "react-router-dom"
 import axios from 'axios'
-import {FaRegIdCard} from "react-icons/fa";
 import EspacePatient from "../../EspacePatient"
+
+
 
 class SignIn extends Component {
 
@@ -122,7 +122,7 @@ class SignIn extends Component {
     handleSubmit = event =>{ 
  
         event.preventDefault();
-      /*  if(this.chkPassword() == false){
+      /* if(this.chkPassword() == false){
             
             this.getId('msg').style.display = "block";
             
@@ -158,44 +158,56 @@ class SignIn extends Component {
     render() {
         
         return (
-            <div className="containers">
-                     <div className="img">
-                        <img src={infis} alt="infirmiéres"></img>
-                    </div>
-             <div className="signup-container">
-                <form onSubmit={this.handleSubmit} >
-                    <FaRegIdCard className="icon" size='3em' color='rgb(243,33,86)' />
-                        <h2>Créer votre compte</h2>
-                    <div id="ident">
-                        <input type ="text" id = 'nom' placeholder= "Nom *" required   onChange={this.handleNomChange} className="nom"/>
-                        <input type ="text" id ='prenom' placeholder= "Prenom * " required   onChange={this.handlePrenomChange} className="prenom"/>
-                    </div>
-                    <div>
-                        <input type ="text" id='email' placeholder= "Adresse Email *" required  onChange={this.handleEmailChange} className="email2"/>
-                    </div>
-                    <div>
-                        <input type ="password" id="password" placeholder= "Mot de passe *" required onChange={this.handlePasswordChange} className ="password"/>
-                        <input type ="password" id="confpassword" placeholder= "Confirmer mot de passe *" required className="confmtp"/>
-                    </div>
-                    <div className="sts">
-                        <span className="status">Vous etes :</span>
-                        <label  id = "medecin" for="medecin">Medecin</label>
-                        <input type="radio" id="medecin2" name="status" value="medecin" onChange={this.handleStatusMedecin}/>
-                        <label  id = "patient" for="patient">Patient</label>
-                        <input type="radio" id="patient2" name="status" value="patient"  onChange = {this.handleStatusPatient}/>
-                    </div>
-                    
-                    <div className="valider1" >
-                        <input type="submit"  id="mySubmit" value ="Valider" className="creer"/>
-                    </div>
-                    <hr className="ligne"></hr>  
-                    <div>
-                        <textarea id ="msg" className="signlog" >
-                        </textarea>
-                    </div>
-              </form>
-             </div>
-          </div>
+            <main>
+            
+            <form  className="formSign" onSubmit={this.handleSubmit} >
+                <fieldset>
+            <img src ={Avatar2} alt ="loginimage" className="avatar"/>
+              
+            <div>
+                <legend className="signup">Créer un Compte</legend>
+            </div>
+            <div id="ident">
+               
+                <input type ="text" id = 'nom' placeholder= "Nom *"   onChange={this.handleNomChange} className="nom"/>
+          
+                <input type ="text" id ='prenom' placeholder= "Prenom * "   onChange={this.handlePrenomChange} className="prenom"/>
+            </div>
+            <div>
+               
+                <input type ="text" id='email' placeholder= "Adresse Email *"   onChange={this.handleEmailChange} className="email2"/>
+            </div>
+            <div>
+                
+                <input type ="password" id="password" placeholder= "Mot de passe *" onChange={this.handlePasswordChange} className ="password"/>
+            
+                <input type ="password" id="confpassword" placeholder= "Confirmer mot de passe *"  className="confmtp"/>
+            </div>
+            <div className="sts">
+            <span className="status">vous etes :</span>
+
+            <label  id = "medecin" for="medecin">medecin</label>
+            <input type="radio" id="medecin2" name="status" value="medecin" onChange={this.handleStatusMedecin}/>
+            
+
+            <label  id = "patient" for="patient">patient</label>
+
+            <input type="radio" id="patient2" name="status" value="patient"  onChange = {this.handleStatusPatient}/>
+            </div>
+            
+            <div className="valider1" >
+                <input type="submit"  id="mySubmit" value ="Valider" className="creer"/>
+            </div>
+            <hr className="ligne"></hr>
+           
+            <div>
+                <textarea id ="msg" className="signlog" >
+
+                </textarea>
+            </div>
+            </fieldset>
+             </form>
+             </main>
         )
 
     }

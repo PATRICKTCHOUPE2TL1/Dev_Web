@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Discussion from './content/Discussion'
-import EspaceMedecin from './content/EspaceMedecin'
+import NosMedecin from './content/NosMedecins'
 import MesDonnees from './content/MesDonnees'
 import Entete from './componnents2/header'
 import
@@ -30,8 +30,8 @@ return (
 <div className="App2">
 <Navbar />
 
-<Route exact path="/">
-<EspaceMedecin />
+<Route exact path="/MonProfil">
+<NosMedecin />
 </Route>
 
 <Route path="/mesdonnées" userId = {this.props.user}>
