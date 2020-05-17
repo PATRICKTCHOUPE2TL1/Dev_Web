@@ -4,6 +4,8 @@ import av from "../image/av.png"
 import axios from 'axios'
 import ProfMed from './profilNosMed'
 import Discussion from './Discussion'
+import io from "socket.io-client";
+
 
 
 
@@ -45,6 +47,9 @@ handleProfil = () =>{
 
 }
 handleMessage = () =>{
+	let private_mess = io.connect("http://localhost:5000/private")
+	private_mess.emit("username", this.state.MedInfos[19]);
+
 
 		this.setState({
 			renderProfil : false,
@@ -59,7 +64,7 @@ render(){
 		if(this.state.renderProfil ===true){
 			return <ProfMed userId ={this.state.MedInfos[15]} />
 		}else if(this.state.renderDiscuss ===true){
-			return <p><Discussion /></p>
+			return <p><Discussion  email ={this.state.MedInfos[19]}/></p>
 		}else {
 			return <p>default</p>
 		}

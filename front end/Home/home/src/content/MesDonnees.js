@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import './../content2/MesDonneesMed.css'
+import { storage } from './../firebase/firebase'
 class MesDonnees extends Component {
     constructor(props) {
         super(props)
@@ -23,6 +24,8 @@ class MesDonnees extends Component {
             allergies: " ",
             autreAllergie: " ",
             Autre: " ",
+            selectedFile: " ",
+            imageUrl: " ",
 
         }
 
@@ -45,6 +48,8 @@ class MesDonnees extends Component {
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleautreAllergieChange = this.handleautreAllergieChange.bind(this)
         this.editerForm = this.editerForm.bind(this)
+        this.handleUpload = this.handleUpload.bind(this)
+        this.handlePorfile = this.handlePorfile.bind(this)
 
 
     }
@@ -75,6 +80,7 @@ class MesDonnees extends Component {
                         Autre: value[0][15],
                         nom: value[0][18],
                         prenom: value[0][19],
+                        imageUrl:value[0][16]
                     })
             })
             .catch(erreur => {
@@ -165,20 +171,15 @@ class MesDonnees extends Component {
         console.log(event.target.value)
         if (event.target.value === "Oui") {
             document.getElementById("autreAlleg").style.display = "block"
-            console.log(this.state.allergies)
-            console.log("yes")
 
         } else if (event.target.value === "Non") {
 
             document.getElementById("autreAlleg").style.display = 'none'
-            console.log(this.state.allergies)
 
             console.log("nooo")
 
         } else {
             console.log("erreur")
-            console.log(event.target.value === "oui")
-            console.log(event.target.value)
         }
     }
     handleAutreChange = event => {
@@ -225,27 +226,55 @@ class MesDonnees extends Component {
         document.getElementById('radio_1').disabled = false
         document.getElementById('radio_2').disabled = false
         document.getElementById('modifier').style.display = 'none'
+        document.getElementById('slctImg').style.display ='block'
+        document.getElementById('upldImg').style.display ='block'
 
-
-
-        console.log("hello")
     }
+    handlePorfile = (e) => {
+        console.log(e.target.files[0])
+        this.setState({
+            selectedFile: e.target.files[0]
+        })
+
+
+    }
+    handleUpload = () => {
+        const image = this.state.selectedFile
+        console.log(image)
+        console.log(image.name)
+        const uploadTask = storage.ref(`images/${image.name}`).put(image)
+        uploadTask.on('state_changed', (snapshot) => {
+            //progess function
+        }, (error) => {
+            //error function
+            console.log(error)
+        }, () => {
+            //complete function
+            storage.ref('images').child(image.name).getDownloadURL().then(url => {
+                this.setState({
+                    imageUrl: url
+                })
+            })
+
+        })
+    }
+
     render() {
         return (
 
             <div class="container bootstrap snippet">
                 <div class="row">
                     <div class="col-sm-10"><h1>User name</h1></div>
-                   <div class="col-sm-2"><a href="/users" class="pull-right"><img title="profile image" class="img-circle img-responsive" src="" /></a></div>
+                    <div class="col-sm-2"><a href="/users" class="pull-right"><img title="profile image" class="img-circle img-responsive" src="" /></a></div>
                 </div>
                 <div class="row">
                     <div class="col-sm-3">
 
 
                         <div class="text-center">
-                            <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar" />
-
-                            <input type="file" class="text-center center-block file-upload" />
+                            <img src={this.state.imageUrl || "http://ssl.gstatic.com/accounts/ui/avatar_2x.png"} class="avatar img-circle img-thumbnail" alt="avatar" />
+                            <input type="file" class="text-center center-block file-upload" onChange={this.handlePorfile} id="slctImg" style={{ display: 'none' }}/>
+                            <button type="button" onClick={() => { this.handleUpload() }} style={{ display: 'none' }} id="upldImg" >Upload</button>
                         </div><hr /><br />
 
 
@@ -293,7 +322,7 @@ class MesDonnees extends Component {
 
 
                                         <select required onChange={this.handleGenreChange} value={this.state.Genre} id="genre" disabled>
-                                            <option value="" disabled selected>Gendre</option>
+                                            <option value="" disabled selected>Genre</option>
                                             <option value="Masculin">Masculin</option>
                                             <option value="Feminin">Feminin</option>
                                             <option value="Autre">Autre</option>

@@ -9,7 +9,7 @@ import secrets
 import yaml
 
 app =Flask(__name__)
-SESSION_TYPE = 'redis'
+SESSION_TYPE = 'redis' 
 app.config.from_object(__name__)
 
 
@@ -180,26 +180,33 @@ def fetchPMed():
         return MedData
 
 
-@SocketIO.on('join')
-def on_join():
-    user = session['username']
-    room = session['id']
-    join_room(room)
-    send(user +'has join conversation', room = room)
+#-----------------------------------------------------------Web Socket---------------------------------
 
-@SocketIO.on('leave')
-def on_leave():
-    user = session['username']
-    room = session['id']
-    leave_room(room)
-    send(user +'has left the conversation',room = room)
-
+users ={}
+backupMess =[]
+@SocketIO.on("username", namespace ='/private')
+def recieve_username(username):
+    users[username] = request.sid
 
 @SocketIO.on("message")
 def handleMessage(msg):
-    print(msg)
-    send(msg,broadcast=True)
+    destination_id = users["tresortek7@gmail.com"]
+    #destination_id = users[msg['username']]
+    message = msg['message']
+    if len(backupMess) <8 :
+        backupMess.append(message)
+    elif len(backupMess) >= 8 :
+        backupMess.pop(0)
+        backupMess.append(message)
+    print('****************************************dfsdfs***********')
+    print(backupMess)
+    emit('message',message, room=destination_id)
+
     return None
+
+
+
+
 
         
 @app.route('/savedata',methods =['GET','POST'])
@@ -209,26 +216,26 @@ def save():
         json_data = request.get_json()
         cur = mysql.connection.cursor() 
         userIdt=json_data.get('userIdt')
-        Genre= "'%s'" %json_data.get('Genre')
-        DateNaiss= "'%s'" %json_data.get('DateNaiss')
-        NumeroRue="'%s'" %json_data.get('NumeroRue')
-        NumeroRue2="'%s'" %json_data.get('noNumeroRue2m')
-        cite="'%s'" %json_data.get('cite')
-        Region="'%s'" %json_data.get('Region')
+        Genre= json_data.get('Genre')
+        DateNaiss=json_data.get('DateNaiss')
+        NumeroRue=json_data.get('NumeroRue')
+        NumeroRue2=json_data.get('noNumeroRue2m')
+        cite=json_data.get('cite')
+        Region=json_data.get('Region')
         codePostal=json_data.get('codePostal')
-        Pays="'%s'" %json_data.get('Pays')
+        Pays=json_data.get('Pays')
         Phone=json_data.get('Phone')
         Poids=json_data.get('Poids')
         Taille=json_data.get('Taille')
-        GroupeSanguin="'%s'" %json_data.get('GroupeSanguin')
-        allergies="'%s'" %json_data.get('allergies')
-        autreAllergie="'%s'" %json_data.get('autreAllergie')
-        Autre="'%s'" %json_data.get('Autre')
-        queryUpdate ="UPDATE patient SET genre ={},dateNaiss={},numeroRue={},numeroRue2={},cite={},region={},codePostal={},pays={} WHERE userId ={}".format(Genre,DateNaiss,NumeroRue,NumeroRue2,cite,Region,codePostal,Pays,userIdt)
-        cur.execute(queryUpdate)
-        mysql.connection.commit()
-        queryUpdate2 ="UPDATE patient SET phone={},poids={},taille={},groupeSanguin={},allergies={},autreAllergie={},autre={} WHERE userId ={}".format(Phone,Poids,Taille,GroupeSanguin,allergies,autreAllergie,Autre,userIdt)
-        cur.execute(queryUpdate2)
+        GroupeSanguin=json_data.get('GroupeSanguin')
+        allergies=json_data.get('allergies')
+        autreAllergie=json_data.get('autreAllergie')
+        Autre=json_data.get('Autre')
+        imageUrl =json_data.get('imageUrl')
+        #queryUpdate ="UPDATE patient SET genre =%s,dateNaiss=%s,numeroRue=%s,numeroRue2=%s,cite=%s,region=%s,codePostal=%s,pays=%s WHERE userId =%s"[Genre,DateNaiss,NumeroRue,NumeroRue2,cite,Region,codePostal,Pays,userIdt]
+        cur.execute("UPDATE patient SET genre =%s,dateNaiss=%s,numeroRue=%s,numeroRue2=%s,cite=%s,region=%s,codePostal=%s,pays=%s WHERE userId =%s",[Genre,DateNaiss,NumeroRue,NumeroRue2,cite,Region,codePostal,Pays,userIdt])
+        #queryUpdate2 ="UPDATE patient SET phone=%s,poids=%s,taille=%s,groupeSanguin=%s,allergies=%s,autreAllergie=%s,autre=%s,imageUrl =%s WHERE userId =%s",[Phone,Poids,Taille,GroupeSanguin,allergies,autreAllergie,Autre,imageUrl,userIdt]
+        cur.execute("UPDATE patient SET phone=%s,poids=%s,taille=%s,groupeSanguin=%s,allergies=%s,autreAllergie=%s,autre=%s,imageUrl =%s WHERE userId =%s",[Phone,Poids,Taille,GroupeSanguin,allergies,autreAllergie,Autre,imageUrl,userIdt])
         mysql.connection.commit()
         cur.close()    
         return "update success"

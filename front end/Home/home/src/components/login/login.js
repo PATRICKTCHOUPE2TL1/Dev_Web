@@ -6,8 +6,11 @@ import ava from "../../image/ava.svg"
 import infis from "../../image/infis.svg"
 import { Link,Redirect } from "react-router-dom"
 import axios from 'axios'
+import io from "socket.io-client";
+
 
 class Login extends Component {
+    
     constructor(props){
         super(props);
         this.state = {
@@ -32,6 +35,8 @@ class Login extends Component {
     };
     handleOnsubit = event =>{
         event.preventDefault();
+        let private_mess = io.connect("http://localhost:5000/private")
+        private_mess.emit("username", this.state.email);
        
         axios.defaults.withCredentials = true
 

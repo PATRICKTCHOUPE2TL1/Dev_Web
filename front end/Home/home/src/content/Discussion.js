@@ -5,16 +5,25 @@ let endPoint = "http://localhost:5000";
 let socket = io.connect(`${endPoint}`);
 
 class Discussion extends Component {
-  state = {
-    messages: ["Hello and Welcome"],
-    message: ""
-  };
+  constructor(props) {
+    super(props)
+    this.state = {
+      messages: ["Hello and Welcome"],
+      message: "",
+      name: props.email,
+    };
+  }
 
   componentDidMount = () => {
+    console.log('socket test1')
+
     socket.on("message", msg => {
+      console.log('socket test2')
+      console.log(msg)
       this.setState({
         messages: [...this.state.messages, msg]
       });
+
     });
   };
 
@@ -30,7 +39,8 @@ class Discussion extends Component {
       this.setState({
         message: ""
       });
-      socket.emit("message", message);
+      socket.emit("message", {'username' : this.state.name,  'message': message});
+     
     } else {
       alert("Please Add A Message");
     }
