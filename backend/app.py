@@ -105,12 +105,9 @@ def login():
             cur = mysql.connection.cursor() 
             cur.execute("select userId from utilisateur where email = %s",[json_data.get('email')])
             userId = cur.fetchall()
-            userId2 = userId[0][0]
-            
-                
+            userId2 = userId[0][0]  
             session['loggedin'] = True
             session['id']= userId2
-           
             session['username'] = value
             cur.execute("select statut from utilisateur where email = %s",[json_data.get('email')])
             state = cur.fetchall()
@@ -127,9 +124,6 @@ def logout():
     session.pop('id')
     session.pop("username")
     session['loggedin'] =False
-    
-   
-
     return 'success'
 
 @app.route('/profil', methods =['GET','POST'])
@@ -184,23 +178,51 @@ def fetchPMed():
 
 users ={}
 backupMess =[]
+room =0
+
+@SocketIO.on('refresh')
+def handleRefresh():
+    print('----------------test refresh-----------')
+    emit("refresh", "test")
+    return None
+
 @SocketIO.on("username", namespace ='/private')
 def recieve_username(username):
-    users[username] = request.sid
+    print('------------------------------------------------------------')
+    print('sender email recieve successfully')
+    username1 = username['uerSessionName']
+    cur =mysql.connection.cursor()
+    cur.execute("select room from consultation where patId = %s",[username1])
+    roomSql =cur.fetchall()
+    roomSql =roomSql[0][0]
+    users[username1] =roomSql
+    print(users)
+    return users
 
 @SocketIO.on("message")
 def handleMessage(msg):
-    destination_id = users["tresortek7@gmail.com"]
-    #destination_id = users[msg['username']]
-    message = msg['message']
-    if len(backupMess) <8 :
-        backupMess.append(message)
-    elif len(backupMess) >= 8 :
-        backupMess.pop(0)
-        backupMess.append(message)
+    print('-------------------------------------------------------')
+    room =users[msg['userId']]
+    print(room)
+    join_room(room)
+    messages = msg['message']
+    if messages == ' ':
+        emit('message',{"messageRecieve" :backupMess, "userId" : msg['userId'] } ,room=room)  
+    else :
+        if len(backupMess) <8  :
+
+            backupMess.append(messages)
+            emit('message',{"messageRecieve" :messages, "userId" : msg['userId'] } ,room=room)  
+
+        elif len(backupMess) >= 8 :
+            
+            backupMess.pop(0)
+            backupMess.append(messages)
+            emit('message',{"messageRecieve" :messages, "userId" : msg['userId'] } ,room=room)  
+
     print('****************************************dfsdfs***********')
     print(backupMess)
-    emit('message',message, room=destination_id)
+    print(users)
 
     return None
 
@@ -287,22 +309,40 @@ def get_Med():
 @app.route('/addCons', methods =['GET','POST'])
 @cross_origin(supports_credentials=True)
 def addCons():
-    print('ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo')
-    print(session['id'])
     if request.method =='POST' :
         json_data = request.get_json()
         idMed =json_data.get("id")
         idPat =session['id']
-        test =int(idMed)
-        print(type(idMed))
-        print(type (idPat))
-        print(type(test))
-        
+        room = json_data.get("room")
         cur =mysql.connection.cursor() 
-        cur.execute("insert into consultation(patId,medId) VALUES(%s,%s)",(idPat,idMed))
+        cur.execute("insert into consultation(patId,medId,room) VALUES(%s,%s,%s)",[idPat,idMed,room])
         mysql.connection.commit()
         cur.close()
         return "insert success"
+
+@app.route('/verifCons', methods =['GET','POST'])
+def verifCons() :
+    if request.method =='POST' :
+        idPat = session['id']
+        cur = mysql.connection.cursor()
+        cur.execute("select medId from consultation where patId = %s",[idPat])
+        medId = cur.fetchall()
+        cur.close()
+
+        if(len(medId) == 0) :
+            return "noMed"
+        else :
+            return "medExist"
+
+@app.route('/getSession', methods =['Get','Post'])
+@cross_origin(supports_credentials=True)
+def getSessionUserName() :
+    username = session['id']
+    print(username)
+    username =jsonify(username)
+    return username
+        
+
 
 
 @app.route('/profilMed', methods =['GET','POST'])
@@ -311,8 +351,6 @@ def profPMed():
     if request.method =='POST' :
         json_data = request.get_json()
         value4 ="'%s'" %json_data.get("userIdtMed")
-        print("hahahahahaaaaaaaaaaaaaaahhhhhhhhhhhhhhhhhh")
-        print(value4)
         cur =mysql.connection.cursor() 
         cur.execute("select * from medecin join utilisateur where medecin.userId = {} and utilisateur.userId ={} ".format(value4,value4))
         MedData2 = cur.fetchall()
@@ -329,8 +367,6 @@ def consMed():
     medId = cur.fetchall()
     medId = medId[0][0]
     medId2 = int(medId)
-    print('**********************************************************')
-    print(medId2)
     cur.execute("select * from medecin join utilisateur where medecin.userId = {} and utilisateur.userId = {}".format(medId2,medId2))
     myDocInfos = cur.fetchall()
     myDocInfos = jsonify(myDocInfos)

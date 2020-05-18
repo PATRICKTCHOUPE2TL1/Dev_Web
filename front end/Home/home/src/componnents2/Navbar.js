@@ -23,7 +23,6 @@ return (
 <ul>
 <Navitem item="Nos Medecins" tolink="/MonProfil"  activec={this.activeitem}></Navitem>
 <Navitem item="Mes données" tolink="/mesdonnées"  activec={this.activeitem}></Navitem>
-<Navitem item="Discussion" tolink="/discussion"  activec={this.activeitem}></Navitem>
 <Navitem item="Mon medecin" tolink="/monmedecin"  activec={this.activeitem}></Navitem>
 </ul>
 </nav>

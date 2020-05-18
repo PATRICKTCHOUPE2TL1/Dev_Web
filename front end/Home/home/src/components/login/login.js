@@ -35,8 +35,7 @@ class Login extends Component {
     };
     handleOnsubit = event =>{
         event.preventDefault();
-        let private_mess = io.connect("http://localhost:5000/private")
-        private_mess.emit("username", this.state.email);
+        
        
         axios.defaults.withCredentials = true
 

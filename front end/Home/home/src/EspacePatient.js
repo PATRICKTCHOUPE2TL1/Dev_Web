@@ -39,9 +39,6 @@ return (
 <MesDonnees userId ={this.state.id}/>
 </Route>
 
-<Route path="/Discussion">
-<Discussion />
-</Route>
 <Route path="/monmedecin">
 <MonMedecin/>
 </Route>

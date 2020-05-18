@@ -8,24 +8,55 @@ class Discussion extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      messages: ["Hello and Welcome"],
+      messages: [""],
       message: "",
       name: props.email,
+      sender: props.userEmail,
+      color: " "
     };
+    this.handleStyle = this.handleStyle.bind(this)
   }
 
   componentDidMount = () => {
-    console.log('socket test1')
+    { this.handleStyle() }
+
+    socket.emit('message', { 'message': " ", 'userId': this.state.sender })
 
     socket.on("message", msg => {
-      console.log('socket test2')
-      console.log(msg)
-      this.setState({
-        messages: [...this.state.messages, msg]
-      });
+
+      if (msg['userId'] === this.state.sender) {
+        this.setState({
+          color: "yes"
+        })
+      } else {
+        this.setState({
+          color: "no"
+        })
+      }
+      let messageRecive = msg['messageRecieve']
+      if (typeof (messageRecive) == "object") {
+
+        let lengthArr = messageRecive.length - 1
+        for (let i in messageRecive) {
+          this.setState({
+            messages: [...this.state.messages, messageRecive[i]],
+            lastMess: messageRecive[lengthArr - 1]
+          });
+        }
+      } else {
+
+
+        this.setState({
+
+          messages: [...this.state.messages, messageRecive],
+
+        });
+      }
 
     });
   };
+
+
 
   onChange = e => {
     this.setState({
@@ -39,12 +70,20 @@ class Discussion extends Component {
       this.setState({
         message: ""
       });
-      socket.emit("message", {'username' : this.state.name,  'message': message});
-     
+
+      socket.emit("message", { 'message': message, 'userId': this.state.sender });
+
     } else {
       alert("Please Add A Message");
     }
   };
+  handleStyle = () => {
+    if (this.state.color == "yes") {
+      document.getElementById("message").style.backgroundColor = "red"
+    } else {
+      document.getElementById("message").style.backgroundColor = "blue"
+    }
+  }
 
   render() {
     const { messages, message } = this.state;
@@ -52,7 +91,7 @@ class Discussion extends Component {
       <div>
         {messages.length > 0 &&
           messages.map(msg => (
-            <div>
+            <div id="message" style={this.state.color == "yes" ? { backgroundColor: 'red' } : { backgroundColor: 'blue' }}>
               <p>{msg}</p>
             </div>
           ))}
@@ -61,8 +100,10 @@ class Discussion extends Component {
           name="message"
           onChange={e => this.onChange(e)}
         />
-        <button onClick={() => this.onClick()}>Send Message</button>
+        <button type="butoon" onClick={() => this.onClick()}>Send Message</button>
+
       </div>
+
     );
   }
 }
