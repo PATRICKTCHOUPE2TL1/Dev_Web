@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import './../content2/MesDonneesMed.css'
+import { storage } from './../firebase/firebase'
 class MesDonnees extends Component {
     constructor(props) {
         super(props)
@@ -23,6 +24,8 @@ class MesDonnees extends Component {
             allergies: " ",
             autreAllergie: " ",
             Autre: " ",
+            selectedFile: " ",
+            imageUrl: " ",
 
         }
 
@@ -45,6 +48,8 @@ class MesDonnees extends Component {
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleautreAllergieChange = this.handleautreAllergieChange.bind(this)
         this.editerForm = this.editerForm.bind(this)
+        this.handleUpload = this.handleUpload.bind(this)
+        this.handlePorfile = this.handlePorfile.bind(this)
 
 
     }
@@ -73,8 +78,9 @@ class MesDonnees extends Component {
                         allergies: value[0][13],
                         autreAllergie: value[0][14],
                         Autre: value[0][15],
-                        nom: value[0][18],
-                        prenom: value[0][19],
+                        nom: value[0][19],
+                        prenom: value[0][20],
+                        imageUrl:value[0][16]
                     })
             })
             .catch(erreur => {
@@ -162,23 +168,18 @@ class MesDonnees extends Component {
         this.setState({
             allergies: event.target.value
         })
-        console.log(event.target.value)
+        
         if (event.target.value === "Oui") {
             document.getElementById("autreAlleg").style.display = "block"
-            console.log(this.state.allergies)
-            console.log("yes")
 
         } else if (event.target.value === "Non") {
 
             document.getElementById("autreAlleg").style.display = 'none'
-            console.log(this.state.allergies)
 
-            console.log("nooo")
+            
 
         } else {
             console.log("erreur")
-            console.log(event.target.value === "oui")
-            console.log(event.target.value)
         }
     }
     handleAutreChange = event => {
@@ -225,58 +226,81 @@ class MesDonnees extends Component {
         document.getElementById('radio_1').disabled = false
         document.getElementById('radio_2').disabled = false
         document.getElementById('modifier').style.display = 'none'
+        document.getElementById('slctImg').style.display ='block'
+        document.getElementById('upldImg').style.display ='block'
 
-
-
-        console.log("hello")
     }
+    handlePorfile = (e) => {
+        console.log(e.target.files[0])
+        this.setState({
+            selectedFile: e.target.files[0]
+        })
+
+
+    }
+    handleUpload = () => {
+        const image = this.state.selectedFile
+        const uploadTask = storage.ref(`images/${image.name}`).put(image)
+        uploadTask.on('state_changed', (snapshot) => {
+            //progess function ..........
+        }, (error) => {
+            //error function ............
+            console.log(error)
+        }, () => {
+            //complete function ..........
+            storage.ref('images').child(image.name).getDownloadURL().then(url => {
+                this.setState({
+                    imageUrl: url
+                })
+            })
+
+        })
+    }
+
     render() {
         return (
 
             <div class="container bootstrap snippet">
-                <div class="row">
-                    <div class="col-sm-10"><h1>User name</h1></div>
-                    <div class="col-sm-2"><a href="/users" class="pull-right"><img title="profile image" class="img-circle img-responsive" src="http://www.gravatar.com/avatar/28fd20ccec6865e2d5f0e1f4446eb7bf?s=100" /></a></div>
-                </div>
+                
                 <div class="row">
                     <div class="col-sm-3">
 
 
                         <div class="text-center">
-                            <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar" />
-
-                            <input type="file" class="text-center center-block file-upload" />
+                            <img src={this.state.imageUrl || "http://ssl.gstatic.com/accounts/ui/avatar_2x.png"} class="avatar img-circle img-thumbnail" alt="avatar" />
+                            <input type="file" class="text-center center-block file-upload" onChange={this.handlePorfile} id="slctImg" style={{ display: 'none' }}/>
+                            <button type="button" onClick={() => { this.handleUpload() }} style={{ display: 'none' }} id="upldImg" >Upload</button>
                         </div><hr /><br />
 
 
-                        <div class="panel panel-default">
+                      {/*  <div class="panel panel-default">
                             <div class="panel-heading">Website <i class="fa fa-link fa-1x"></i></div>
 
-                        </div>
+        </div>*/}
 
 
-                        <ul class="list-group">
+                       {/*} <ul class="list-group">
                             <li class="list-group-item text-muted">Activity <i class="fa fa-dashboard fa-1x"></i></li>
                             <li class="list-group-item text-right"><span class="pull-left"><strong>Nombre De Patient</strong></span> 125</li>
                             <li class="list-group-item text-right"><span class="pull-left"><strong>Likes</strong></span> 13</li>
                             <li class="list-group-item text-right"><span class="pull-left"><strong>Posts</strong></span> 37</li>
                             <li class="list-group-item text-right"><span class="pull-left"><strong>Followers</strong></span> 78</li>
-                        </ul>
+                        </ul>*/}
 
-                        <div class="panel panel-default">
+                       {/* <div class="panel panel-default">
                             <div class="panel-heading">Social Media</div>
                             <div class="panel-body">
                                 <i class="fa fa-facebook fa-2x"></i> <i class="fa fa-github fa-2x"></i> <i class="fa fa-twitter fa-2x"></i> <i class="fa fa-pinterest fa-2x"></i> <i class="fa fa-google-plus fa-2x"></i>
                             </div>
-                        </div>
+                    </div>*/}
 
                     </div>
                     <div class="col-sm-9">
-                        <ul class="nav nav-tabs">
+                       {/* <ul class="nav nav-tabs">
                             <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
                             <li><a data-toggle="tab" href="#messages">Menu 1</a></li>
                             <li><a data-toggle="tab" href="#settings">Menu 2</a></li>
-                        </ul>
+                        </ul>*/}
 
 
                         <div class="tab-content">
@@ -293,7 +317,7 @@ class MesDonnees extends Component {
 
 
                                         <select required onChange={this.handleGenreChange} value={this.state.Genre} id="genre" disabled>
-                                            <option value="" disabled selected>Gendre</option>
+                                            <option value="" disabled selected>Genre</option>
                                             <option value="Masculin">Masculin</option>
                                             <option value="Feminin">Feminin</option>
                                             <option value="Autre">Autre</option>

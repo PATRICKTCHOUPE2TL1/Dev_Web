@@ -5,8 +5,11 @@ import docs from "../../image/docs.svg"
 import ava from "../../image/ava.svg"
 import { Link,Redirect } from "react-router-dom"
 import axios from 'axios'
+import io from "socket.io-client";
+
 
 class Login extends Component {
+    
     constructor(props){
         super(props);
         this.state = {
@@ -30,6 +33,8 @@ class Login extends Component {
     };
     handleOnsubit = event =>{
         event.preventDefault();
+        
+       
         axios.defaults.withCredentials = true
         axios
              .post('http://127.0.0.1:5000/login', this.state,)

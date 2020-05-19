@@ -1,21 +1,26 @@
 import React, { Component } from "react";
-import Navbar from './../components3/Navbar';
 import io from "socket.io-client";
 
 let endPoint = "http://localhost:5000";
 let socket = io.connect(`${endPoint}`);
 
 class Discussion extends Component {
-  state = {
-    messages: ["Hello and Welcome"],
-    message: ""
-  };
+  constructor(props) {
+    super(props)
+    this.state = {
+      messages: ["Hello and Welcome"],
+      message: "",
+      name: props.email,
+    };
+  }
 
   componentDidMount = () => {
+    
     socket.on("message", msg => {
       this.setState({
         messages: [...this.state.messages, msg]
       });
+
     });
   };
 
@@ -31,18 +36,16 @@ class Discussion extends Component {
       this.setState({
         message: ""
       });
-      socket.emit("message", message);
+      socket.emit("message", {'username' : this.state.name,  'message': message});
     } else {
       alert("Please Add A Message");
     }
   };
 
-  render() { 
+  render() {
     const { messages, message } = this.state;
     return (
       <div>
-               
-
         {messages.length > 0 &&
           messages.map(msg => (
             <div>

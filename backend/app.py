@@ -9,7 +9,7 @@ import secrets
 import yaml
 
 app =Flask(__name__)
-SESSION_TYPE = 'redis'
+SESSION_TYPE = 'redis' 
 app.config.from_object(__name__)
 
 
@@ -105,13 +105,9 @@ def login():
             cur = mysql.connection.cursor() 
             cur.execute("select userId from utilisateur where email = %s",[json_data.get('email')])
             userId = cur.fetchall()
-            userId2 = userId[0][0]
-            
-            print("yes")
-                
+            userId2 = userId[0][0]  
             session['loggedin'] = True
             session['id']= userId2
-           
             session['username'] = value
             cur.execute("select statut from utilisateur where email = %s",[json_data.get('email')])
             state = cur.fetchall()
@@ -128,9 +124,6 @@ def logout():
     session.pop('id')
     session.pop("username")
     session['loggedin'] =False
-    
-   
-
     return 'success'
 
 @app.route('/profil', methods =['GET','POST'])
@@ -181,26 +174,61 @@ def fetchPMed():
         return MedData
 
 
-@SocketIO.on('join')
-def on_join():
-    user = session['username']
-    room = session['id']
-    join_room(room)
-    send(user +'has join conversation', room = room)
+#-----------------------------------------------------------Web Socket---------------------------------
 
-@SocketIO.on('leave')
-def on_leave():
-    user = session['username']
-    room = session['id']
-    leave_room(room)
-    send(user +'has left the conversation',room = room)
+users ={}
+backupMess =[]
+room =0
 
+@SocketIO.on('refresh')
+def handleRefresh():
+    print('----------------test refresh-----------')
+    emit("refresh", "test")
+    return None
+
+@SocketIO.on("username", namespace ='/private')
+def recieve_username(username):
+    print('------------------------------------------------------------')
+    print('sender email recieve successfully')
+    username1 = username['uerSessionName']
+    cur =mysql.connection.cursor()
+    cur.execute("select room from consultation where patId = %s",[username1])
+    roomSql =cur.fetchall()
+    roomSql =roomSql[0][0]
+    users[username1] =roomSql
+    print(users)
+    return users
 
 @SocketIO.on("message")
 def handleMessage(msg):
-    print(msg)
-    send(msg,broadcast=True)
+    print('-------------------------------------------------------')
+    room =users[msg['userId']]
+    print(room)
+    join_room(room)
+    messages = msg['message']
+    if messages == ' ':
+        emit('message',{"messageRecieve" :backupMess, "userId" : msg['userId'] } ,room=room)  
+    else :
+        if len(backupMess) <8  :
+
+            backupMess.append(messages)
+            emit('message',{"messageRecieve" :messages, "userId" : msg['userId'] } ,room=room)  
+
+        elif len(backupMess) >= 8 :
+            
+            backupMess.pop(0)
+            backupMess.append(messages)
+            emit('message',{"messageRecieve" :messages, "userId" : msg['userId'] } ,room=room)  
+
+    print('****************************************dfsdfs***********')
+    print(backupMess)
+    print(users)
+
     return None
+
+
+
+
 
         
 @app.route('/savedata',methods =['GET','POST'])
@@ -210,26 +238,26 @@ def save():
         json_data = request.get_json()
         cur = mysql.connection.cursor() 
         userIdt=json_data.get('userIdt')
-        Genre= "'%s'" %json_data.get('Genre')
-        DateNaiss= "'%s'" %json_data.get('DateNaiss')
-        NumeroRue="'%s'" %json_data.get('NumeroRue')
-        NumeroRue2="'%s'" %json_data.get('noNumeroRue2m')
-        cite="'%s'" %json_data.get('cite')
-        Region="'%s'" %json_data.get('Region')
+        Genre= json_data.get('Genre')
+        DateNaiss=json_data.get('DateNaiss')
+        NumeroRue=json_data.get('NumeroRue')
+        NumeroRue2=json_data.get('noNumeroRue2m')
+        cite=json_data.get('cite')
+        Region=json_data.get('Region')
         codePostal=json_data.get('codePostal')
-        Pays="'%s'" %json_data.get('Pays')
+        Pays=json_data.get('Pays')
         Phone=json_data.get('Phone')
         Poids=json_data.get('Poids')
         Taille=json_data.get('Taille')
-        GroupeSanguin="'%s'" %json_data.get('GroupeSanguin')
-        allergies="'%s'" %json_data.get('allergies')
-        autreAllergie="'%s'" %json_data.get('autreAllergie')
-        Autre="'%s'" %json_data.get('Autre')
-        queryUpdate ="UPDATE patient SET genre ={},dateNaiss={},numeroRue={},numeroRue2={},cite={},region={},codePostal={},pays={} WHERE userId ={}".format(Genre,DateNaiss,NumeroRue,NumeroRue2,cite,Region,codePostal,Pays,userIdt)
-        cur.execute(queryUpdate)
-        mysql.connection.commit()
-        queryUpdate2 ="UPDATE patient SET phone={},poids={},taille={},groupeSanguin={},allergies={},autreAllergie={},autre={} WHERE userId ={}".format(Phone,Poids,Taille,GroupeSanguin,allergies,autreAllergie,Autre,userIdt)
-        cur.execute(queryUpdate2)
+        GroupeSanguin=json_data.get('GroupeSanguin')
+        allergies=json_data.get('allergies')
+        autreAllergie=json_data.get('autreAllergie')
+        Autre=json_data.get('Autre')
+        imageUrl =json_data.get('imageUrl')
+        #queryUpdate ="UPDATE patient SET genre =%s,dateNaiss=%s,numeroRue=%s,numeroRue2=%s,cite=%s,region=%s,codePostal=%s,pays=%s WHERE userId =%s"[Genre,DateNaiss,NumeroRue,NumeroRue2,cite,Region,codePostal,Pays,userIdt]
+        cur.execute("UPDATE patient SET genre =%s,dateNaiss=%s,numeroRue=%s,numeroRue2=%s,cite=%s,region=%s,codePostal=%s,pays=%s WHERE userId =%s",[Genre,DateNaiss,NumeroRue,NumeroRue2,cite,Region,codePostal,Pays,userIdt])
+        #queryUpdate2 ="UPDATE patient SET phone=%s,poids=%s,taille=%s,groupeSanguin=%s,allergies=%s,autreAllergie=%s,autre=%s,imageUrl =%s WHERE userId =%s",[Phone,Poids,Taille,GroupeSanguin,allergies,autreAllergie,Autre,imageUrl,userIdt]
+        cur.execute("UPDATE patient SET phone=%s,poids=%s,taille=%s,groupeSanguin=%s,allergies=%s,autreAllergie=%s,autre=%s,imageUrl =%s WHERE userId =%s",[Phone,Poids,Taille,GroupeSanguin,allergies,autreAllergie,Autre,imageUrl,userIdt])
         mysql.connection.commit()
         cur.close()    
         return "update success"
@@ -278,14 +306,51 @@ def get_Med():
     finally:
         cur2.close()
 
+@app.route('/addCons', methods =['GET','POST'])
+@cross_origin(supports_credentials=True)
+def addCons():
+    if request.method =='POST' :
+        json_data = request.get_json()
+        idMed =json_data.get("id")
+        idPat =session['id']
+        room = json_data.get("room")
+        cur =mysql.connection.cursor() 
+        cur.execute("insert into consultation(patId,medId,room) VALUES(%s,%s,%s)",[idPat,idMed,room])
+        mysql.connection.commit()
+        cur.close()
+        return "insert success"
+
+@app.route('/verifCons', methods =['GET','POST'])
+def verifCons() :
+    if request.method =='POST' :
+        idPat = session['id']
+        cur = mysql.connection.cursor()
+        cur.execute("select medId from consultation where patId = %s",[idPat])
+        medId = cur.fetchall()
+        cur.close()
+
+        if(len(medId) == 0) :
+            return "noMed"
+        else :
+            return "medExist"
+
+@app.route('/getSession', methods =['Get','Post'])
+@cross_origin(supports_credentials=True)
+def getSessionUserName() :
+    username = session['id']
+    print(username)
+    username =jsonify(username)
+    return username
+        
+
+
+
 @app.route('/profilMed', methods =['GET','POST'])
 @cross_origin(supports_credentials=True)
 def profPMed():
     if request.method =='POST' :
         json_data = request.get_json()
         value4 ="'%s'" %json_data.get("userIdtMed")
-        print("hahahahahaaaaaaaaaaaaaaahhhhhhhhhhhhhhhhhh")
-        print(value4)
         cur =mysql.connection.cursor() 
         cur.execute("select * from medecin join utilisateur where medecin.userId = {} and utilisateur.userId ={} ".format(value4,value4))
         MedData2 = cur.fetchall()
@@ -293,18 +358,20 @@ def profPMed():
         MedData2.status_code=200
         return MedData2
 
-
-
-
-        
-    
-
-         
-
-        
-
-
-
+@app.route('/getConsMed', methods =['GET','POST'])
+@cross_origin(supports_credentials=True)
+def consMed():
+    idPat = session['id']
+    cur =mysql.connection.cursor()
+    cur.execute("select medId from consultation where consultation.patId ={} ".format(idPat))
+    medId = cur.fetchall()
+    medId = medId[0][0]
+    medId2 = int(medId)
+    cur.execute("select * from medecin join utilisateur where medecin.userId = {} and utilisateur.userId = {}".format(medId2,medId2))
+    myDocInfos = cur.fetchall()
+    myDocInfos = jsonify(myDocInfos)
+    myDocInfos.status_code =200
+    return myDocInfos
 
 
 @app.errorhandler(404)
