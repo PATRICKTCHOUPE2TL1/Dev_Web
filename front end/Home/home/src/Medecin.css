@@ -1,60 +1,35 @@
-@import url('https://fonts.googleapis.com/css?family=Raleway:300,400,500,700&display=swap');
-:root{
---sidebar-flex:1.5;
---condiv-flex:6;
---fontsize-p:1.2rem;
---fontsize-nav:1.6rem;
---typing-font:3rem;
-}
-*
-{
-margin:0;
-padding: 0;
-}
-body
-{
-font-family: 'Raleway';
-}
-.App3
-{
-display: flex;
-width: 100vw;
-min-height: 100vh;
-}
-/* .condiv class is for the right side content container*/
-.condiv
-{
-padding: 100px ;
-background-color: #f4f5f9;
-flex:var(--condiv-flex);
-}
-.navelt{
-  text-align: left;
-  font-size: 0.8em;
-  text-decoration: none;
-}
 #barnav
 {
-  width :15%;
-  background: red
-/*padding:60px 30px 0px 30px ;
-flex:var(--sidebar-flex);
-*/
-/*background: linear-gradient(180deg, rgba(238,103,143,1) 50%, rgba(132,124,252,1) 80%);*/
+  background: linear-gradient(145deg,#57c985,#184f68);
+  padding-top: 0;
+  overflow-y: auto;
+  font-size: 1rem;
+  z-index: 10;
+  position: fixed;
+  line-height: 7rem;
 }
-#barnav ul
-{
-  font-size:var(--fontsize-nav) ;
-  
-  list-style-type: none;
-  text-decoration: none;
-  color: white !important;
+#navelt{
+  padding: 2.7rem;
+  width: 7.4rem;
+  height: 7.4rem;
 }
-#barnav ul li
-{
-margin:30px;
+#barre{
+  height: 40px;
+  left:0;
+  top: 0;
+  width : 10rem;
+  display: block ;
+  transform: translate3d(-32.6rem,0,0);
 }
-.active
-{
-font-weight: bolder;
+#head {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 1px solid #d8d8d8;
+  font-size: 1.4rem;
+  font-weight: 300;
+  position: static;
+  top: 7rem;
+  background-color: #fff;
+  z-index: 90;
 }

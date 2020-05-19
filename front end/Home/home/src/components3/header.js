@@ -31,17 +31,16 @@ this.deconnecter = this.deconnecter.bind(this)
                  console.log(erreur)
              })
     }
+    timer = new Date()
     render(){
     return (
-        <header>
-        <nav class="navbar navbar-light" style={{backgroundColor: "#e3f2fd"}}>
-        <a class="navbar-brand" href="#">
-           {/* <img src="/docs/4.4/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="" />*/}
-            TakeCare
-          </a>
-         <button className="btn-outline-success " href="#" id ="deconnexion" value = "Deconnexion"  onClick = {this.deconnecter} > <span>deconnexion</span></button>
-        </nav>
-        
+        <header id="head">
+        <div id="name">
+            Test
+        </div>
+        <div id="time">
+            { this.timer.getDay() + "/" + this.timer.getMonth()+ "/" + this.timer.getFullYear() +"-"+ this.timer.getHours() + ":" +this.timer.getMinutes()}
+        </div>    
         </header>
     )
     }

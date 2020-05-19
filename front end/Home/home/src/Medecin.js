@@ -25,31 +25,33 @@ class MedSpace extends Component {
     render(){
 return (
  
-<div>
-   <Entete />
-   <Navbar />
-<Router>
-<div className="App3">
+<div id="contenu">
+    <div>
+        <Entete />
+    </div>
+    <div id="bar">
+        <Navbar />
+    </div>
+    <Router>
+        <div className="App3">
+            <Route  path="/Medecin/Profile" userId = {this.props.user}>
+            <MesDonnees userId ={this.state.id} />
+            </Route>
+
+            <Route path="/Message">
+            <Message />
+            </Route>
+
+            <Route path="/MesPatient">
+            <MesPatient />
+            </Route>
+            <Route path="/Agenda">
+            <Agenda/>
+            </Route>
 
 
-<Route  path="/Medecin/Profile" userId = {this.props.user}>
-<MesDonnees userId ={this.state.id} />
-</Route>
-
-<Route path="/Message">
-<Message />
-</Route>
-
-<Route path="/MesPatient">
-<MesPatient />
-</Route>
-<Route path="/Agenda">
-<Agenda/>
-</Route>
-
-
-</div>
-</Router>}
+        </div>
+    </Router>
 </div>
 )
     }

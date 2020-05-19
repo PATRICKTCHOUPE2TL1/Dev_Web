@@ -2,6 +2,10 @@
   "name": "home",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "12.14.1",
+    "npm": "6.13.4"
+  },
   "dependencies": {
     "@cometchat-pro/chat": "^2.0.7",
     "@syncfusion/ej2-react-schedule": "^18.1.46",

@@ -28,3 +28,5 @@
 [0402/111344.730:ERROR:crash_report_database_win.cc(428)] unexpected header
 [0402/154514.204:ERROR:crash_report_database_win.cc(428)] unexpected header
 [0406/184018.812:ERROR:crash_report_database_win.cc(428)] unexpected header
+[0502/145943.244:ERROR:process_reader_win.cc(123)] NtOpenThread: {Accès refusé} Un processus a demandé l’accès a un objet, mais il ne bénéficie pas des autorisations nécessaires. (0xc0000022)
+[0502/145943.248:ERROR:exception_snapshot_win.cc(98)] thread ID 50868 not found in process

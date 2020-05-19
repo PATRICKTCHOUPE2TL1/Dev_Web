@@ -1,11 +1,10 @@
 import React,{Component} from 'react'
 import './SignIn.css'
-import Avatar2 from "../../image/Avatar2.png"
+import infis from "../../image/infis.svg"
 import { Link, Redirect } from "react-router-dom"
 import axios from 'axios'
+import {FaRegIdCard} from "react-icons/fa";
 import EspacePatient from "../../EspacePatient"
-
-
 
 class SignIn extends Component {
 
@@ -71,7 +70,7 @@ class SignIn extends Component {
         let reg2 =/.com/;
         if((!reg.test(eml)||(!reg2.test(eml)))){
 
-            this.getId('msg').innerText  = "Address Email non valide\r"
+            this.getId('msg').innerText  = "Adresse e-mail non valide\r"
             this.getId('email').focus()
 
         }
@@ -79,7 +78,7 @@ class SignIn extends Component {
             console.log("0")
 
             if(mdp < 6) {
-                this.getId('msg').innerText += "mot de passe dois contenir au moins 6 character\r"
+                this.getId('msg').innerText += "mot de passe doit contenir au moins 6 character\r"
                 console.log("1")
 
               return false
@@ -87,7 +86,7 @@ class SignIn extends Component {
             }
              let re = /[0-9]/;
             if(!re.test(mdp)) {
-                this.getId('msg').innerText += "mot de passe dois contenir au moins un chiffre\r"
+                this.getId('msg').innerText += "mot de passe doit contenir au moins un chiffre\r"
 
                 console.log("2")
 
@@ -95,7 +94,7 @@ class SignIn extends Component {
             }
             re = /[a-z]/;
             if(!re.test(mdp)) {
-                this.getId('msg').innerText  += "mot de passe dois contenir au moins une lettre en miniscule\r"
+                this.getId('msg').innerText  += "mot de passe doit contenir au moins une lettre en miniscule\r"
 
                 console.log("3")
 
@@ -103,7 +102,7 @@ class SignIn extends Component {
             }
             re = /[A-Z]/;
             if(!re.test(mdp)) {
-                this.getId('msg').innerText  += "mot de passe dois contenir au moins une lettre en majiscule \r"
+                this.getId('msg').innerText  += "mot de passe doit contenir au moins une lettre en majuscule \r"
 
                 console.log("4")
 
@@ -122,7 +121,7 @@ class SignIn extends Component {
     handleSubmit = event =>{ 
  
         event.preventDefault();
-      /* if(this.chkPassword() == false){
+      /*  if(this.chkPassword() == false){
             
             this.getId('msg').style.display = "block";
             
@@ -158,56 +157,44 @@ class SignIn extends Component {
     render() {
         
         return (
-            <main>
-            
-            <form  className="formSign" onSubmit={this.handleSubmit} >
-                <fieldset>
-            <img src ={Avatar2} alt ="loginimage" className="avatar"/>
-              
-            <div>
-                <legend className="signup">Créer un Compte</legend>
-            </div>
-            <div id="ident">
-               
-                <input type ="text" id = 'nom' placeholder= "Nom *"   onChange={this.handleNomChange} className="nom"/>
-          
-                <input type ="text" id ='prenom' placeholder= "Prenom * "   onChange={this.handlePrenomChange} className="prenom"/>
-            </div>
-            <div>
-               
-                <input type ="text" id='email' placeholder= "Adresse Email *"   onChange={this.handleEmailChange} className="email2"/>
-            </div>
-            <div>
-                
-                <input type ="password" id="password" placeholder= "Mot de passe *" onChange={this.handlePasswordChange} className ="password"/>
-            
-                <input type ="password" id="confpassword" placeholder= "Confirmer mot de passe *"  className="confmtp"/>
-            </div>
-            <div className="sts">
-            <span className="status">vous etes :</span>
-
-            <label  id = "medecin" for="medecin">medecin</label>
-            <input type="radio" id="medecin2" name="status" value="medecin" onChange={this.handleStatusMedecin}/>
-            
-
-            <label  id = "patient" for="patient">patient</label>
-
-            <input type="radio" id="patient2" name="status" value="patient"  onChange = {this.handleStatusPatient}/>
-            </div>
-            
-            <div className="valider1" >
-                <input type="submit"  id="mySubmit" value ="Valider" className="creer"/>
-            </div>
-            <hr className="ligne"></hr>
-           
-            <div>
-                <textarea id ="msg" className="signlog" >
-
-                </textarea>
-            </div>
-            </fieldset>
-             </form>
-             </main>
+            <div className="containers">
+                     <div className="img">
+                        <img src={infis} alt="infirmiéres"></img>
+                    </div>
+             <div className="signup-container">
+                <form id="form1"onSubmit={this.handleSubmit} >
+                    <FaRegIdCard className="icon" size='3em' color='rgb(243,33,86)' />
+                        <h2>Créer votre compte</h2>
+                    <div id="ident">
+                        <input type ="text" id = 'nom' placeholder= "Nom *" required   onChange={this.handleNomChange} className="nom"/>
+                        <input type ="text" id ='prenom' placeholder= "Prenom * " required   onChange={this.handlePrenomChange} className="prenom"/>
+                    </div>
+                    <div>
+                        <input type ="text" id='email' placeholder= "Adresse Email *" required  onChange={this.handleEmailChange} className="email2"/>
+                    </div>
+                    <div>
+                        <input type ="password" id="password" placeholder= "Mot de passe *" required onChange={this.handlePasswordChange} className ="password"/>
+                        <input type ="password" id="confmtp" placeholder= "Confirmer mot de passe *" required className="confmtp"/>
+                    </div>
+                        <span>Vous etes : </span>
+                    <div className="sts">
+                        <label  id = "medecin" for="medecin">Medecin</label>
+                        <input type="radio" id="medecin2" name="status" value="medecin" onChange={this.handleStatusMedecin}/>
+                        <label  id = "patient" for="patient">Patient</label>
+                        <input type="radio" id="patient2" name="status" value="patient"  onChange = {this.handleStatusPatient}/>
+                    </div>
+                    
+                    <div className="valider1" >
+                        <input type="submit"  id="mySubmit" value ="Valider" className="creer"/>
+                    </div>
+                    <hr className="ligne"></hr>  
+                    <div>
+                        <textarea id ="msg" className="signlog" >
+                        </textarea>
+                    </div>
+              </form>
+             </div>
+          </div>
         )
 
     }
