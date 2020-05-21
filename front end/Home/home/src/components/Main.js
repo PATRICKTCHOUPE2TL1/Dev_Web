@@ -17,9 +17,9 @@ import NosMedecin from './../content/NosMedecins'
 import MonMedecin from './../content/MonMedecin'
 import NavbarMed from  './../components3/Navbar'
 
+
 import MesPatient from './../content2/MesPatient';
 
-<<<<<<< HEAD
 
 
 
@@ -27,11 +27,6 @@ import MesPatient from './../content2/MesPatient';
 import { Switch, Route, Redirect,withRouter } from 'react-router-dom'
 //component necessary for routing
 
-=======
-import { Switch, Route, Redirect } from 'react-router-dom'
-import Navbar from "../components3/Navbar"
-   
->>>>>>> f67313fc34587786cc01f99abe77cdf067f0f425
 
 class Main extends Component {
   constructor(props) {

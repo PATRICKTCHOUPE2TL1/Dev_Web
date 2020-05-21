@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import { withRouter} from 'react-router-dom'
 import axios from 'axios'
+import { Link,Redirect } from "react-router-dom"
+
+
+
 
 class EnteteMed  extends Component{
     constructor(props){
@@ -29,7 +33,6 @@ this.deconnecter = this.deconnecter.bind(this)
     }
     render(){
     return (
-<<<<<<< HEAD
         <header>
         <nav class="navbar navbar-light" style={{backgroundColor: "#e3f2fd"}}>
         <a class="navbar-brand" href="#">
@@ -39,15 +42,6 @@ this.deconnecter = this.deconnecter.bind(this)
          <button className="btn-outline-success " href="#" id ="deconnexion" value = "Deconnexion"  onClick = {this.deconnecter} > <span>deconnexion</span></button>
         </nav>
         
-=======
-        <header id="head" >
-        <div id="name">
-            Test
-        </div>
-        <div id="time">
-             <button className="btn btn-danger " href="#" id ="deconnexion" value = "Deconnexion"  onClick = {this.deconnecter} > <span>Deconnexion</span></button>
-        </div>    
->>>>>>> f67313fc34587786cc01f99abe77cdf067f0f425
         </header>
     )
     }

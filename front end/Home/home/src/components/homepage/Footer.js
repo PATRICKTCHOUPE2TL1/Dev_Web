@@ -26,7 +26,6 @@ function Footer() {
                                 <li><a href="https://huis.vub.ac.be/corona/intro.php?taal=Fra" target = "blank">Test préventif</a></li>
                             </ul>
                     </div>
-<<<<<<< HEAD
                     <div className="col-md-3 col-sm-6">
                             <br/><h4><a href="">Lorem ipsum</a></h4>
                             <ul className="list-unstyled">
@@ -35,8 +34,6 @@ function Footer() {
                                 <li><a href="">picsum</a></li>
                             </ul>
                     </div>
-=======
->>>>>>> f67313fc34587786cc01f99abe77cdf067f0f425
                 </div>
                 {/* Footer bottom */}
                 <div className="footer-bottom">
