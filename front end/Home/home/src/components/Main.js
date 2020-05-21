@@ -16,7 +16,6 @@ import '../Medecin.css'
 
 import { Switch, Route, Redirect } from 'react-router-dom'
 import Navbar from "../components3/Navbar"
-//component necessary for routing
    
 
 class Main extends Component {
