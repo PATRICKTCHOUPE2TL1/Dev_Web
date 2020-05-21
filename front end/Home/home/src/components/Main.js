@@ -11,12 +11,8 @@ import Message from './../content2/Message'
 import MesDonnees from './../content2/MesDonnees'
 //import Entete from './components3/header'
 
-
 import MesPatient from './../content2/MesPatient';
 import '../Medecin.css'
-
-
-
 
 import { Switch, Route, Redirect } from 'react-router-dom'
 import Navbar from "../components3/Navbar"

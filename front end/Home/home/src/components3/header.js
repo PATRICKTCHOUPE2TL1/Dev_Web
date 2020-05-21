@@ -1,10 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter} from 'react-router-dom'
 import axios from 'axios'
-import { Link,Redirect } from "react-router-dom"
-
-
-
 
 class Entete  extends Component{
     constructor(props){
@@ -34,12 +30,12 @@ this.deconnecter = this.deconnecter.bind(this)
     timer = new Date()
     render(){
     return (
-        <header id="head">
+        <header id="head" >
         <div id="name">
             Test
         </div>
         <div id="time">
-            { this.timer.getDay() + "/" + this.timer.getMonth()+ "/" + this.timer.getFullYear() +"-"+ this.timer.getHours() + ":" +this.timer.getMinutes()}
+             <button className="btn btn-danger " href="#" id ="deconnexion" value = "Deconnexion"  onClick = {this.deconnecter} > <span>Deconnexion</span></button>
         </div>    
         </header>
     )

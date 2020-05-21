@@ -10,6 +10,7 @@
     background: var(--mainBlue);
     padding-bottom: 2rem;
     color: var(--mainWhite);
+    font-family: Arial;
 }
 a{
     color:white;

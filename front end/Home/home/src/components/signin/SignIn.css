@@ -5,12 +5,12 @@
 }
 .containers{
   width: 100%;;
-  height: 120vh;
+  height: 100vh;
+  font-family: Arial;
   display:grid;
   background-color: rgb(0,253,253) ;
   grid-template-columns: repeat(2,1fr);
   grid-gap: 7rem;
-  padding: 0 2rem;
 }
 .img{
   display: flex;
@@ -35,91 +35,10 @@
   margin-right: 40px;
   color: black;
 }
-.icon{
-  margin-right: 40px;
-  width: 100px;
-}
-#nom{
-  border :solid 2px rgb(185, 183, 183);
-   padding-top: 8px;
-   padding-bottom: 8px;
-    width:334px;
-    margin-top: 4%;
-    border-left: none;
-    border-right: none;
-    border-top: none;
-    background-color: transparent;
-    font-size: 0.7em;
-
- }
- #prenom{
-  border :solid 2px rgb(185, 183, 183);
-   padding-top: 8px;
-   padding-bottom: 8px;
-    width:334px;
-    margin-top: 4%;
-    border-left: none;
-    border-right: none;
-    border-top: none;
-    background-color: transparent;
-    font-size: 0.7em;
-    
-}
- #email{
-  border :solid 2px rgb(185, 183, 183);
-   padding-top: 8px;
-   padding-bottom: 8px;
-    width:334px;
-    margin-top: 4%;
-    border-left: none;
-    border-right: none;
-    border-top: none;
-    background-color: transparent;
-    font-size: 0.7em;
-    
-   }
- #password{
-  border :solid 2px rgb(185, 183, 183);
-   padding-top: 8px;
-   padding-bottom: 8px;
-    margin-top: 4%;
-    width:160px;
-    margin-right: 10px;
-    border-left: none;
-    border-right: none;
-    border-top: none;
-    background-color: transparent;
-    font-size: 0.7em;
- }
- #confmtp{
-  border :solid 2px rgb(185, 183, 183);
-   padding-top: 8px;
-   padding-bottom: 8px;
-    margin-top: 4%;
-    width:162px;
-    font-size: 0.70em;
-    border-left: none;
-    border-right: none;
-    border-top: none;
-    background-color: transparent;
-    
- }
- .creer {
-  margin-top: 4%;
-  width: 100px;
-  border-radius: 5px;
-  border : 1px solid gray;
-  padding-top: 3px;
-  padding-bottom: 3px;
-}
 .signup{
 font-weight: bold;
 font-size: 1.1em;
 color: rgb(36,51,81);
-}
-.sts{
-  margin-top: 4%;
-  display: flex;
 }
 
 @media screen and (max-width: 900px){
@@ -128,20 +47,39 @@ color: rgb(36,51,81);
   }
   .containers{
       grid-template-columns: 1fr;
-      height: 140vh;
+      height: 100%;
       width: 100%;
   }
 }
-@media screen and (max-width: 100px){
+@media screen and (max-width: 460px){
   .containers{
-    grid-template-columns: 1fr;
-    height: 140vh;
-    width: 100%;
-
+      width: 100%;
+      height: 100%;
+      align-items: center;
+      justify-content: center;
+  }
+  .signup-container{
+      align-items: center;
+      justify-content: center;
+  }
+  .signup-container input{
+      width: 100%;
+      box-sizing: border-box;
   }
 }
-@media screen and (max-height: 500px){
+@media screen and (max-width: 700px){
   .containers{
-      height: 230vh;
+      width: 100%;
+      height: 100%;
+      align-items: center;
+      justify-content: center;
+  }
+  .signup-container{
+      align-items: center;
+      justify-content: center;
+  }
+  .signup-container input{
+      width: 100%;
+      box-sizing: border-box;
   }
 }
