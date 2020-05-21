@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import Navbar from './../components3/Navbar';
-import Entete from './../components3/header'
 import {Inject, ScheduleComponent, Day,Week,WorkWeek,Month, DragAndDrop,Resize} from '@syncfusion/ej2-react-schedule'
 
 /*

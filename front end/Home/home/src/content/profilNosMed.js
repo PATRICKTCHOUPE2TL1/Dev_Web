@@ -59,7 +59,7 @@ class ProfMed extends Component {
                         Civilite: value[0][1],
                         specialite: value[0][2],
                         Convention: value[0][3],
-                        DateNaiss: value[0][4],
+                        DateNaiss: value[0][23],
                         NumeroRue: value[0][5],
                         NumeroRue2: value[0][6],
                         cite: value[0][7],
@@ -154,34 +154,33 @@ class ProfMed extends Component {
         })
     }
     handleSubmit = event => {
-       console.log("success")
+        console.log("success")
     }
-    
+
     render() {
         return (
             <main>
-                <div class="container bootstrap snippet">
-                    
-                    <div class="row">
-                        
-                        <div class="col-sm-9">
-                            
+                <div className="container bootstrap snippet">
+
+                    <div className="row">
+
+                        <div className="col-sm-9">
 
 
-                            <div class="tab-content"></div>
+
+                            <div className="tab-content"></div>
                             <form id="profPatient" onSubmit={this.handleSubmit}>
-                                {console.log(this.state.userIdtMed)}
 
                                 <div className="item">
                                     <p>Profil</p>
 
-                                    <div class="city-item">
-                                        <input type="text" id="nom" name="name" placeholder="Nom" value={this.state.nom} required onChange={this.handleNomChange} disabled />
-                                        <input type="text" id="prenom" name="name" placeholder="Prenom" value={this.state.prenom} required onChange={this.handlePrenomChange} disabled />
+                                    <div className="city-item">
+                                        <input type="text" id="nom" name="name" placeholder="Nom" value={this.state.nom || ' '} required onChange={this.handleNomChange} disabled />
+                                        <input type="text" id="prenom" name="name" placeholder="Prenom" value={this.state.prenom || ' '} required onChange={this.handlePrenomChange} disabled />
 
 
                                         <select required onChange={this.handleCiviliteChange} value={this.state.Civilite} id="civilite" disabled>
-                                            <option value="" disabled selected>Gendre</option>
+
                                             <option value="Docteur">Docteur</option>
                                             <option value="Docteure">Docteure</option>
                                             <option value="Professeur">Professeur</option>
@@ -189,15 +188,15 @@ class ProfMed extends Component {
                                             <option value="Monsieur">Monsieur</option>
                                             <option value="Madame">Madame</option>
                                         </select>
-                                        <input type="date" name="bdate" required value={this.state.DateNaiss} onChange={this.handleDateNaissChange} readOnly />
-                                        <i class="fas fa-calendar-alt"></i>
+                                        <input type="date" name="bdate" required value={this.state.DateNaiss || ''} onChange={this.handleDateNaissChange} readOnly />
+                                        <i className="fas fa-calendar-alt"></i>
                                     </div>
                                 </div>
 
                                 <hr />
-                                <div class="city-item">
-                                    <select required onChange={this.handlespecialiteChange} value={this.state.specialite} id="specialite" disabled>
-                                        <option value="" disabled selected>Specialite</option>
+                                <div className="city-item">
+                                    <select required onChange={this.handlespecialiteChange} value={this.state.specialite || ''} id="specialite" disabled>
+
                                         <option value="Generaliste">Generaliste</option>
                                         <option value="Psychiatre">Psychiatre</option>
                                         <option value="Sage-femme">Sage-femme</option>
@@ -205,8 +204,8 @@ class ProfMed extends Component {
                                         <option value="Dentiste">Dentiste</option>
                                         <option value="Ophthamologiste">Ophthamologiste</option>
                                     </select>
-                                    <select required onChange={this.handleConventionChange} value={this.state.Convention} id="convention" disabled>
-                                        <option value="" disabled selected>Quelle Convention ?</option>
+                                    <select required onChange={this.handleConventionChange} value={this.state.Convention || ' '} id="convention" disabled>
+
                                         <option value="Generaliste Conventionné secteur 1">Generaliste Conventionné secteur 1</option>
                                         <option value="Generaliste Conventionné secteur 2">Generaliste Conventionné secteur 2</option>
                                         <option value="Conventionné Sage-femme">Conventionné Sage-femme</option>
@@ -221,13 +220,13 @@ class ProfMed extends Component {
 
                                 <div className="item">
                                     <p>Address</p>
-                                    <input type="text" name="name" placeholder="Numero de Rue" value={this.state.NumeroRue} required onChange={this.handleNumeroRueChange} readOnly />
-                                    <input type="text" name="name" placeholder="Numero de Rue  2" value={this.state.NumeroRue2} required onChange={this.handleNumeroRue2Change} readOnly />
-                                    <div class="city-item">
-                                        <input type="text" name="name" placeholder="Cite" value={this.state.cite} required onChange={this.handleciteChange} readOnly />
-                                        <input type="text" name="name" placeholder="Region" value={this.state.Region} required onChange={this.handleRegionChange} readOnly />
-                                        <input type="text" name="name" placeholder="Code Postal" value={this.state.codePostal} required onChange={this.handlecodePostalChange} readOnly />
-                                        <select required value={this.state.Pays} onChange={this.handlePaysChange} id="pays" disabled>
+                                    <input type="text" name="Rue" placeholder="Numero de Rue" value={this.state.NumeroRue || ''} required onChange={this.handleNumeroRueChange} readOnly />
+                                    <input type="text" name="Rue 2" placeholder="Numero de Rue  2" value={this.state.NumeroRue2 || ''} required onChange={this.handleNumeroRue2Change} readOnly />
+                                    <div className="city-item">
+                                        <input type="text" name="cite" placeholder="Cite" value={this.state.cite || ''} required onChange={this.handleciteChange} readOnly />
+                                        <input type="text" name="region" placeholder="Region" value={this.state.Region || ''} required onChange={this.handleRegionChange} readOnly />
+                                        <input type="number" name="codePostal" placeholder="Code Postal" value={this.state.codePostal || ''} required onChange={this.handlecodePostalChange} readOnly />
+                                        <select required value={this.state.Pays || ''} onChange={this.handlePaysChange} id="pays" disabled>
                                             <option value="">Pays de Residence</option>
                                             <option value="RoyaumeUnis">Royaume unis</option>
                                             <option value="Cameroun">Cameroun</option>
@@ -240,14 +239,14 @@ class ProfMed extends Component {
 
                                 <div className="item">
                                     <p>Phone</p>
-                                    <input type="text" name="phone" placeholder="### ### ####" value={this.state.Phone} onChange={this.handlePhoneChange} readOnly />
+                                    <input type="text" name="phone" placeholder="### ### ####" value={this.state.Phone || ''} onChange={this.handlePhoneChange} readOnly />
                                 </div>
                                 <hr />
 
 
                                 <div className="item">
                                     <p>A savoir sur vous</p>
-                                    <textarea rows="3" onChange={this.handleAutreChange} readOnly value={this.state.Autre}></textarea>
+                                    <textarea rows="3" onChange={this.handleAutreChange} readOnly value={this.state.Autre || ''}></textarea>
                                 </div>
                                 <div className="btn-block">
                                     <input type="submit" value="Enregistrer" id="save" style={{ display: 'none' }} />

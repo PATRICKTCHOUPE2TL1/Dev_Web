@@ -1,53 +1,30 @@
 import React, { Component } from 'react';
-
-import Discussion from './content/Discussion'
-import NosMedecin from './content/NosMedecins'
-import MesDonnees from './content/MesDonnees'
-import Entete from './componnents2/header'
-import
-{
-BrowserRouter as Router,
-Route,
-} from "react-router-dom";
-import Navbar from './componnents2/Navbar';
-import MonMedecin from './content/MonMedecin';
+import EntetePat from './componnents2/header'
+import NavBarPat from './componnents2/Navbar';
 import './PersonalSpace.css';
+import { withRouter} from "react-router-dom"
 
 
 class EspacePatient extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
         this.state = {
-            id : props.userId
+            id: props.userId
         }
     }
-    render(){
-return (
-<div>
+    render() {
+        return (
+            <div>
 
-<Entete />  
-<Router>
-<div className="App2">
-<Navbar />
+                <EntetePat />
+                
+                    <div className="App2">
+                        <NavBarPat />
+                         <p>Espace Patient</p>
 
-<Route exact path="/MonProfil">
-<NosMedecin />
-</Route>
-
-<Route path="/mesdonnées" userId = {this.props.user}>
-
-<MesDonnees userId ={this.state.id}/>
-</Route>
-
-<Route path="/monmedecin">
-<MonMedecin/>
-</Route>
-
-
-</div>
-</Router>}
-</div>
-)
+                    </div>
+            </div>
+        )
+    }
 }
-}
-export default EspacePatient;
+export default  withRouter(EspacePatient);

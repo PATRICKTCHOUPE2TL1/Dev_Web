@@ -13,9 +13,9 @@ function Footer() {
                     <div className="col-md-3 col-sm-6">
                             <br/><h4>Contact Us</h4>
                             <ul className="list-unstyled">
-                                <li><a href="#">Twitter</a></li>
-                                <li><a href="#">Facebook</a></li>
-                                <li><a href="#">Youtube</a></li>
+                                <li><a href="">Twitter</a></li>
+                                <li><a href="">Facebook</a></li>
+                                <li><a href="">Youtube</a></li>
                             </ul>
                     </div>
                     <div className="col-md-3 col-sm-6">
@@ -27,11 +27,11 @@ function Footer() {
                             </ul>
                     </div>
                     <div className="col-md-3 col-sm-6">
-                            <br/><h4><a href="#">Lorem ipsum</a></h4>
+                            <br/><h4><a href="">Lorem ipsum</a></h4>
                             <ul className="list-unstyled">
-                                <li><a href="#">Lorem</a></li>
-                                <li><a href="#">ipsum</a></li>
-                                <li><a href="#">picsum</a></li>
+                                <li><a href="">Lorem</a></li>
+                                <li><a href="">ipsum</a></li>
+                                <li><a href="">picsum</a></li>
                             </ul>
                     </div>
                 </div>

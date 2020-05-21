@@ -8,7 +8,7 @@ import { Link,Redirect } from "react-router-dom"
 
 
 
-class Entete  extends Component{
+class EntetePat  extends Component{
     constructor(props){
 
     super(props)
@@ -36,8 +36,8 @@ this.deconnecter = this.deconnecter.bind(this)
     render(){
     return (
         <header>
-        <nav class="navbar navbar-light" style={{backgroundColor: "#e3f2fd"}}>
-        <a class="navbar-brand" href="#">
+        <nav className="navbar navbar-light" style={{backgroundColor: "#e3f2fd"}}>
+        <a className="navbar-brand" href=" ">
            {/* <img src="/docs/4.4/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="" />*/}
             TakeCare
           </a>
@@ -48,4 +48,4 @@ this.deconnecter = this.deconnecter.bind(this)
     )
     }
 }
-export default withRouter(Entete)
+export default withRouter(EntetePat)

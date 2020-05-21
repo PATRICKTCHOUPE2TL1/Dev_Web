@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Navitem from './Navitem';
-class Navbar extends Component {
+class NavBarPat extends Component {
 constructor(props)
 {
 super(props);
@@ -21,12 +21,12 @@ render() {
 return (
 <nav id ="barnav">
 <ul>
-<Navitem item="Nos Medecins" tolink="/MonProfil"  activec={this.activeitem}></Navitem>
-<Navitem item="Mes données" tolink="/mesdonnées"  activec={this.activeitem}></Navitem>
-<Navitem item="Mon medecin" tolink="/monmedecin"  activec={this.activeitem}></Navitem>
+<Navitem item="Nos Medecins" tolink="/Patient/nosmedecin"  activec={this.activeitem}></Navitem>
+<Navitem item="Mes données" tolink="/Patient/mesdonnées"  activec={this.activeitem}></Navitem>
+<Navitem item="Mon medecin" tolink="/Patient/monmedecin"  activec={this.activeitem}></Navitem>
 </ul>
 </nav>
 )
 }
 }
-export default Navbar
+export default NavBarPat

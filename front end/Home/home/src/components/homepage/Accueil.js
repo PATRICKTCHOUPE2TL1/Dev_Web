@@ -3,8 +3,7 @@ import React, { Component} from 'react'
 import Navbar from "./Navbar"
 import Home from './Home'
 import Footer from './Footer'
-import { BrowserRouter, Route } from 'react-router-dom'
-import { Link } from "react-router-dom"
+
 
 
 

@@ -1,19 +1,15 @@
 import React, { Component } from 'react'
-import Navbar from './../components3/Navbar';
-import { storage } from './../firebase/firebase'
-
 import axios from 'axios'
-
-class MesDonnees extends Component {
+import './../content2/MesDonneesMed.css'
+import { storage } from './../firebase/firebase'
+class Pat extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            userIdtMed: props.userId,
+            userIdt: props.userId,
             Nom: " ",
             Prenom: " ",
-            specialite: '',
-            Convention: ' ',
-            Civilite: ' ',
+            Genre: ' ',
             DateNaiss: " ",
             NumeroRue: " ",
             NumeroRue2: " ",
@@ -22,29 +18,35 @@ class MesDonnees extends Component {
             codePostal: " ",
             Pays: " ",
             Phone: " ",
+            Poids: " ",
+            Taille: " ",
+            GroupeSanguin: " ",
+            allergies: " ",
+            autreAllergie: " ",
             Autre: " ",
             selectedFile: " ",
             imageUrl: " ",
-
 
         }
 
         this.handleNomChange = this.handleNomChange.bind(this);
         this.handlePrenomChange = this.handlePrenomChange.bind(this);
         this.handleAutreChange = this.handleAutreChange.bind(this)
-        this.handleCiviliteChange = this.handleCiviliteChange.bind(this)
+        this.handleGenreChange = this.handleGenreChange.bind(this)
+        this.handleGroupeSanguinChange = this.handleGroupeSanguinChange.bind(this)
         this.handleNumeroRue2Change = this.handleNumeroRue2Change.bind(this)
         this.handleNumeroRueChange = this.handleNumeroRueChange.bind(this)
         this.handlePaysChange = this.handlePaysChange.bind(this)
         this.handlePhoneChange = this.handlePhoneChange.bind(this)
+        this.handlePoidsChange = this.handlePoidsChange.bind(this)
         this.handleRegionChange = this.handleRegionChange.bind(this)
+        this.handleTailleChange = this.handleTailleChange.bind(this)
+        this.handleallergiesChange = this.handleallergiesChange.bind(this)
         this.handleciteChange = this.handleciteChange.bind(this)
         this.handlecodePostalChange = this.handlecodePostalChange.bind(this)
         this.handleDateNaissChange = this.handleDateNaissChange.bind(this)
-        this.handlespecialiteChange = this.handlespecialiteChange.bind(this)
-        this.handleConventionChange = this.handleConventionChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
-        this.editerForm = this.editerForm.bind(this)
+        this.handleautreAllergieChange = this.handleautreAllergieChange.bind(this)
         this.handleUpload = this.handleUpload.bind(this)
         this.handlePorfile = this.handlePorfile.bind(this)
 
@@ -52,38 +54,37 @@ class MesDonnees extends Component {
     }
 
     componentDidMount() {
-        console.log(this.state.userIdtMed)
         axios
-            .get('http://127.0.0.1:5000/fetchMed')
+            .post('http://127.0.0.1:5000/fetchPatCons',this.state)
             .then(response => {
+                console.log(response)
                 let value = response.data
-                console.log("verif")
-                console.log(value)
-
 
                 this.setState(
                     {
-                        Civilite: value[0][1],
-                        specialite: value[0][2],
-                        Convention: value[0][3],
-                        DateNaiss: value[0][4],
-                        NumeroRue: value[0][5],
-                        NumeroRue2: value[0][6],
-                        cite: value[0][7],
-                        Region: value[0][8],
-                        codePostal: value[0][9],
-                        Pays: value[0][10],
-                        Phone: value[0][11],
-                        Autre: value[0][12],
-                        nom: value[0][18],
-                        prenom: value[0][19],
-                        imageUrl:value[0][15]
+                        Genre: value[0][1],
+                        DateNaiss: value[0][2],
+                        NumeroRue: value[0][3],
+                        NumeroRue2: value[0][4],
+                        cite: value[0][5],
+                        Region: value[0][6],
+                        codePostal: value[0][7],
+                        Pays: value[0][8],
+                        Phone: value[0][9],
+                        Poids: value[0][10],
+                        Taille: value[0][11],
+                        GroupeSanguin: value[0][12],
+                        allergies: value[0][13],
+                        autreAllergie: value[0][14],
+                        Autre: value[0][15],
+                        nom: value[0][19],
+                        prenom: value[0][20],
+                        imageUrl:value[0][16]
                     })
             })
             .catch(erreur => {
                 console.log(erreur)
             })
-
 
     }
 
@@ -102,21 +103,14 @@ class MesDonnees extends Component {
             DateNaiss: event.target.value
         })
     }
-
-    handleCiviliteChange = event => {
+    handleautreAllergieChange = event => {
+        this.setState({
+            autreAllergie: event.target.value
+        })
+    }
+    handleGenreChange = event => {
         this.setState({
             Genre: event.target.value
-        })
-    }
-
-    handlespecialiteChange = event => {
-        this.setState({
-            specialite: event.target.value
-        })
-    }
-    handleConventionChange = event => {
-        this.setState({
-            Convention: event.target.value
         })
     }
     handleNumeroRueChange = event => {
@@ -154,8 +148,39 @@ class MesDonnees extends Component {
             Phone: event.target.value
         })
     }
+    handlePoidsChange = event => {
+        this.setState({
+            Poids: event.target.value
+        })
+    }
+    handleTailleChange = event => {
+        this.setState({
+            Taille: event.target.value
+        })
+    }
+    handleGroupeSanguinChange = event => {
+        this.setState({
+            GroupeSanguin: event.target.value
+        })
+    }
+    handleallergiesChange = event => {
+        this.setState({
+            allergies: event.target.value
+        })
+        
+        if (event.target.value === "Oui") {
+            document.getElementById("autreAlleg").style.display = "block"
 
+        } else if (event.target.value === "Non") {
 
+            document.getElementById("autreAlleg").style.display = 'none'
+
+            
+
+        } else {
+            console.log("erreur")
+        }
+    }
     handleAutreChange = event => {
         this.setState({
             Autre: event.target.value
@@ -165,7 +190,7 @@ class MesDonnees extends Component {
         event.preventDefault();
         console.log(this.state)
         axios
-            .post('http://127.0.0.1:5000/savedataMed', this.state)
+            .post('http://127.0.0.1:5000/savedata', this.state)
             .then(reponse => {
                 console.log(reponse)
             })
@@ -179,27 +204,20 @@ class MesDonnees extends Component {
             elements[i].readOnly = true;
         }
         document.getElementById('save').style.display = 'none';
-        document.getElementById('civilite').disabled = true
+        document.getElementById('genre').disabled = true
         document.getElementById('pays').disabled = true
+        document.getElementById('bloodGrp').disabled = true
+        document.getElementById('radio_1').disabled = true
+        document.getElementById('radio_2').disabled = true
         document.getElementById('modifier').style.display = 'block'
 
     }
-    editerForm = () => {
-        let form = document.getElementById("profPatient");
-        let elements = form.elements;
-        for (let i = 0, len = elements.length; i < len; ++i) {
-            elements[i].readOnly = false;
-        }
-        document.getElementById('save').style.display = 'block';
-        document.getElementById('civilite').disabled = false
-        document.getElementById('pays').disabled = false
-        document.getElementById('specialite').disabled = false
-        document.getElementById('convention').disabled = false
-
-        document.getElementById('modifier').style.display = 'none'
-        document.getElementById('slctImg').style.display ='block'
-        document.getElementById('upldImg').style.display ='block'
-
+   
+    handlePorfile = (e) => {
+        console.log(e.target.files[0])
+        this.setState({
+            selectedFile: e.target.files[0]
+        })
 
 
     }
@@ -221,18 +239,11 @@ class MesDonnees extends Component {
 
         })
     }
-    handlePorfile = (e) => {
-        console.log(e.target.files[0])
-        this.setState({
-            selectedFile: e.target.files[0]
-        })
 
-
-    }
     render() {
         return (
-            <main>
-                <div class="container bootstrap snippet">
+
+            <div class="container bootstrap snippet">
                 
                 <div class="row">
                     <div class="col-sm-3">
@@ -275,10 +286,10 @@ class MesDonnees extends Component {
                         </ul>*/}
 
 
-                            
-                              <form id="profPatient" onSubmit={this.handleSubmit}>
-                                {console.log('tessssssssssssssssssssssst')}
-                                {console.log(this.state.userIdtMed)}
+                        <div class="tab-content">
+
+
+                            <form id="profPatient" onSubmit={this.handleSubmit}>
 
                                 <div className="item">
                                     <p>Profil</p>
@@ -288,45 +299,18 @@ class MesDonnees extends Component {
                                         <input type="text" id="prenom" name="name" placeholder="Prenom" value={this.state.prenom} required onChange={this.handlePrenomChange} disabled />
 
 
-                                        <select required onChange={this.handleCiviliteChange} value={this.state.Civilite} id="civilite" disabled>
-                                            <option value="" disabled selected>Gendre</option>
-                                            <option value="Docteur">Docteur</option>
-                                            <option value="Docteure">Docteure</option>
-                                            <option value="Professeur">Professeur</option>
-                                            <option value="Professeure">Professeure</option>
-                                            <option value="Monsieur">Monsieur</option>
-                                            <option value="Madame">Madame</option>
+                                        <select required onChange={this.handleGenreChange} value={this.state.Genre} id="genre" disabled>
+                                            <option value="" disabled selected>Genre</option>
+                                            <option value="Masculin">Masculin</option>
+                                            <option value="Feminin">Feminin</option>
+                                            <option value="Autre">Autre</option>
                                         </select>
-                                        <input type="date" name="bdate" required value={this.state.DateNaiss} onChange={this.handleDateNaissChange} readOnly />
+                                        <input type="date" name="bdate" value={this.state.DateNaiss} onChange={this.handleDateNaissChange} readOnly />
                                         <i class="fas fa-calendar-alt"></i>
                                     </div>
                                 </div>
 
                                 <hr />
-                                <div class="city-item">
-                                    <select required onChange={this.handlespecialiteChange} value={this.state.specialite} id="specialite" disabled>
-                                        <option value="" disabled selected>Specialite</option>
-                                        <option value="Generaliste">Generaliste</option>
-                                        <option value="Psychiatre">Psychiatre</option>
-                                        <option value="Sage-femme">Sage-femme</option>
-                                        <option value="Dermatologue">Dermatologue</option>
-                                        <option value="Dentiste">Dentiste</option>
-                                        <option value="Ophthamologiste">Ophthamologiste</option>
-                                    </select>
-                                    <select required onChange={this.handleConventionChange} value={this.state.Convention} id="convention" disabled>
-                                        <option value="" disabled selected>Quelle Convention ?</option>
-                                        <option value="Generaliste Conventionné secteur 1">Generaliste Conventionné secteur 1</option>
-                                        <option value="Generaliste Conventionné secteur 2">Generaliste Conventionné secteur 2</option>
-                                        <option value="Conventionné Sage-femme">Conventionné Sage-femme</option>
-                                        <option value="Specialiste Conventionné secteur 1">Specialiste Conventionné secteur 1</option>
-                                        <option value="Generaliste Conventionné secteur 2">Generaliste Conventionné secteur 2</option>
-                                        <option value="Conventionné Secteur 3">Conventionné Secteur 3</option>
-                                        <option value="Non Conventionné">Non Conventionné</option>
-                                    </select>
-                                </div>
-                                <hr />
-
-
                                 <div className="item">
                                     <p>Address</p>
                                     <input type="text" name="name" placeholder="Numero de Rue" value={this.state.NumeroRue} required onChange={this.handleNumeroRueChange} readOnly />
@@ -351,27 +335,69 @@ class MesDonnees extends Component {
                                     <input type="text" name="phone" placeholder="### ### ####" value={this.state.Phone} onChange={this.handlePhoneChange} readOnly />
                                 </div>
                                 <hr />
+                                <p>Carnet Medical</p>
+                                <div className="item">
+                                    <p>Poids</p>
+                                    <div className="city-item">
+                                        <input type="text" name="poids" placeholder="Poids" value={this.state.Poids} onChange={this.handlePoidsChange} readOnly />
+                                        <input type="text" name="taille" placeholder="Taille" value={this.state.Taille} onChange={this.handleTailleChange} readOnly />
+                                        <select required id="bloodGrp" value={this.state.GroupeSanguin} onChange={this.handleGroupeSanguinChange} disabled>
+                                            <option value=" " disabled selected>Groupe Sanguin</option>
+                                            <option value="AB+">AB+</option>
+                                            <option value="AB-">AB-</option>
+                                            <option value="A+">A+</option>
+                                            <option value="A-">A-</option>
+                                            <option value="B+">B+</option>
+                                            <option value="B-">B-</option>
+                                            <option value="O+">O+</option>
+                                            <option value="O-">O-</option>
 
+
+
+
+
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="question">
+                                    <p>Avez vous des allergies ?</p>
+                                    <div class="question-answer">
+                                        <div>
+                                            <input type="radio" value="Oui" id="radio_1" name="allergie" onChange={this.handleallergiesChange} disabled />
+                                            <label for="radio_1" class="radio"><span>oui</span></label>
+
+                                            <input type="radio" value="Non" id="radio_2" name="allergie" onChange={this.handleallergiesChange} disabled />
+                                            <label for="radio_2" class="radio"><span>Non</span></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="item" style={{ display: "none" }} id="autreAlleg">
+                                    <p>A quoi etes vous allergique?</p>
+                                    <div className="city-item">
+                                        <input type="text" onChange={this.handleallergiesChange} value={this.state.autreAllergie} readOnly />
+                                    </div>
+                                </div>
 
                                 <div className="item">
                                     <p>A savoir sur vous</p>
                                     <textarea rows="3" onChange={this.handleAutreChange} readOnly value={this.state.Autre}></textarea>
                                 </div>
                                 <div className="btn-block">
-                                    <button type="button" id="modifier" onClick={this.editerForm} >Modifier</button>
+                                    <button type="button" id="modifier"  >retour</button>
                                     <input type="submit" value="Enregistrer" id="save" style={{ display: 'none' }} />
-
                                 </div>
 
                             </form>
+
                         </div>
                     </div>
 
                 </div>
-            </main>
+            </div>
 
         )
     }
 }
 
-export default MesDonnees
+export default Pat

@@ -16,7 +16,8 @@ class MonMedecin extends Component {
 			MedInfos: " ",
 			renderProfil: false,
 			renderDiscuss: false,
-			uerSessionName: "  "
+			uerSessionName: "  ",
+			MedEnAttentent : " "
 		}
 		this.handleMessage = this.handleMessage.bind(this)
 		this.handleProfil = this.handleProfil.bind(this)
@@ -27,10 +28,16 @@ class MonMedecin extends Component {
 		axios
 			.get('http://127.0.0.1:5000/getConsMed')
 			.then(response => {
+				if(response.data ==="attente"){
+						this.setState({
+							MedEnAttentent : "yes"
+						})
+				}else{
 				
 				this.setState({
 					MedInfos: response.data[0]
 				})
+				console.log(this.state.MedInfos)
 				axios
 				.get('http://127.0.0.1:5000/getSession')
 				.then(response => {
@@ -45,6 +52,7 @@ class MonMedecin extends Component {
 				.catch(erreur => {
 					console.log(erreur)
 				})
+			}
 
 			})
 			.catch(erreur => {
@@ -84,17 +92,19 @@ class MonMedecin extends Component {
 		const renderComp = () => {
 
 			if (this.state.renderProfil === true) {
-				return <ProfMed userId={this.state.MedInfos[15]} />
+				return <ProfMed userId={this.state.MedInfos[17]} />
 			} else if (this.state.renderDiscuss === true) {
-				return <p><Discussion email={this.state.MedInfos[19]} userEmail ={this.state.uerSessionName} /></p>
+				return <p><Discussion email={this.state.MedInfos[20]} userEmail ={this.state.uerSessionName} /></p>
 			} else {
 				return <p>Notification</p>
 			}
 		}
 
-		return (
-			<div>
-				<div class="container">
+		const renderComponent = () =>{
+			if(this.state.MedEnAttentent ==="yes"){
+				return(<p>Medecin En attente</p>)
+			}else {
+				return(<div className="container">
 					<div className="row profile">
 						<div className="col-md-3">
 							<div className="profile-sidebar">
@@ -102,14 +112,14 @@ class MonMedecin extends Component {
 
 								<div className="profile-usertitle">
 									<div className="profile-usertitle-name">
-										{this.state.MedInfos[17] + ' ' + this.state.MedInfos[18]}<span class="fa fa-envelope small pull-right"> </span>
+										{this.state.MedInfos[18] + ' ' + this.state.MedInfos[19]}<span className="fa fa-envelope small pull-right"> </span>
 									</div>
 									<div className="profile-usertitle-job">
 										{this.state.MedInfos[2]}
 									</div>
 								</div>
-								<div class="text-center">
-									<img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar" />
+								<div className="text-center">
+									<img src={this.state.MedInfos[15] || "http://ssl.gstatic.com/accounts/ui/avatar_2x.png"} className="avatar img-circle img-thumbnail" alt="avatar" />
 								</div>
 								<div className="profile-userbuttons">
 									<button type="button" id="follow" onClick={() => { this.handleProfil() }}>Profil</button>
@@ -139,7 +149,14 @@ class MonMedecin extends Component {
 							</div>
 						</div>
 					</div>
-				</div>
+				</div>)
+			}
+		}
+
+		return (
+			<div>
+				
+				{renderComponent()}
 				<center>
 				</center>
 				<br />

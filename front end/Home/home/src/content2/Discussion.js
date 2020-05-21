@@ -8,15 +8,12 @@ class Discussion extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      messages: [""],
+      messages: ["Hello and Welcome"],
       message: "",
       name: props.email,
-      sender: props.userEmail,
-      color: " "
+      sender : props.userEmail
     };
-    this.handleStyle = this.handleStyle.bind(this)
   }
-
   componentDidMount = () => {
     { this.handleStyle() }
 
