@@ -46,9 +46,13 @@ class ProfMed extends Component {
 
     componentDidMount() {
         console.log(this.state.userIdtMed)
+
+        let date = 'date_format(dateNaiss, "%Y-%m-%d")'
+
         axios
-            .post('http://127.0.0.1:5000/profilMed', this.state)
-            .then(response => {
+        .get('http://127.0.0.1:5000/medecin/utilisateur/' + date + '/search?args1=utilisateur.userId&args2=' + this.state.userIdtMed + '&args3=medecin.userId&args4=' + this.state.userIdtMed)
+
+        .then(response => {
                 let value = response.data
                 console.log("verif")
                 console.log(value)

@@ -7,6 +7,8 @@ import { Link,Redirect } from "react-router-dom"
 import axios from 'axios'
 import EspacePatient from './../../EspacePatient'
 import io from "socket.io-client";
+import ls from 'local-storage'
+
 
 
 class Login extends Component {
@@ -42,17 +44,21 @@ class Login extends Component {
         axios
              .post('http://127.0.0.1:5000/login', this.state,)
              .then(reponse =>{
+                 ls.set('userId', reponse.data[1])
                  console.log(reponse)
-                if(reponse.data[0][0]==="patient"){
+                 console.log(reponse.data)
+                if(reponse.data[0]==="patient"){
 
                     this.props.history.push('/Patient');
-                  }else if(reponse.data[0][0]==="medecin"){
+                  }else if(reponse.data[0]==="medecin"){
 
                     this.props.history.push('/Medecin');
 
                   }else {
 
                       console.log(reponse.data[0][0])
+                      console.log("something went wrong")
+                      document.getElementById("error").innerHTML ="<p>une erreur c'est produit</p>"
                   }
                  
              })
@@ -86,6 +92,8 @@ class Login extends Component {
                         <Link to ='/signin'><a href="#" className="lglk">Créer un compte ?</a></Link><br></br>
 
                         <input type="submit" className="login" value="Se connecter"></input>
+                        <div id ="error"></div>
+
                     </form>
             </div>
         </div>

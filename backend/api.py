@@ -99,6 +99,27 @@ def getValue(table,parm):
     finally:
         cur2.close()
 
+@app.route('/<table1>/<table2>/<parm1>/search')
+def listMed(table1,table2,parm1) :
+    args1 = request.args['args1']
+    args2 = request.args['args2']
+    args3 = request.args['args3']
+    args4 = request.args['args4']
+    value = "'%s'" %args2
+    value2 = "'%s'" %args4
+    try:
+        query2 = "select *,{} from {} join {} where {} = {} and {} ={}".format(parm1,table1,table2,args1,value,args3,value2)
+        cur2 = mysql.connection.cursor()
+        cur2.execute(query2)
+        resultValue = cur2.fetchall()
+        resp = jsonify(resultValue)
+        resp.status_code=200
+        return resp
+    except Exception as e:
+        print(e)
+    finally:
+        cur2.close()
+
 
 
 @app.errorhandler(404)
@@ -114,4 +135,4 @@ def not_found(error=None):
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=6000)
+    app.run(debug=True, port=5000)

@@ -34,7 +34,7 @@ class Main extends Component {
     this.state = {
       isLogIn: true,
       id: " ",
-      statut: " "
+      status: " "
     }
     this.profil = this.profil.bind(this)
   }
@@ -44,7 +44,6 @@ class Main extends Component {
     axios
       .post('http://127.0.0.1:5000/profil', this.state)
       .then(reponse => {
-        console.log(reponse)
         if (reponse.data === "notIn") {
           this.setState({
             isLogIn: false,
@@ -56,9 +55,7 @@ class Main extends Component {
             id: reponse.data[0],
             status: reponse.data[1]
           })
-          console.log("i am here")
-          console.log(reponse)
-          console.log(this.state.id)
+         
         }
 
       })
@@ -67,24 +64,27 @@ class Main extends Component {
       })
   }
   componentDidMount() {
+
     { this.profil() }
   }
   render() {
     
     return (
+      
 
       <main>
+        
 
         <Switch>
           <Route exact path='/' component={Accueil} />
           <Route exact path='/signin' component={Signin} />
           <Route exact path='/Login' component={Login} />
-          {this.state.isLogIn ? (<Route exact path='/Patient' render={(props) => <EspacePatient userId={this.state.id} />} />) : (<Redirect to='/Login' />)}
+          {this.state.isLogIn  ? (<Route exact path='/Patient' render={(props) => <EspacePatient userId={this.state.id} />} />) : (<Redirect to='/Login' />)}
           {this.state.isLogIn ? (<Route exact path='/Medecin' render={(props) => <Fragment> <Medecin userId={this.state.id} /></Fragment>} />) : (<Redirect to='/Login' />)}
 
-          <Route exact path='/Patient/mesdonnées' render={() => <Fragment><EntetePat /> <NavBarPat /><DonneesPatient /></Fragment>} />
-          <Route exact path='/Patient/nosmedecin' render={() => <Fragment><EntetePat /> <NavBarPat /><NosMedecin /></Fragment>} />
-          <Route exact path='/Patient/monmedecin' render={() => <Fragment><EntetePat /> <NavBarPat /><MonMedecin /></Fragment>} />
+          <Route exact path='/Patient/mesdonnées' render={(props) => <Fragment><EntetePat /> <NavBarPat /><DonneesPatient  {...props} userId={this.state.id}/></Fragment>} />
+          <Route exact path='/Patient/nosmedecin' render={() => <Fragment><EntetePat /> <NavBarPat /><NosMedecin  userId={this.state.id}/></Fragment>} />
+          <Route exact path='/Patient/monmedecin' render={() => <Fragment><EntetePat /> <NavBarPat /><MonMedecin  userId={this.state.id}/></Fragment>} />
 
           <Route path="/Medecin/Profile" userId={this.props.user}>
             <Fragment>

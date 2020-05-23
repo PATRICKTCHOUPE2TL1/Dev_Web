@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import Navbar from './../components3/Navbar';
 import { storage } from './../firebase/firebase'
+import ls from 'local-storage'
+
 
 import axios from 'axios'
 
@@ -52,10 +54,22 @@ class MesDonnees extends Component {
     }
 
     componentDidMount() {
+        let idMed = 0
+        try {
+            idMed = ls.get("userId")
+            this.setState({
+                userIdt: idMed
+            })
+        } catch (error) {
+            console.log(error)
+        }
+
+        let date = 'date_format(dateNaiss, "%Y-%m-%d")'
+
         console.log(this.state.userIdtMed)
         axios
-            .get('http://127.0.0.1:5000/fetchMed')
-            .then(response => {
+        .get('http://127.0.0.1:5000/medecin/utilisateur/' + date + '/search?args1=utilisateur.userId&args2=' + idMed + '&args3=medecin.userId&args4=' + idMed)
+        .then(response => {
                 let value = response.data
                 console.log("verif")
                 console.log(value)

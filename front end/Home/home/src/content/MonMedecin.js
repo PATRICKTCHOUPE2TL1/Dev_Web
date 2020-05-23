@@ -4,6 +4,7 @@ import axios from 'axios'
 import ProfMed from './profilNosMed'
 import Discussion from './Discussion'
 import io from "socket.io-client";
+import ls from "local-storage"
 
 
 
@@ -13,6 +14,7 @@ class MonMedecin extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
+			userId : ls.get("userId"),
 			MedInfos: " ",
 			renderProfil: false,
 			renderDiscuss: false,
@@ -26,7 +28,7 @@ class MonMedecin extends Component {
 	componentDidMount() {
 			
 		axios
-			.get('http://127.0.0.1:5000/getConsMed')
+			.post('http://127.0.0.1:5000/getConsMed',this.state)
 			.then(response => {
 				if(response.data ==="attente"){
 						this.setState({

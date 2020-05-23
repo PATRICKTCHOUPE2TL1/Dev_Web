@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import './../content2/MesDonneesMed.css'
 import { storage } from './../firebase/firebase'
+import ls from 'local-storage'
 class DonneesPatient extends Component {
     constructor(props) {
         super(props)
@@ -26,6 +27,7 @@ class DonneesPatient extends Component {
             Autre: "Autre",
             selectedFile: " ",
             imageUrl: " ",
+            loaded : true,
 
         }
 
@@ -55,8 +57,26 @@ class DonneesPatient extends Component {
     }
 
     componentDidMount() {
+        let idPat =0
+        try {
+             idPat =ls.get("userId")
+            console.log("test local storage")
+            console.log(idPat)
+            this.setState({
+                userIdt : idPat
+            })
+        } catch (error) {
+            console.log(error)
+        }
+        console.log("test3")
+        console.log(idPat)
+        console.log('---------test did mount -----')
+        console.log(this.state.userIdt)
+
+        let date ='date_format(dateNaiss, "%Y-%m-%d")'
+
         axios
-            .get('http://127.0.0.1:5000/fetchPatient')
+            .get('http://127.0.0.1:5000/patient/utilisateur/'+date+'/search?args1=utilisateur.userId&args2='+idPat+'&args3=patient.userId&args4='+idPat)
             .then(response => {
                 let value = response.data
 
@@ -256,8 +276,9 @@ class DonneesPatient extends Component {
     render() {
         return (
 
-            <div className="container bootstrap snippet">
-
+         <div className="container bootstrap snippet">
+             {console.log("test id-------------")}
+{console.log(this.state.userIdt)}
 
                 <div className="row">
                     <div className="col-sm-3">

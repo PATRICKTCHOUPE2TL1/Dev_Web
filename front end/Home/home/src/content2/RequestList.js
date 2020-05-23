@@ -1,6 +1,7 @@
 import React,{Component} from "react"
 import ProfilPat from './ProfPat'
 import axios from 'axios'
+import ls from "local-storage"
 
 
 
@@ -10,6 +11,7 @@ class DemandeAss extends Component{
   constructor(props){
     super(props)
     this.state = {
+      id : ls.get("userId"),
       db : ' ',
       callBack : ' ',
       loaded : " ",

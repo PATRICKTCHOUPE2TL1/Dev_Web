@@ -22,7 +22,7 @@ class NosMedecin extends Component {
 
   componentDidMount() {
     axios
-      .post('http://127.0.0.1:5000/get_Med', this.state)
+      .get('http://127.0.0.1:5000/get_MedList')
       .then(response => {
         this.setState({
           db: response.data,
