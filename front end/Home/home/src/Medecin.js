@@ -1,6 +1,11 @@
 import React , {Component} from 'react';
 import Entete from './components3/header'
-import {BrowserRouter as Router,Switch,Route,} from "react-router-dom";
+
+import
+{
+BrowserRouter as Router,
+Route,
+} from "react-router-dom";
 import Navbar from './components3/Navbar';
 import './Medecin.css'
 

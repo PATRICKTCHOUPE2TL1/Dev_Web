@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import { withRouter} from 'react-router-dom'
 import axios from 'axios'
+import { Link,Redirect } from "react-router-dom"
+
+
+
 
 class EnteteMed  extends Component{
     constructor(props){

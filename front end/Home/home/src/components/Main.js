@@ -17,6 +17,7 @@ import NosMedecin from './../content/NosMedecins'
 import MonMedecin from './../content/MonMedecin'
 import NavbarMed from  './../components3/Navbar'
 
+
 import MesPatient from './../content2/MesPatient';
 
 

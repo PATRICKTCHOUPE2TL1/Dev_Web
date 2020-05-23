@@ -10,6 +10,7 @@ import EspacePatient from "../../EspacePatient"
 
 
 class SignIn extends Component {
+
     constructor(props){
 
         super(props);
@@ -74,7 +75,7 @@ class SignIn extends Component {
             this.getId('msg').style.display = 'block' 
             this.getId('msg').innerText  += "Adresse e-mail non valide\r"
             this.getId('email').focus()
-            return false;
+
         }
         if(mdp != "" && mdp == confmdp) {
             console.log("0")
@@ -115,7 +116,6 @@ class SignIn extends Component {
               return false;
             }
           } else {
-            this.getId('msg').style.display = 'block'  
             this.getId('msg').innerText  += "les mots de passe doivent etre identique\r"
 
             console.log("5")
@@ -140,9 +140,8 @@ class SignIn extends Component {
              })
              .catch(erreur =>{
                  console.log(erreur)
-             })  
-            }
-    };
+             })
+    }
     getId = id=>{
         return document.getElementById(id);
     }
