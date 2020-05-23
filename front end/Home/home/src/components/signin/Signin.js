@@ -142,6 +142,7 @@ class SignIn extends Component {
                  console.log(erreur)
              })
     }
+}
     getId = id=>{
         return document.getElementById(id);
     }
