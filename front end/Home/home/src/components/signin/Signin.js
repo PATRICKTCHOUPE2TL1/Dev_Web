@@ -3,6 +3,8 @@ import './SignIn.css'
 import Avatar2 from "../../image/Avatar2.png"
 import { Link, Redirect } from "react-router-dom"
 import axios from 'axios'
+import {FaRegIdCard} from "react-icons/fa";
+import infis from "../../image/infis.svg"
 import EspacePatient from "../../EspacePatient"
 
 
@@ -69,13 +71,8 @@ class SignIn extends Component {
         let reg = /@/;
         let reg2 =/.com/;
         if((!reg.test(eml)||(!reg2.test(eml)))){
-<<<<<<< HEAD
-
-            this.getId('msg').innerText  = "Address Email non valide\r"
-=======
             this.getId('msg').style.display = 'block' 
             this.getId('msg').innerText  += "Adresse e-mail non valide\r"
->>>>>>> f67313fc34587786cc01f99abe77cdf067f0f425
             this.getId('email').focus()
             return false;
         }
@@ -83,12 +80,8 @@ class SignIn extends Component {
             console.log("0")
 
             if(mdp < 6) {
-<<<<<<< HEAD
-                this.getId('msg').innerText += "mot de passe dois contenir au moins 6 character\r"
-=======
                 this.getId('msg').style.display = 'block' 
                 this.getId('msg').innerText += "mot de passe doit contenir au moins 6 character\r"
->>>>>>> f67313fc34587786cc01f99abe77cdf067f0f425
                 console.log("1")
 
               return false
@@ -96,12 +89,8 @@ class SignIn extends Component {
             }
              let re = /[0-9]/;
             if(!re.test(mdp)) {
-<<<<<<< HEAD
-                this.getId('msg').innerText += "mot de passe dois contenir au moins un chiffre\r"
-=======
                 this.getId('msg').style.display = 'block' 
                 this.getId('msg').innerText += "mot de passe doit contenir au moins un chiffre\r"
->>>>>>> f67313fc34587786cc01f99abe77cdf067f0f425
 
                 console.log("2")
 
@@ -109,12 +98,8 @@ class SignIn extends Component {
             }
             re = /[a-z]/;
             if(!re.test(mdp)) {
-<<<<<<< HEAD
-                this.getId('msg').innerText  += "mot de passe dois contenir au moins une lettre en miniscule\r"
-=======
                 this.getId('msg').style.display = 'block' 
                 this.getId('msg').innerText  += "mot de passe doit contenir au moins une lettre en miniscule\r"
->>>>>>> f67313fc34587786cc01f99abe77cdf067f0f425
 
                 console.log("3")
 
@@ -122,12 +107,8 @@ class SignIn extends Component {
             }
             re = /[A-Z]/;
             if(!re.test(mdp)) {
-<<<<<<< HEAD
-                this.getId('msg').innerText  += "mot de passe dois contenir au moins une lettre en majiscule \r"
-=======
                 this.getId('msg').style.display = 'block' 
                 this.getId('msg').innerText  += "mot de passe doit contenir au moins une lettre en majuscule \r"
->>>>>>> f67313fc34587786cc01f99abe77cdf067f0f425
 
                 console.log("4")
 
@@ -147,15 +128,8 @@ class SignIn extends Component {
     handleSubmit = event =>{ 
  
         event.preventDefault();
-<<<<<<< HEAD
-      /* if(this.chkPassword() == false){
-            
-            this.getId('msg').style.display = "block";
-            
-=======
       if(this.chkPassword() == false){
           /* Action si pas de mail valide ou mot de passe non correspondants*/
->>>>>>> f67313fc34587786cc01f99abe77cdf067f0f425
             this.getId('password').focus()
         }else{
             console.log(true)
@@ -186,60 +160,8 @@ class SignIn extends Component {
     render() {
         
         return (
-<<<<<<< HEAD
-            <main>
-            
-            <form  className="formSign" onSubmit={this.handleSubmit} >
-                <fieldset>
-            <img src ={Avatar2} alt ="loginimage" className="avatar"/>
-              
-            <div>
-                <legend className="signup">Créer un Compte</legend>
-            </div>
-            <div id="ident">
-               
-                <input type ="text" id = 'nom' placeholder= "Nom *"   onChange={this.handleNomChange} className="nom"/>
-          
-                <input type ="text" id ='prenom' placeholder= "Prenom * "   onChange={this.handlePrenomChange} className="prenom"/>
-            </div>
-            <div>
-               
-                <input type ="text" id='email' placeholder= "Adresse Email *"   onChange={this.handleEmailChange} className="email2"/>
-            </div>
-            <div>
-                
-                <input type ="password" id="password" placeholder= "Mot de passe *" onChange={this.handlePasswordChange} className ="password"/>
-            
-                <input type ="password" id="confpassword" placeholder= "Confirmer mot de passe *"  className="confmtp"/>
-            </div>
-            <div className="sts">
-            <span className="status">vous etes :</span>
-
-            <label  id = "medecin" for="medecin">medecin</label>
-            <input type="radio" id="medecin2" name="status" value="medecin" onChange={this.handleStatusMedecin}/>
-            
-
-            <label  id = "patient" for="patient">patient</label>
-
-            <input type="radio" id="patient2" name="status" value="patient"  onChange = {this.handleStatusPatient}/>
-            </div>
-            
-            <div className="valider1" >
-                <input type="submit"  id="mySubmit" value ="Valider" className="creer"/>
-            </div>
-            <hr className="ligne"></hr>
-           
-            <div>
-                <textarea id ="msg" className="signlog" >
-
-                </textarea>
-            </div>
-            </fieldset>
-             </form>
-             </main>
-=======
             <div className="containers">
-                     <div className="img">
+                     <div className="img1">
                         <img src={infis} alt="infirmiéres"></img>
                     </div>
              <div className="signup-container">
@@ -298,7 +220,6 @@ class SignIn extends Component {
               </form>
              </div>
           </div>
->>>>>>> f67313fc34587786cc01f99abe77cdf067f0f425
         )
 
     }

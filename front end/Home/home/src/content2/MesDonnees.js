@@ -23,11 +23,8 @@ class MesDonnees extends Component {
             Pays: " ",
             Phone: " ",
             Autre: " ",
-<<<<<<< HEAD
             selectedFile: " ",
             imageUrl: " ",
-=======
->>>>>>> f67313fc34587786cc01f99abe77cdf067f0f425
 
 
         }
@@ -78,16 +75,14 @@ class MesDonnees extends Component {
                         Pays: value[0][10],
                         Phone: value[0][11],
                         Autre: value[0][12],
-                        nom: value[0][18],
-                        prenom: value[0][19],
+                        nom: value[0][17],
+                        prenom: value[0][18],
                         imageUrl:value[0][15]
                     })
             })
             .catch(erreur => {
                 console.log(erreur)
             })
-
-
     }
 
     handleNomChange = event => {
@@ -139,7 +134,7 @@ class MesDonnees extends Component {
     }
     handleRegionChange = event => {
         this.setState({
-            Prenom: event.target.value
+            Region: event.target.value
         })
     }
     handlecodePostalChange = event => {
@@ -185,8 +180,6 @@ class MesDonnees extends Component {
         document.getElementById('civilite').disabled = true
         document.getElementById('pays').disabled = true
         document.getElementById('modifier').style.display = 'block'
-        document.getElementById('img-div').style.display = 'block'
-        document.getElementById('form-div').style.display = 'none'
 
     }
     editerForm = () => {
@@ -202,13 +195,8 @@ class MesDonnees extends Component {
         document.getElementById('convention').disabled = false
 
         document.getElementById('modifier').style.display = 'none'
-<<<<<<< HEAD
         document.getElementById('slctImg').style.display ='block'
         document.getElementById('upldImg').style.display ='block'
-=======
-        document.getElementById('img-div').style.display = 'none'
-        document.getElementById('form-div').style.display = 'block'
->>>>>>> f67313fc34587786cc01f99abe77cdf067f0f425
 
 
 
@@ -241,82 +229,53 @@ class MesDonnees extends Component {
     }
     render() {
         return (
-<<<<<<< HEAD
             <main>
-                <div class="container bootstrap snippet">
-                
-                <div class="row">
-                    <div class="col-sm-3">
-
-
-                        <div class="text-center">
-                            <img src={this.state.imageUrl || "http://ssl.gstatic.com/accounts/ui/avatar_2x.png"} class="avatar img-circle img-thumbnail" alt="avatar" />
-                            <input type="file" class="text-center center-block file-upload" onChange={this.handlePorfile} id="slctImg" style={{ display: 'none' }}/>
-                            <button type="button" onClick={() => { this.handleUpload() }} style={{ display: 'none' }} id="upldImg" >Upload</button>
+                <div className="container">
+                <div className="row">
+                    <div className="img-div">
+                        <div className="text-center">
+                            <img src={this.state.imageUrl || "http://ssl.gstatic.com/accounts/ui/avatar_2x.png"} className="avatar img-circle img-thumbnail" alt="avatar" />
+                            <input type="file" className="text-center center-block file-upload" onChange={this.handlePorfile} id="slctImg" style={{ display: 'none' }}/>
+                            <button type="button" className="btn btn-success" onClick={() => { this.handleUpload() }} style={{ display: 'none' }} id="upldImg" >Upload</button>
                         </div><hr /><br />
-
-
-                      {/*  <div class="panel panel-default">
-                            <div class="panel-heading">Website <i class="fa fa-link fa-1x"></i></div>
-
-        </div>*/}
-
-
-                       {/*} <ul class="list-group">
-                            <li class="list-group-item text-muted">Activity <i class="fa fa-dashboard fa-1x"></i></li>
-                            <li class="list-group-item text-right"><span class="pull-left"><strong>Nombre De Patient</strong></span> 125</li>
-                            <li class="list-group-item text-right"><span class="pull-left"><strong>Likes</strong></span> 13</li>
-                            <li class="list-group-item text-right"><span class="pull-left"><strong>Posts</strong></span> 37</li>
-                            <li class="list-group-item text-right"><span class="pull-left"><strong>Followers</strong></span> 78</li>
-                        </ul>*/}
-
-                       {/* <div class="panel panel-default">
-                            <div class="panel-heading">Social Media</div>
-                            <div class="panel-body">
-                                <i class="fa fa-facebook fa-2x"></i> <i class="fa fa-github fa-2x"></i> <i class="fa fa-twitter fa-2x"></i> <i class="fa fa-pinterest fa-2x"></i> <i class="fa fa-google-plus fa-2x"></i>
-                            </div>
-                    </div>*/}
-
                     </div>
-                    <div class="col-sm-9">
-                       {/* <ul class="nav nav-tabs">
-                            <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
-                            <li><a data-toggle="tab" href="#messages">Menu 1</a></li>
-                            <li><a data-toggle="tab" href="#settings">Menu 2</a></li>
-                        </ul>*/}
-
-
-                            
-                              <form id="profPatient" onSubmit={this.handleSubmit}>
-                                {console.log('tessssssssssssssssssssssst')}
-                                {console.log(this.state.userIdtMed)}
-
-                                <div className="item">
-                                    <p>Profil</p>
-
-                                    <div class="city-item">
-                                        <input type="text" id="nom" name="name" placeholder="Nom" value={this.state.nom} required onChange={this.handleNomChange} disabled />
-                                        <input type="text" id="prenom" name="name" placeholder="Prenom" value={this.state.prenom} required onChange={this.handlePrenomChange} disabled />
-
-
-                                        <select required onChange={this.handleCiviliteChange} value={this.state.Civilite} id="civilite" disabled>
-                                            <option value="" disabled selected>Gendre</option>
-                                            <option value="Docteur">Docteur</option>
-                                            <option value="Docteure">Docteure</option>
-                                            <option value="Professeur">Professeur</option>
-                                            <option value="Professeure">Professeure</option>
-                                            <option value="Monsieur">Monsieur</option>
-                                            <option value="Madame">Madame</option>
+                    <div class="form-div">                       
+                        <form id="profPatient" onSubmit={this.handleSubmit}>
+                        <div className="form-box">
+                        <div className="item">
+                            <h4 id="titre">Profil</h4>
+                            <div className="form-row">
+                                    <div className="form-group col-md-3">
+                                        <label for="civilite">Civilité*</label>  
+                                        <select required onChange={this.handleCiviliteChange} value={this.state.Civilite} id="civilite" className="form-control" disabled>
+                                                <option >...</option>
+                                                <option value="Docteur">Docteur</option>
+                                                <option value="Docteure">Docteure</option>
+                                                <option value="Professeur">Professeur</option>
+                                                <option value="Professeure">Professeure</option>
+                                                <option value="Monsieur">Monsieur</option>
+                                                <option value="Madame">Madame</option>
                                         </select>
-                                        <input type="date" name="bdate" required value={this.state.DateNaiss} onChange={this.handleDateNaissChange} readOnly />
-                                        <i class="fas fa-calendar-alt"></i>
+                                    </div>
+                                    <div  className="form-group col-md-2">
+                                            <label for="nom">Nom*</label>
+                                            <input type="text" id="nom" name="name" className="form-control" value={this.state.nom} required onChange={this.handleNomChange} disabled />
+                                    </div>
+                                    <div  className="form-group col-md-2">
+                                            <label for="prenom">Prenom*</label>
+                                            <input type="text" id="prenom" name="name" className="form-control" value={this.state.prenom} required onChange={this.handlePrenomChange} disabled />
+                                    </div>
+                                    <div  className="form-group col-md-3">
+                                            <label for="bdate">Date de naissance*</label>
+                                            <input type="date" name="bdate" required className="form-control" value={this.state.DateNaiss} onChange={this.handleDateNaissChange} readOnly />
+                                            <i class="fas fa-calendar-alt"></i>
                                     </div>
                                 </div>
-
-                                <hr />
-                                <div class="city-item">
-                                    <select required onChange={this.handlespecialiteChange} value={this.state.specialite} id="specialite" disabled>
-                                        <option value="" disabled selected>Specialite</option>
+                            <div className="form-row">
+                                <div className="form-group col-md-3">
+                                    <label for="specialite">Spécialité*</label>
+                                    <select required onChange={this.handlespecialiteChange} value={this.state.specialite} id="specialite" className="form-control" disabled>
+                                        <option>...</option>
                                         <option value="Generaliste">Generaliste</option>
                                         <option value="Psychiatre">Psychiatre</option>
                                         <option value="Sage-femme">Sage-femme</option>
@@ -324,8 +283,11 @@ class MesDonnees extends Component {
                                         <option value="Dentiste">Dentiste</option>
                                         <option value="Ophthamologiste">Ophthamologiste</option>
                                     </select>
-                                    <select required onChange={this.handleConventionChange} value={this.state.Convention} id="convention" disabled>
-                                        <option value="" disabled selected>Quelle Convention ?</option>
+                                </div>
+                                <div className="form-group col-md-5">
+                                    <label for="convention">Convention*</label>
+                                    <select required onChange={this.handleConventionChange} value={this.state.Convention} id="convention" className="form-control" disabled>
+                                        <option>...</option>
                                         <option value="Generaliste Conventionné secteur 1">Generaliste Conventionné secteur 1</option>
                                         <option value="Generaliste Conventionné secteur 2">Generaliste Conventionné secteur 2</option>
                                         <option value="Conventionné Sage-femme">Conventionné Sage-femme</option>
@@ -335,20 +297,39 @@ class MesDonnees extends Component {
                                         <option value="Non Conventionné">Non Conventionné</option>
                                     </select>
                                 </div>
-                                <hr />
-
-
-                                <div className="item">
-                                    <p>Address</p>
-                                    <input type="text" name="name" placeholder="Numero de Rue" value={this.state.NumeroRue} required onChange={this.handleNumeroRueChange} readOnly />
-                                    <input type="text" name="name" placeholder="Numero de Rue  2" value={this.state.NumeroRue2} required onChange={this.handleNumeroRue2Change} readOnly />
-                                    <div class="city-item">
-                                        <input type="text" name="name" placeholder="Cite" value={this.state.cite} required onChange={this.handleciteChange} readOnly />
-                                        <input type="text" name="name" placeholder="Region" value={this.state.Region} required onChange={this.handleRegionChange} readOnly />
-                                        <input type="text" name="name" placeholder="Code Postal" value={this.state.codePostal} required onChange={this.handlecodePostalChange} readOnly />
-                                        <select required value={this.state.Pays} onChange={this.handlePaysChange} id="pays" disabled>
-                                            <option value="">Pays de Residence</option>
-                                            <option value="RoyaumeUnis">Royaume unis</option>
+                            </div>
+                            </div>
+                            <hr />
+                            <div className="item">
+                                <h4 id="titre">Adresse du cabinet</h4>
+                                <div className="form-row">
+                                    <div className="form-group col-md-3" >
+                                        <label for="inputstreet">Rue*</label>
+                                        <input type="text" name="name" id="inputstreet" className="form-control" value={this.state.NumeroRue} required onChange={this.handleNumeroRueChange} readOnly />
+                                    </div>
+                                    <div className="form-group col-md-3">
+                                        <label for="inputstreet">Rue 2</label>
+                                        <input type="text" name="name" className="form-control" value={this.state.NumeroRue2} required onChange={this.handleNumeroRue2Change} readOnly />
+                                    </div>
+                                    <div className="form-group col-md-3">
+                                        <label for="inputcity">Ville*</label>
+                                        <input type="text" name="name" id="inputcity" className="form-control" value={this.state.cite} required onChange={this.handleciteChange} readOnly />
+                                    </div>
+                                </div>
+                                <div className="form-row">
+                                    <div className="form-group col-md-3">
+                                        <label for="inputcity">Region*</label>
+                                        <input type="text" name="name"  className="form-control" value={this.state.Region} required onChange={this.handleRegionChange} readOnly />
+                                    </div>
+                                    <div className="form-group col-md-2"> 
+                                        <label for="inputcp">Code Postal*</label>
+                                        <input type="text" name="name" id="inputctp" className="form-control" value={this.state.codePostal} required onChange={this.handlecodePostalChange} readOnly />
+                                    </div>  
+                                    <div className="form-group col-md-3">
+                                        <label for="pays">Pays de résidence*</label>
+                                        <select required value={this.state.Pays} onChange={this.handlePaysChange} id="pays" className="form-control" disabled>
+                                            <option>...</option>
+                                            <option value="RoyaumeUnis">Royaume uni</option>
                                             <option value="Cameroun">Cameroun</option>
                                             <option value="Belgique">Belgique</option>
                                             <option value="France">France</option>
@@ -356,195 +337,36 @@ class MesDonnees extends Component {
                                         </select>
                                     </div>
                                 </div>
-
-                                <div className="item">
-                                    <p>Phone</p>
-                                    <input type="text" name="phone" placeholder="### ### ####" value={this.state.Phone} onChange={this.handlePhoneChange} readOnly />
+                                <div className="form-row">
+                                    <div className="form-group col-md-2">
+                                    <label for="inputphone">Téléphone Cabinet*</label>
+                                    <input type="text" name="phone" id="inputphone" className="form-control" value={this.state.Phone} onChange={this.handlePhoneChange} readOnly />
+                                    </div>
                                 </div>
-                                <hr />
-
-
-                                <div className="item">
-                                    <p>A savoir sur vous</p>
-                                    <textarea rows="3" onChange={this.handleAutreChange} readOnly value={this.state.Autre}></textarea>
+                            </div>   
+                            <hr />
+                            <div className="form-row">
+                                <div className="form-group col-md-4">
+                                    <label for="inputautre">A savoir sur vous</label>
+                                    <textarea rows="3" id="inputautre" onChange={this.handleAutreChange} readOnly value={this.state.Autre} className="form-control"></textarea>
                                 </div>
-                                <div className="btn-block">
-                                    <button type="button" id="modifier" onClick={this.editerForm} >Modifier</button>
-                                    <input type="submit" value="Enregistrer" id="save" style={{ display: 'none' }} />
-
-                                </div>
-
-                            </form>
+                            </div>
+                            <div className="btn-block">
+                                <button type="button" className ="btn btn-danger" id="modifier" onClick={this.editerForm} >Modifier</button>
+                                <input type="submit" className ="btn btn-primary" value="Enregistrer" id="save" style={{ display: 'none' }} />
+                            </div>
                         </div>
-                    </div>
+                    </form>
+                 </div>
+            </div>
 
-                </div>
-            </main>
+        </div>
+         </main>
 
         )
-=======
-            <div className="content">
-                   <div id="img-div" className="img-div">
-           <div className="profil">
-               <div className="menu">
-                   <div className="center">
-
-                   </div>
-               </div>
-               <div className="main">
-                   <div className="photo">
-                       <div className="hover">
-                           <u>test2</u>
-                       </div>
-                   </div>
-                   <h3 className="nom1">Patrick</h3>
-                   <h3 className="prenom1">Tchoupe</h3>
-               </div>
-           </div>
-           <div className="infos-div">
-               <div className="left">
-                   <div className="profession">
-                       <h3 className="title">Profession</h3>
-                       <p className="text">Generaliste</p>
-                   </div>
-               </div>
-               <div className="right">
-                   <div className="cabinet">
-                       <h5 className="ad">Rue</h5>
-                       <h5 className="ad">Postal</h5>
-                       <h5 className="ad">Ville</h5>
-                       <h5 className="ad">Pays</h5>
-                   </div>
-                   <div className="btn-wrap">
-                       <button type="button" className ="btn btn-danger" id="modifier" onClick={this.editerForm} >Modifier</button>
-                   </div>
-               </div>
-           </div>
-       </div>
-
-
-                   <div className="form-div" id="form-div" style={{display:'none'}}>
-                   <form id="profPatient" onSubmit={this.handleSubmit}>
-                   <div className="form-box">
-                   <div className="item">
-                       <h4 id="titre">Profil</h4>
-                       <div className="form-row">
-                               <div className="form-group col-md-3">
-                                   <label for="civilite">Civilité*</label>  
-                                   <select required onChange={this.handleCiviliteChange} value={this.state.Civilite} id="civilite" className="form-control" disabled>
-                                           <option >...</option>
-                                           <option value="Docteur">Docteur</option>
-                                           <option value="Docteure">Docteure</option>
-                                           <option value="Professeur">Professeur</option>
-                                           <option value="Professeure">Professeure</option>
-                                           <option value="Monsieur">Monsieur</option>
-                                           <option value="Madame">Madame</option>
-                                   </select>
-                               </div>
-                               <div  className="form-group col-md-2">
-                                       <label for="nom">Nom*</label>
-                                       <input type="text" id="nom" name="name" className="form-control" value={this.state.nom} required onChange={this.handleNomChange} disabled />
-                               </div>
-                               <div  className="form-group col-md-2">
-                                       <label for="prenom">Prenom*</label>
-                                       <input type="text" id="prenom" name="name" className="form-control" value={this.state.prenom} required onChange={this.handlePrenomChange} disabled />
-                               </div>
-                               <div  className="form-group col-md-3">
-                                       <label for="bdate">Date de naissance*</label>
-                                       <input type="date" name="bdate" required className="form-control" value={this.state.DateNaiss} onChange={this.handleDateNaissChange} readOnly />
-                                       <i class="fas fa-calendar-alt"></i>
-                               </div>
-                           </div>
-                       <div className="form-row">
-                           <div className="form-group col-md-3">
-                               <label for="specialite">Spécialité*</label>
-                               <select required onChange={this.handlespecialiteChange} value={this.state.specialite} id="specialite" className="form-control" disabled>
-                                   <option>...</option>
-                                   <option value="Generaliste">Generaliste</option>
-                                   <option value="Psychiatre">Psychiatre</option>
-                                   <option value="Sage-femme">Sage-femme</option>
-                                   <option value="Dermatologue">Dermatologue</option>
-                                   <option value="Dentiste">Dentiste</option>
-                                   <option value="Ophthamologiste">Ophthamologiste</option>
-                               </select>
-                           </div>
-                           <div className="form-group col-md-5">
-                               <label for="convention">Convention*</label>
-                               <select required onChange={this.handleConventionChange} value={this.state.Convention} id="convention" className="form-control" disabled>
-                                   <option>...</option>
-                                   <option value="Generaliste Conventionné secteur 1">Generaliste Conventionné secteur 1</option>
-                                   <option value="Generaliste Conventionné secteur 2">Generaliste Conventionné secteur 2</option>
-                                   <option value="Conventionné Sage-femme">Conventionné Sage-femme</option>
-                                   <option value="Specialiste Conventionné secteur 1">Specialiste Conventionné secteur 1</option>
-                                   <option value="Generaliste Conventionné secteur 2">Generaliste Conventionné secteur 2</option>
-                                   <option value="Conventionné Secteur 3">Conventionné Secteur 3</option>
-                                   <option value="Non Conventionné">Non Conventionné</option>
-                               </select>
-                           </div>
-                       </div>
-                       </div>
-                       <hr />
-                       <div className="item">
-                           <h4 id="titre">Adresse du cabinet</h4>
-                           <div className="form-row">
-                               <div className="form-group col-md-3" >
-                                   <label for="inputstreet">Rue*</label>
-                                   <input type="text" name="name" id="inputstreet" className="form-control" value={this.state.NumeroRue} required onChange={this.handleNumeroRueChange} readOnly />
-                               </div>
-                               <div className="form-group col-md-3">
-                                   <label for="inputstreet">Rue 2</label>
-                                   <input type="text" name="name" className="form-control" value={this.state.NumeroRue2} required onChange={this.handleNumeroRue2Change} readOnly />
-                               </div>
-                               <div className="form-group col-md-3">
-                                   <label for="inputcity">Ville*</label>
-                                   <input type="text" name="name" id="inputcity" className="form-control" value={this.state.cite} required onChange={this.handleciteChange} readOnly />
-                               </div>
-                           </div>
-                           <div className="form-row">
-                               <div className="form-group col-md-3">
-                                   <label for="inputcity">Region*</label>
-                                   <input type="text" name="name"  className="form-control" value={this.state.Region} required onChange={this.handleRegionChange} readOnly />
-                               </div>
-                               <div className="form-group col-md-2"> 
-                                   <label for="inputcp">Code Postal*</label>
-                                   <input type="text" name="name" id="inputctp" className="form-control" value={this.state.codePostal} required onChange={this.handlecodePostalChange} readOnly />
-                               </div>  
-                               <div className="form-group col-md-3">
-                                   <label for="pays">Pays de résidence*</label>
-                                   <select required value={this.state.Pays} onChange={this.handlePaysChange} id="pays" className="form-control" disabled>
-                                       <option>...</option>
-                                       <option value="RoyaumeUnis">Royaume uni</option>
-                                       <option value="Cameroun">Cameroun</option>
-                                       <option value="Belgique">Belgique</option>
-                                       <option value="France">France</option>
-
-                                   </select>
-                               </div>
-                           </div>
-                           <div className="form-row">
-                               <div className="form-group col-md-2">
-                               <label for="inputphone">Téléphone Cabinet*</label>
-                               <input type="text" name="phone" id="inputphone" className="form-control" value={this.state.Phone} onChange={this.handlePhoneChange} readOnly />
-                               </div>
-                           </div>
-                       </div>   
-                       <hr />
-                       <div className="form-row">
-                           <div className="form-group col-md-4">
-                               <label for="inputautre">A savoir sur vous</label>
-                               <textarea rows="3" id="inputautre" onChange={this.handleAutreChange} readOnly value={this.state.Autre} className="form-control"></textarea>
-                           </div>
-                       </div>
-                       <div className="btn-block">
-                           <input type="submit" className ="btn btn-primary" value="Enregistrer" id="save" style={{ display: 'none' }} />
-                       </div>
-               </div>
-           </form>
-           </div>
-       </div>
-)
->>>>>>> f67313fc34587786cc01f99abe77cdf067f0f425
     }
 }
 
 export default MesDonnees
+
+

@@ -15,14 +15,15 @@ class EspacePatient extends Component {
     render() {
         return (
             <div>
-
-                <EntetePat />
-                
-                    <div className="App2">
-                        <NavBarPat />
-                         <p>Espace Patient</p>
-
-                    </div>
+                <div id="top1">
+                    <EntetePat />
+                </div>
+                <div id="bar1">
+                    <NavBarPat />
+                </div>
+                <div className="text-muted" id="bottom1">
+                        &copy;{new Date().getFullYear()} TakeCare Web App - All rights reserved
+                </div>
             </div>
         )
     }
