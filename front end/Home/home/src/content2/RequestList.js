@@ -6,7 +6,6 @@ import ls from "local-storage"
 
 
 
-
 class DemandeAss extends Component{
   constructor(props){
     super(props)
@@ -41,9 +40,6 @@ class DemandeAss extends Component{
   }
  
   render(){
-    console.log("tesstststts")
-    console.log(this.state.db)
-
     const arr = []
     for(let i=0; i<this.state.db.length;i++){
 

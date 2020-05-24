@@ -8,51 +8,47 @@ class Discussion extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      messages: [{"messageRecieve" : " ","userId" : " "}],
+      messages: [""],
       message: "",
       name: props.email,
       sender: props.userEmail,
       color: " "
     };
+    this.handleStyle = this.handleStyle.bind(this)
   }
 
   componentDidMount = () => {
+    { this.handleStyle() }
 
-    socket.emit('message', { 'message': " ", 'userId': this.state.sender ,"recId":this.state.sender})
+    socket.emit('message', { 'message': " ", 'userId': this.state.sender })
 
     socket.on("message", msg => {
-      console.log("message")
-      console.log(msg)
-      console.log(msg.length)
-    
-      let dictMess = msg
-      let len = Object.keys(dictMess).length
-      console.log(len)
-      if (dictMess["messageRecieve"] === " ") {
-        console.log("first connection")
-        console.log(true)
 
-      }else if((dictMess["messageRecieve"] !==" ")&&(len ===2)){
-        console.log("not first connection")
-        console.log(dictMess)
+      if (msg['userId'] === this.state.sender) {
         this.setState({
-
-          messages: [...this.state.messages, dictMess],
-
-        });
-        
-       /* for (let i in dictMess) {
-          this.setState({
-            messages: [...this.state.messages, dictMess[i]],
-            lastMess: dictMess[lengthArr - 1]
-          });
-        }*/
+          color: "yes"
+        })
       } else {
-        console.log("third option")
+        this.setState({
+          color: "no"
+        })
+      }
+      let messageRecive = msg['messageRecieve']
+      if (typeof (messageRecive) == "object") {
+
+        let lengthArr = messageRecive.length - 1
+        for (let i in messageRecive) {
+          this.setState({
+            messages: [...this.state.messages, messageRecive[i]],
+            lastMess: messageRecive[lengthArr - 1]
+          });
+        }
+      } else {
+
 
         this.setState({
 
-          messages:dictMess
+          messages: [...this.state.messages, messageRecive],
 
         });
       }
@@ -74,15 +70,20 @@ class Discussion extends Component {
       this.setState({
         message: ""
       });
-      {console.log("test sender")}
-      {console.log(this.state.sender)}
-      socket.emit("message", { 'message': message, 'userId': this.state.sender ,"recId":this.state.sender });
+
+      socket.emit("message", { 'message': message, 'userId': this.state.sender });
 
     } else {
       alert("Please Add A Message");
     }
   };
- 
+  handleStyle = () => {
+    if (this.state.color === "yes") {
+      document.getElementById("message").style.backgroundColor = "green"
+    } else {
+      document.getElementById("message").style.backgroundColor = "grey"
+    }
+  }
 
   render() {
     const { messages, message } = this.state;
@@ -90,23 +91,23 @@ class Discussion extends Component {
       <div>
         {messages.length > 0 &&
           messages.map(msg => (
-            
-            <div id="message" style={msg["recId"] === this.state.sender ? { backgroundColor: 'red' } : { backgroundColor: 'blue' }}>
-              {console.log("test result")}
-              {console.log(msg)}
-              <p>{msg["messageRecieve"]}</p>
+            <div id="message"  style={this.state.color === "yes" ? { backgroundColor: 'green' } : { backgroundColor: 'grey' }}>
+              <p className="msgPatient">{msg}</p>
             </div>
           ))}
+        <div className="form-group col-md-6">
         <input
           value={message}
           name="message"
           onChange={e => this.onChange(e)}
+          className="form-control"
         />
-        <button type="butoon" onClick={() => this.onClick()}>Send Message</button>
+        </div>
+        <button type="butoon"  className ="btn btn-success" onClick={() => this.onClick()}>Send Message</button>
 
       </div>
 
     );
   }
 }
- export default Discussion;
+export default Discussion;

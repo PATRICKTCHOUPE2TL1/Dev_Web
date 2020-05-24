@@ -53,7 +53,7 @@ class Profil extends Component {
 
   render() {
     return (
-          
+              <div className="col-sm-5">
               <div className="card">
                   <img src={couv} alt="card background" className="bgImg"></img>
                   <img src={this.state.image || av} alt="profile image" className="profil"></img>
@@ -63,6 +63,7 @@ class Profil extends Component {
                       Adresse cabinet
                   </p>
                   <a href="#"  className ="btn btn-success" id="btn" onClick={() => this.handleContact()}>Contact</a>
+              </div>
               </div>
     )
   }

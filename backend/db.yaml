@@ -1,4 +1,4 @@
 mysql_host: 'localhost'
-mysql_user: 'root'
+mysql_user: 'dbadmin'
 mysql_password: '85550'
 mysql_db: 'takecare'

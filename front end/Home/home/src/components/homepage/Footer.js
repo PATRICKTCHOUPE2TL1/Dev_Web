@@ -26,16 +26,7 @@ function Footer() {
                                 <li><a href="https://huis.vub.ac.be/corona/intro.php?taal=Fra" target = "blank">Test préventif</a></li>
                             </ul>
                     </div>
-                    <div className="col-md-3 col-sm-6">
-                            <br/><h4><a href="">Lorem ipsum</a></h4>
-                            <ul className="list-unstyled">
-                                <li><a href="">Lorem</a></li>
-                                <li><a href="">ipsum</a></li>
-                                <li><a href="">picsum</a></li>
-                            </ul>
-                    </div>
                 </div>
-                {/* Footer bottom */}
                 <div className="footer-bottom">
                     <p className="text-xs-center">
                         &copy;{new Date().getFullYear()} TakeCare Web App - All rights reserved 

@@ -1,15 +1,14 @@
 import React , {Component} from 'react';
-import Entete from './components3/header';
+import Entete from './components3/header'
 import axios from 'axios'
-
 
 import
 {
 BrowserRouter as Router,
-Route,withRouter
+Route,
 } from "react-router-dom";
 import Navbar from './components3/Navbar';
-//import './Medecin.css'
+import './Medecin.css'
 
 
 class MedSpace extends Component {
@@ -26,7 +25,6 @@ class MedSpace extends Component {
         axios
           .post('http://127.0.0.1:5000/profil', this.state)
           .then(reponse => {
-            console.log(reponse)
             if (reponse.data[1] === "patient") {
                 console.log("nono")
                 this.props.history.push('/login');
@@ -47,14 +45,18 @@ class MedSpace extends Component {
 return (
  
 <div>
-   <Entete />
-   <Navbar />
-   <p>Medecin</p>
-
-
+    <div id="top">
+     <Entete />
+   </div>
+   <div id="bar">
+    <Navbar />
+   </div>
+   <div className="text-muted" id="bottom">
+            &copy;{new Date().getFullYear()} TakeCare Web App - All rights reserved
+    </div>
 </div>
 )
     }
 }
 
-export default withRouter(MedSpace);
+export default MedSpace;

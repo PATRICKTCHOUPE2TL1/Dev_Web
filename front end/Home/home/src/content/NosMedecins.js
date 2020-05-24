@@ -44,16 +44,15 @@ class NosMedecin extends Component {
     }
 
     return (
-      <section id="section">
-      <div className="container">
+      <div className="container bootstrap snippet">
         <h2 className="heading">Medecins disponibles sur le site</h2>
-        <div className="card-wrapper">
+        <div className="row" id="row1">
+                    
 
-        {this.state.loaded === "true" ? arr : <p>not loaded</p>}
+          {this.state.loaded === "true" ? arr : <p>not loaded</p>}
 
+        </div>
       </div>
-      </div>
-  </section>
     )
   }
 }
