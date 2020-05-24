@@ -5,6 +5,7 @@ import Pat from './pat'
 import Discussion from './Discussion'
 import io from "socket.io-client";
 import ProfPatients from './ProfPatients'
+import ls from "local-storage"
 
 
 
@@ -13,6 +14,7 @@ class MesPatient extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
+			userId :ls.get("userId"),
 			MedInfos: " ",
 			renderProfil: false,
 			renderDiscuss: false,
@@ -52,13 +54,14 @@ class MesPatient extends Component {
 	componentDidMount() {
 			
 		axios
-			.get('http://127.0.0.1:5000/getConsPat')
+			.post('http://127.0.0.1:5000/getConsPat',this.state)
 			.then(response => {
 				
                     this.setState({
                         MedInfos : response.data,
                         loaded :"true"
-                    })
+					})
+					console.log("test results ***** ")
 		console.log(response)
 				/*axios
 				.get('http://127.0.0.1:5000/getSession')
@@ -128,7 +131,7 @@ class MesPatient extends Component {
 				if(this.state.callBack2 === 1){
 					return(<div><p>hello</p>{this.setState({callBack2 : 2})}</div>)}
 					else if(this.state.callBack2 === 2){
-				return <p><Discussion email={this.state.patEmail} userEmail ={this.state.idPat} /></p>}
+				return <p><Discussion email={this.state.patEmail} userEmail ={this.state.idPat} myEmail ={this.state.MedInfos[0][0]} /></p>}
 			} else {
 				return <p>Notification</p>
             }

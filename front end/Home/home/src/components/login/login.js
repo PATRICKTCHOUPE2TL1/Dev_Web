@@ -2,11 +2,13 @@ import React , { Component } from 'react'
 import {withRouter} from 'react-router-dom'
 import './login.css'
 import ava from "../../image/ava.svg"
-import docs from "../../image/docs.svg"
+import infis from "../../image/infis.svg"
 import { Link,Redirect } from "react-router-dom"
 import axios from 'axios'
 import EspacePatient from './../../EspacePatient'
 import io from "socket.io-client";
+import ls from 'local-storage'
+
 
 
 class Login extends Component {
@@ -42,17 +44,21 @@ class Login extends Component {
         axios
              .post('http://127.0.0.1:5000/login', this.state,)
              .then(reponse =>{
+                 ls.set('userId', reponse.data[1])
                  console.log(reponse)
-                if(reponse.data[0][0]==="patient"){
+                 console.log(reponse.data)
+                if(reponse.data[0]==="patient"){
 
                     this.props.history.push('/Patient');
-                  }else if(reponse.data[0][0]==="medecin"){
+                  }else if(reponse.data[0]==="medecin"){
 
                     this.props.history.push('/Medecin');
 
                   }else {
 
                       console.log(reponse.data[0][0])
+                      console.log("something went wrong")
+                      document.getElementById("error").innerHTML ="<p>une erreur c'est produit</p>"
                   }
                  
              })
@@ -64,34 +70,33 @@ class Login extends Component {
 
     render(){
         return(
-            <div className="container1">
-                    <div className="img2">
-                        <img src={docs} alt="infirmiéres"></img>
-                    </div>
-                    <div className="login-container">
-                            <form id="lgform" onSubmit={this.handleOnsubit}>
-                                    <img className="avatar" src={ava} alt="avatar"></img>
-                                    <h2>Mon espace sante</h2>
-                                    <div className="form-group row">
-                                        <label for="email" className="col-sm-3 col-form-label">Email*</label>
-                                        <div className="col-sm-7">
-                                            <input type ="text" id = 'email' name = "email"  required   onChange={this.handleUserNameChange} className="form-control"/>
-                                        </div> 
-                                    </div>
-                                    <div className="form-group row">
-                                        <label for="mdp" className="col-sm-3 col-form-label">Password*</label>
-                                        <div className="col-sm-7">
-                                            <input type ="password" id ='mdp' required   onChange={this.handlePasswordChange} className="form-control"/>
-                                        </div>
-                                    </div>
-
-                                    <Link to ='/'><a href="#" className="lglk">Mot de passe oublié ?</a></Link><br></br>
-                                    <Link to ='/signin'><a href="#" className="lglk">Créer un compte ?</a></Link><br></br>
-
-                                    <input type="submit" id="login"  className ="btn btn-success" value="Se connecter"></input>
-                            </form>
-                    </div>
+            <div className="containe">
+            <div className="img">
+                <img src={infis} alt="infirmiéres"></img>
             </div>
+            <div className="login-container">
+                    <form onSubmit={this.handleOnsubit}>
+                        <img className="avatar" src={ava} alt="avatar"></img>
+                        <h2>Mon espace sante</h2>
+                        <div className="input-div one focus">
+                            <div>
+                                <input className="email" placeholder= "Adresse email"  type="text" name = "email" required  onChange={this.handleUserNameChange}></input>
+                            </div>
+                        </div>
+                        <div className="input-div two foc">
+                            <div>
+                                <input className="mdp" type="password" placeholder= "Mot de passe"required onChange={this.handlePasswordChange}></input>
+                            </div>
+                        </div>
+                        <Link to ='/'><a href="#" className="lglk">Mot de passe oublié ?</a></Link><br></br>
+                        <Link to ='/signin'><a href="#" className="lglk">Créer un compte ?</a></Link><br></br>
+
+                        <input type="submit" className="login" value="Se connecter"></input>
+                        <div id ="error"></div>
+
+                    </form>
+            </div>
+        </div>
 
         )
     }

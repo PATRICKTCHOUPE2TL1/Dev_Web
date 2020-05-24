@@ -21,7 +21,12 @@ import NavbarMed from  './../components3/Navbar'
 import MesPatient from './../content2/MesPatient';
 
 
+
+
+
 import { Switch, Route, Redirect,withRouter } from 'react-router-dom'
+//component necessary for routing
+
 
 class Main extends Component {
   constructor(props) {
@@ -29,7 +34,7 @@ class Main extends Component {
     this.state = {
       isLogIn: true,
       id: " ",
-      statut: " "
+      status: " "
     }
     this.profil = this.profil.bind(this)
   }
@@ -39,7 +44,6 @@ class Main extends Component {
     axios
       .post('http://127.0.0.1:5000/profil', this.state)
       .then(reponse => {
-        console.log(reponse)
         if (reponse.data === "notIn") {
           this.setState({
             isLogIn: false,
@@ -51,9 +55,7 @@ class Main extends Component {
             id: reponse.data[0],
             status: reponse.data[1]
           })
-          console.log("i am here")
-          console.log(reponse)
-          console.log(this.state.id)
+         
         }
 
       })
@@ -62,140 +64,60 @@ class Main extends Component {
       })
   }
   componentDidMount() {
+
     { this.profil() }
   }
   render() {
     
     return (
+      
+
       <main>
+        
+
         <Switch>
           <Route exact path='/' component={Accueil} />
           <Route exact path='/signin' component={Signin} />
           <Route exact path='/Login' component={Login} />
-            {this.state.isLogIn ? (<Route exact path='/Patient' render={(props) => <EspacePatient userId={this.state.id} />} />) : (<Redirect to='/Login' />)}
-            {this.state.isLogIn ? (<Route exact path='/Medecin' render={(props) => <Fragment> <Medecin userId={this.state.id} /></Fragment>} />) : (<Redirect to='/Login' />)}
+          {this.state.isLogIn  ? (<Route exact path='/Patient' render={(props) => <EspacePatient userId={this.state.id} />} />) : (<Redirect to='/Login' />)}
+          {this.state.isLogIn ? (<Route exact path='/Medecin' render={(props) => <Fragment> <Medecin userId={this.state.id} /></Fragment>} />) : (<Redirect to='/Login' />)}
 
-          <Route exact path='/Patient/mesdonnées'>
-            <Fragment>
-              <div id="top1">
-                <EntetePat /> 
-              </div>
-              <div id="bar1">
-                <NavBarPat />
-              </div>
-              <div id="main2">
-                <DonneesPatient />
-              </div>
-              <div className="text-muted" id="bottom1">
-                  &copy;{new Date().getFullYear()} TakeCare Web App - All rights reserved
-              </div>
-            </Fragment>
-          </Route>
-
-
-          <Route exact path='/Patient/nosmedecin' >
-            <Fragment>
-                <div id="top1">
-                  <EntetePat /> 
-                </div>
-                <div id="bar1">
-                  <NavBarPat />
-                </div>
-                <div id="main2">
-                  <NosMedecin />
-                </div>
-                <div className="text-muted" id="bottom1">
-                    &copy;{new Date().getFullYear()} TakeCare Web App - All rights reserved
-                </div>
-            </Fragment>
-          </Route>
-          
-          
-          
-          <Route exact path='/Patient/monmedecin'>
-            <Fragment>
-                  <div id="top1">
-                    <EntetePat /> 
-                  </div>
-                  <div id="bar1">
-                    <NavBarPat />
-                  </div>
-                  <div id="main2">
-                    <MonMedecin />
-                  </div>
-                  <div className="text-muted" id="bottom1">
-                      &copy;{new Date().getFullYear()} TakeCare Web App - All rights reserved
-                 </div>
-            </Fragment>
-          </Route>
+          <Route exact path='/Patient/mesdonnées' render={(props) => <Fragment><EntetePat /> <NavBarPat /><DonneesPatient  {...props} userId={this.state.id}/></Fragment>} />
+          <Route exact path='/Patient/nosmedecin' render={() => <Fragment><EntetePat /> <NavBarPat /><NosMedecin  userId={this.state.id}/></Fragment>} />
+          <Route exact path='/Patient/monmedecin' render={() => <Fragment><EntetePat /> <NavBarPat /><MonMedecin  userId={this.state.id}/></Fragment>} />
 
           <Route path="/Medecin/Profile" userId={this.props.user}>
             <Fragment>
-              <div id="top">
-                <EnteteMed />
-              </div>
-              <div id="bar">
-                <NavbarMed />
-              </div>
-              <div id="main1">
-                <MesDonnees userId={this.state.id} />
-              </div>
-              <div className="text-muted" id="bottom">
-                  &copy;{new Date().getFullYear()} TakeCare Web App - All rights reserved
-              </div>
+              <EnteteMed />
+              <NavbarMed />
+            <MesDonnees userId={this.state.id} />
             </Fragment>
           </Route>
-
           <Route path="/Medecin/request-list">
-            <Fragment>
-              <div id="top">
-                <EnteteMed />
-              </div>
-              <div id="bar">
-                <NavbarMed />
-              </div>
-              <div id="main1">
-                <DemandeAss />
-              </div>
-              <div className="text-muted" id="bottom">
-                  &copy;{new Date().getFullYear()} TakeCare Web App - All rights reserved
-              </div>
+          <Fragment>
+          <EnteteMed />
+
+              <NavbarMed />
+            <DemandeAss />
             </Fragment>
           </Route>
 
           <Route path="/Medecin/MesPatient">
-            <Fragment>
-              <div id="top">
-                <EnteteMed />
-              </div>
-              <div id="bar">
-                <NavbarMed />
-              </div>
-              <div id="main1">
-                <MesPatient />
-              </div>
-              <div className="text-muted" id="bottom">
-                  &copy;{new Date().getFullYear()} TakeCare Web App - All rights reserved
-              </div>
-            </Fragment>
+<Fragment>
+          <EnteteMed />
+              <NavbarMed />
+            <MesPatient />
+          </Fragment>
+          </Route>
+          <Route path="/Medecin/Agenda">
+          <Fragment>
+          <EnteteMed />
+              <NavbarMed />
+            <Agenda />
+          </Fragment>
           </Route>
 
-          <Route path="/Medecin/Agenda">
-            <Fragment >
-              <div id="top">
-                <EnteteMed />
-              </div>
-              <div id="bar">
-                <NavbarMed />
-              </div>
-              <div id="main1">
-                <Agenda />
-              </div>
-              <div className="text-muted" id="bottom">
-                  &copy;{new Date().getFullYear()} TakeCare Web App - All rights reserved
-              </div>
-            </Fragment>
-          </Route>
+
 
         </Switch>
       </main>

@@ -16,6 +16,7 @@
     "bootstrap": "file:bootstrap",
     "cors": "^2.8.5",
     "firebase": "^7.14.4",
+    "local-storage": "^2.0.0",
     "react": "^16.13.0",
     "react-avatar-edit": "^0.8.3",
     "react-avatar-uploader": "^1.0.3",

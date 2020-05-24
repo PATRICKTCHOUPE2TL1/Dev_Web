@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import io from "socket.io-client"
 
 class ProfPatients extends Component {
     constructor(props) {
@@ -17,7 +18,11 @@ this.handleProfil =this.handleProfil.bind(this)
     }
 
     handleDiscussion =() =>{
+        let private_mess = io.connect("http://localhost:5000/private")
+        			console.log('user email sent successfully')
+        			private_mess.emit("username", {uerSessionName : this.state.id});
 
+        
         this.props.callback("message",this.state.id,this.state.email)
     }
     handleProfil = () =>{

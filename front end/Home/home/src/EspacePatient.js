@@ -3,6 +3,8 @@ import EntetePat from './componnents2/header'
 import NavBarPat from './componnents2/Navbar';
 import './PersonalSpace.css';
 import { withRouter} from "react-router-dom"
+import axios from 'axios'
+
 
 
 class EspacePatient extends Component {
@@ -12,18 +14,42 @@ class EspacePatient extends Component {
             id: props.userId
         }
     }
+
+    componentDidMount = () =>{
+        axios.defaults.withCredentials = true
+
+        axios
+          .post('http://127.0.0.1:5000/profil', this.state)
+          .then(reponse => {
+            console.log(reponse)
+            if (reponse.data[1] === "medecin") {
+                console.log("nono")
+                this.props.history.push('/login');
+    
+            } else {
+              this.setState({
+                
+              })
+             
+            }
+    
+          })
+          .catch(erreur => {
+            console.log(erreur)
+          })
+    }
+
     render() {
         return (
             <div>
-                <div id="top1">
-                    <EntetePat />
-                </div>
-                <div id="bar1">
-                    <NavBarPat />
-                </div>
-                <div className="text-muted" id="bottom1">
-                        &copy;{new Date().getFullYear()} TakeCare Web App - All rights reserved
-                </div>
+
+                <EntetePat />
+                
+                    <div className="App2">
+                        <NavBarPat />
+                         <p>Espace Patient</p>
+
+                    </div>
             </div>
         )
     }
