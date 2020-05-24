@@ -14,13 +14,15 @@ class Discussion extends Component {
       sender: props.userEmail,
       myEmail :props.myEmail
     };
+
+    socket.emit('message', { 'message': " ", 'userId': this.state.sender,'recId':this.state.myEmail })
+
   }
 
   
 
   componentDidMount = () => {
 
-    socket.emit('message', { 'message': " ", 'userId': this.state.sender,'recId':this.state.myEmail })
 
     socket.on("message", msg => {
       

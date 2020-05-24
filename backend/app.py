@@ -194,18 +194,36 @@ def handleRefresh():
 def recieve_username(username):
     print('------------------------------------------------------------')
     print('sender email recieve successfully')
+    i=0
+
     username1 = username['uerSessionName']
-    cur =mysql.connection.cursor()
-    cur.execute("select room from consultation where patId = %s",[username1])
-    roomSql =cur.fetchall()
-    roomSql =roomSql[0][0]
-    users[username1] =roomSql
-    print(users)
-    return users
+    if  username1 in users :
+        print("***************already here*****")
+        return "already here"
+    else :
+
+        
+        cur =mysql.connection.cursor()
+        cur.execute("select room from consultation where patId = %s",[username1])
+        roomSql =cur.fetchall()
+        roomSql =roomSql[0][0]
+        while roomSql == " " :
+            print("*********infinite loop****************")
+            i+=1
+            if i>=2000:
+                break
+
+                
+        print("***************no looop**********")
+        users[username1] =roomSql
+        print(users)
+        print("*************result********")
+        return "success"
 
 @SocketIO.on("message")
 def handleMessage(msg):
     print('-------------------------------------------------------')
+    print(users)
     print(users[msg['userId']])
 
     room =users[msg['userId']]
@@ -216,6 +234,10 @@ def handleMessage(msg):
 
     
     join_room(room)
+    print("**************test backup*************")
+    print(backupMess)
+    print(len(backupMess))
+    print(messages)
 
     if messages == ' ':
         if len(backupMess) ==1 :
