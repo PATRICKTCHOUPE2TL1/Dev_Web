@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import av from "../image/av.png"
+import couv from "../image/couv.jpg"
 import axios from 'axios'
 
 
@@ -34,14 +35,14 @@ class Profil extends Component {
             })
         } else {
           document.getElementById(this.state.id).style.display = "none"
-           document.getElementById(this.state.id *2000).innerHTML ="<p> vous ne pouvez avoir que un seul medecin</p>"
+           document.getElementById(this.state.id *2000).innerHTML ="<p>vous ne pouvez avoir qu'un seul medecin</p>"
         }
       })
       .catch(erreur => {
         console.log(erreur)
       })
   
-    document.getElementById(this.state.id).innerHTML ="<p>une demande d'assistance a ete envoye a ce medecin</p>"
+    document.getElementById(this.state.id).innerHTML ="<p>Une demande d'assistance a ete envoye à ce medecin</p>"
 
   }
 
@@ -52,32 +53,17 @@ class Profil extends Component {
 
   render() {
     return (
-      <div>
-
-        <div className="row">
-
-
-          <div className="column">
-            <div className="card">
-              <img src={this.state.image || av} alt="Jane" style={{ width: '20%' }} />
-
-              <div className="container">
-                <h2>{this.props.nom + '   ' + this.props.prenom}</h2>
-                <p className="title">{this.props.specialite}</p>
-                <p>{this.props.autre}</p>
-                <p><button className="button" onClick={() => this.handleContact()} >Contact</button></p>
-                <div id ={this.state.id}> </div>
-                <div id={this.state.id *2000}></div>
-
-
-                <div id="megInv"><span></span></div>
+          
+              <div className="card">
+                  <img src={couv} alt="card background" className="bgImg"></img>
+                  <img src={this.state.image || av} alt="profile image" className="profil"></img>
+                  <h2>{this.props.nom + '   ' + this.props.prenom}</h2>
+                  <p className="post">{this.props.specialite}</p>
+                  <p className="about">
+                      Adresse cabinet
+                  </p>
+                  <a href="#"  className ="btn btn-success" id="btn" onClick={() => this.handleContact()}>Contact</a>
               </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
     )
   }
 }

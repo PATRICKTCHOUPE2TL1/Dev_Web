@@ -1,8 +1,7 @@
 import React, { Component } from "react"
 import Profil from './profil'
 import axios from 'axios'
-
-
+import './NosMed.css'
 
 
 class NosMedecin extends Component {
@@ -45,10 +44,16 @@ class NosMedecin extends Component {
     }
 
     return (
-      <div>
+      <section id="section">
+      <div className="container">
+        <h2 className="heading">Medecins disponibles sur le site</h2>
+        <div className="card-wrapper">
+
         {this.state.loaded === "true" ? arr : <p>not loaded</p>}
 
       </div>
+      </div>
+  </section>
     )
   }
 }
