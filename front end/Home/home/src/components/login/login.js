@@ -85,8 +85,6 @@ class Login extends Component {
                                             <input type ="password" id ='mdp' required   onChange={this.handlePasswordChange} className="form-control"/>
                                         </div>
                                     </div>
-
-                                    <Link to ='/'><a href="#" className="lglk">Mot de passe oublié ?</a></Link><br></br>
                                     <Link to ='/signin'><a href="#" className="lglk">Créer un compte ?</a></Link><br></br>
 
                                     <input type="submit" id="login"  className ="btn btn-success" value="Se connecter"></input>

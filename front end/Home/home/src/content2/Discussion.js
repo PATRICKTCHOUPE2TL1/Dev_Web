@@ -88,7 +88,7 @@ class Discussion extends Component {
       <div>
         {messages.length > 0 &&
           messages.map(msg => (
-            <div id="message" style={this.state.color === "yes" ? { backgroundColor: 'green' } : { backgroundColor: 'grey' }}>
+            <div id="message" style={this.state.color === "yes" ? { backgroundColor: 'green', marginLeft:'100px' } : { backgroundColor: 'grey',marginRight: '100px' }}>
               <p className="msgMedecin">{msg}</p>
             </div>
           ))}
