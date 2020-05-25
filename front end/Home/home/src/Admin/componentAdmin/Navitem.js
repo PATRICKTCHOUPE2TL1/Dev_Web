@@ -4,7 +4,7 @@ class Navitem extends Component {
     render() {
         return (
             <li id={this.props.item}>
-                <Link to={this.props.tolink} className="navelt">{this.props.item}</Link>
+                <Link title={this.props.title} to={this.props.tolink} className="navelt">{this.props.item}</Link>
             </li>
         )
     }

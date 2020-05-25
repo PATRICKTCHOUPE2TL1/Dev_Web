@@ -14,9 +14,9 @@ render() {
     return (
     <nav>
         <ul>
-            <Navitem item={<FaUsers color='rgb(128,255,255)'/>} tolink="/Patient/nosmedecin"  activec={this.activeitem}></Navitem>
-            <Navitem item={<FaInfoCircle color='rgb(128,255,255)'/>} tolink="/Patient/mesdonnées"  activec={this.activeitem}></Navitem>
-            <Navitem item={<FaUserMd color='rgb(128,255,255)'/>} tolink="/Patient/monmedecin"  activec={this.activeitem}></Navitem>
+            <Navitem title="Nos médecins" item={<FaUsers color='rgb(128,255,255)'/>} tolink="/Patient/nosmedecin"  activec={this.activeitem}></Navitem>
+            <Navitem title="Mon profil" item={<FaInfoCircle color='rgb(128,255,255)'/>} tolink="/Patient/mesdonnées"  activec={this.activeitem}></Navitem>
+            <Navitem title="Mon médecin" item={<FaUserMd color='rgb(128,255,255)'/>} tolink="/Patient/monmedecin"  activec={this.activeitem}></Navitem>
         </ul>
     </nav>
     )

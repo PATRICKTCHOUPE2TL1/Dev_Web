@@ -112,7 +112,7 @@ CREATE TABLE IF NOT EXISTS `takecare`.`attente` (
   `emailPrive` VARCHAR(300) ,
   `userId` int  NOT NULL,
   `statut` VARCHAR(45),
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
   foreign key('userId') references utilisateur('userId'),
   )
 ENGINE = InnoDB;

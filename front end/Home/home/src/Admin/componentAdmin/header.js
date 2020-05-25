@@ -32,12 +32,11 @@ this.deconnecter = this.deconnecter.bind(this)
     render(){
     return (
         <header>
-        <nav class="navbar navbar-light" style={{backgroundColor: "#e3f2fd"}}>
+        <nav class="navbar navbar-light">
         <a class="navbar-brand" href="#">
-           {/* <img src="/docs/4.4/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="" />*/}
             TakeCare
           </a>
-         <button className="btn-outline-success " href="#" id ="deconnexion" value = "Deconnexion"  onClick = {this.deconnecter} > <span>deconnexion</span></button>
+         <button className="btn btn-danger " href="#" id ="deconnexion" value = "Deconnexion"  onClick = {this.deconnecter} > <span>Deconnexion</span></button>
         </nav>
         
         </header>

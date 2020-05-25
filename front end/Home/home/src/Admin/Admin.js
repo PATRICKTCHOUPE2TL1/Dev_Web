@@ -50,7 +50,7 @@ return (
     <NavbarAdmin />
    </div>
    <div id="main3">
-    <p>Bienvenue dans votre espace administrateur</p>
+    <p className="heading">Bienvenue dans votre espace administrateur</p>
    </div>
    <div className="text-muted" id="bottom2">
             &copy;{new Date().getFullYear()} TakeCare Web App - All rights reserved
