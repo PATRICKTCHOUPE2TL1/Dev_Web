@@ -22,7 +22,6 @@ this.handleProfil =this.handleProfil.bind(this)
         			console.log('user email sent successfully')
         			private_mess.emit("username", {uerSessionName : this.state.id});
 
-        
         this.props.callback("message",this.state.id,this.state.email)
     }
     handleProfil = () =>{
@@ -32,49 +31,25 @@ this.handleProfil =this.handleProfil.bind(this)
     render() {
         return (
 
-            <div className="row profile">
-                    <div className="col-md-3">
-                        <div className="profile-sidebar">
-
-
+            
+                    <div className="col-md-3" id="patient">
+                            <div class="text-center">
+                                <img src={this.state.image || "http://ssl.gstatic.com/accounts/ui/avatar_2x.png"} class="avatar img-circle img-thumbnail" alt="avatar" />
+                            </div>
                             <div className="profile-usertitle">
                                 <div className="profile-usertitle-name">
                                     {this.state.nom + ' ' + this.state.prenom}<span class="fa fa-envelope small pull-right"> </span>
                                 </div>
-                                <div className="profile-usertitle-job">
-                                   
-                                </div>
-                            </div>
-                            <div class="text-center">
-                                <img src={this.state.image || "http://ssl.gstatic.com/accounts/ui/avatar_2x.png"} class="avatar img-circle img-thumbnail" alt="avatar" />
                             </div>
                             <div className="profile-userbuttons">
-                                <button type="button" id="follow" onClick ={() =>{this.handleProfil()}} >Profil</button>
-                                <button type="button" id="follow" onClick ={() =>{this.handleDiscussion()}} >Discussion</button>
+                                <div>
+                                    <button type="button" className ="btn btn-primary" id="follow" onClick ={() =>{this.handleProfil()}} >Profil</button>
+                                </div>
+                                <div>
+                                    <button type="button" className ="btn btn-primary" id="follow" onClick ={() =>{this.handleDiscussion()}} >Discussion</button>
+                                </div>
                             </div>
-                            {/*<div className="profile-usermenu">
-									<ul className="nav">
-										
-										<li>
-											<a href="#" target="_blank">
-												<i className="glyphicon glyphicon-ok"></i>
-							Tasks </a>
-										</li>
-										<li>
-											<a href="#">
-												<i className="glyphicon glyphicon-flag"></i>
-							Help </a>
-										</li>
-									</ul>
-								</div>*/}
-                        </div>
                     </div>
-                    </div>
-                   
-                        
-                    
-               
-
 
         )
     }

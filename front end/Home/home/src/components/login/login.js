@@ -2,13 +2,12 @@ import React , { Component } from 'react'
 import {withRouter} from 'react-router-dom'
 import './login.css'
 import ava from "../../image/ava.svg"
-import infis from "../../image/infis.svg"
+import docs from "../../image/docs.svg"
 import { Link,Redirect } from "react-router-dom"
 import axios from 'axios'
 import EspacePatient from './../../EspacePatient'
 import io from "socket.io-client";
 import ls from 'local-storage'
-
 
 
 class Login extends Component {
@@ -47,9 +46,8 @@ class Login extends Component {
         axios
              .post('http://127.0.0.1:5000/login', this.state,)
              .then(reponse =>{
-                 ls.set('userId', reponse.data[1])
-                 console.log(reponse)
-                 console.log(reponse.data)
+                ls.set('userId', reponse.data[1])
+                
                 if(reponse.data[0]==="patient"){
                     this.setState({
                         RedPat : true
@@ -75,12 +73,9 @@ class Login extends Component {
 
 
                   }else {
-
-                      console.log(reponse.data[0][0])
                       console.log("something went wrong")
-                      document.getElementById("error").innerHTML ="<p>une erreur c'est produit</p>"
+                      document.getElementById("error").innerHTML ="<p>une erreur s'est produite</p>"
                   }
-                 
              })
              .catch(erreur =>{
                  console.log(erreur)
@@ -103,6 +98,7 @@ class Login extends Component {
             }
         }
         return(
+<<<<<<< HEAD
             <div className="containe">
                 {/*login()*/}
             <div className="img">
@@ -127,10 +123,35 @@ class Login extends Component {
 
                         <input type="submit" className="login" value="Se connecter"></input>
                         <div id ="error"></div>
+=======
+            <div className="container1">
+                    <div className="img2">
+                        <img src={docs} alt="infirmiéres"></img>
+                    </div>
+                    <div className="login-container">
+                            <form id="lgform" onSubmit={this.handleOnsubit}>
+                                    <img className="avatar" src={ava} alt="avatar"></img>
+                                    <h2>Mon espace sante</h2>
+                                    <div className="form-group row">
+                                        <label for="email" className="col-sm-3 col-form-label">Email*</label>
+                                        <div className="col-sm-7">
+                                            <input type ="text" id = 'email' name = "email"  required   onChange={this.handleUserNameChange} className="form-control"/>
+                                        </div> 
+                                    </div>
+                                    <div className="form-group row">
+                                        <label for="mdp" className="col-sm-3 col-form-label">Password*</label>
+                                        <div className="col-sm-7">
+                                            <input type ="password" id ='mdp' required   onChange={this.handlePasswordChange} className="form-control"/>
+                                        </div>
+                                    </div>
+                                    <Link to ='/signin'><a href="#" className="lglk">Créer un compte ?</a></Link><br></br>
+>>>>>>> refs/remotes/origin/master
 
-                    </form>
+                                    <input type="submit" id="login"  className ="btn btn-success" value="Se connecter"></input>
+                                    <div id ="error"></div>
+                            </form>
+                    </div>
             </div>
-        </div>
 
         )
     }

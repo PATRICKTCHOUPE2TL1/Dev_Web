@@ -1,32 +1,25 @@
 import React, { Component } from 'react';
 import Navitem from './Navitem';
+import {FaUserMd, FaUsers,FaUserNurse,FaInfoCircle} from "react-icons/fa";
+
 class NavBarPat extends Component {
-constructor(props)
-{
-super(props);
-this.state={ 
-//'NavItemActive':''
+    constructor(props)
+    {
+    super(props);
+    this.state={ 
+    }
 }
-}
-/*activeitem=(x)=>
-{
-if(this.state.NavItemActive.length>0){
-document.getElementById(this.state.NavItemActive).classList.remove('active');
-}
-this.setState({'NavItemId':x},()=>{
-document.getElementById(this.state.NavItemActive).classList.add('active');
-});
-};*/
+
 render() {
-return (
-<nav id ="barnav">
-<ul>
-<Navitem item="Nos Medecins" tolink="/Patient/nosmedecin"  activec={this.activeitem}></Navitem>
-<Navitem item="Mes données" tolink="/Patient/mesdonnées"  activec={this.activeitem}></Navitem>
-<Navitem item="Mon medecin" tolink="/Patient/monmedecin"  activec={this.activeitem}></Navitem>
-</ul>
-</nav>
-)
+    return (
+    <nav>
+        <ul>
+            <Navitem item={<FaUsers color='rgb(128,255,255)'/>} tolink="/Patient/nosmedecin"  activec={this.activeitem}></Navitem>
+            <Navitem item={<FaInfoCircle color='rgb(128,255,255)'/>} tolink="/Patient/mesdonnées"  activec={this.activeitem}></Navitem>
+            <Navitem item={<FaUserMd color='rgb(128,255,255)'/>} tolink="/Patient/monmedecin"  activec={this.activeitem}></Navitem>
+        </ul>
+    </nav>
+    )
 }
 }
 export default NavBarPat

@@ -6,7 +6,6 @@ import { withRouter} from "react-router-dom"
 import axios from 'axios'
 
 
-
 class EspacePatient extends Component {
     constructor(props) {
         super(props)
@@ -14,14 +13,12 @@ class EspacePatient extends Component {
             id: props.userId
         }
     }
-
     componentDidMount = () =>{
         axios.defaults.withCredentials = true
 
         axios
           .post('http://127.0.0.1:5000/profil', this.state)
           .then(reponse => {
-            console.log(reponse)
             if (reponse.data[1] === "medecin") {
                 console.log("nono")
                 this.props.history.push('/login');
@@ -38,18 +35,18 @@ class EspacePatient extends Component {
             console.log(erreur)
           })
     }
-
     render() {
         return (
             <div>
-
-                <EntetePat />
-                
-                    <div className="App2">
-                        <NavBarPat />
-                         <p>Espace Patient</p>
-
-                    </div>
+                <div id="top1">
+                    <EntetePat />
+                </div>
+                <div id="bar1">
+                    <NavBarPat />
+                </div>
+                <div className="text-muted" id="bottom1">
+                        &copy;{new Date().getFullYear()} TakeCare Web App - All rights reserved
+                </div>
             </div>
         )
     }

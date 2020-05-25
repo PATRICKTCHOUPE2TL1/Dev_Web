@@ -61,8 +61,6 @@ class MesPatient extends Component {
                         MedInfos : response.data,
                         loaded :"true"
 					})
-					console.log("test results ***** ")
-		console.log(response)
 				/*axios
 				.get('http://127.0.0.1:5000/getSession')
 				.then(response => {
@@ -114,10 +112,7 @@ class MesPatient extends Component {
 
 
 	render() {
-        
-
-		
-
+    	
 		const renderComp = () => {
 			if (this.state.renderProfil === true) {
 				//return(<p>Profil</p>)
@@ -131,18 +126,14 @@ class MesPatient extends Component {
 				if(this.state.callBack2 === 1){
 					return(<div><p>hello</p>{this.setState({callBack2 : 2})}</div>)}
 					else if(this.state.callBack2 === 2){
-				return <p><Discussion email={this.state.patEmail} userEmail ={this.state.idPat} myEmail ={this.state.MedInfos[0][0]} /></p>}
+					return <p><Discussion email={this.state.patEmail} userEmail ={this.state.idPat} myEmail ={this.state.MedInfos[0][0]} /></p>}
 			} else {
 				return <p>Notification</p>
             }
             
            
-
-
-
         }
         
-
 
         const arr = []
         for(let i=0; i<this.state.MedInfos.length;i++){
@@ -150,24 +141,19 @@ class MesPatient extends Component {
         
 	  }
 	  
-
-
-
 		return (
 
 	
-		<div class="container">
-                            
-
-
+		<div class="container"> 
+			<div className="row profile">               
 				{this.state.loaded ==="true" ? arr : <p>not loaded</p>}
-				<div className="col-md-9">
-				<div className="profile-content">
-                           {renderComp()}
-
-						   </div>
-						   </div>
-                </div>
+			</div>
+			<div className="col-md-9">
+				<div className="profile-content" id="contMed">
+                    {renderComp()}
+				</div>
+			</div>
+         </div>
 				
                       
 			

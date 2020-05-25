@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/static/css/main.522cc4bb.chunk.css",
+    "main.js": "/static/js/main.d7053d57.chunk.js",
+    "main.js.map": "/static/js/main.d7053d57.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.cc8d3cab.js",
+    "runtime-main.js.map": "/static/js/runtime-main.cc8d3cab.js.map",
+    "static/js/2.ad5d4a07.chunk.js": "/static/js/2.ad5d4a07.chunk.js",
+    "static/js/2.ad5d4a07.chunk.js.map": "/static/js/2.ad5d4a07.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.15dfb34d1de27d7c8258376cb9434407.js": "/precache-manifest.15dfb34d1de27d7c8258376cb9434407.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.522cc4bb.chunk.css.map": "/static/css/main.522cc4bb.chunk.css.map",
+    "static/js/2.ad5d4a07.chunk.js.LICENSE.txt": "/static/js/2.ad5d4a07.chunk.js.LICENSE.txt",
+    "static/media/av.png": "/static/media/av.941b5217.png",
+    "static/media/ava.svg": "/static/media/ava.ae96ed19.svg",
+    "static/media/docs.svg": "/static/media/docs.23325168.svg",
+    "static/media/Home.css": "/static/media/hellocare-patient.52f64728.jpg",
+    "static/media/infis.svg": "/static/media/infis.01c05e96.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.cc8d3cab.js",
+    "static/js/2.ad5d4a07.chunk.js",
+    "static/css/main.522cc4bb.chunk.css",
+    "static/js/main.d7053d57.chunk.js"
+  ]
+}

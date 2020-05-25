@@ -88,14 +88,16 @@ class MonMedecin extends Component {
 
 				return(<p>Medecin En attente</p>)
 			}else {
-				return(<div className="container">
+				return(
+				<div className="container">
 					<div className="row profile">
+<<<<<<< HEAD
 						<div className="col-md-3">
 							<div className="profile-sidebar">
+=======
+						<div className="col-md-3" id="medecin"> 
+>>>>>>> refs/remotes/origin/master
 								<div className="profile-usertitle">
-									<div className="profile-usertitle-name">
-										{this.state.MedInfos[18] + ' ' + this.state.MedInfos[19]}<span className="fa fa-envelope small pull-right"> </span>
-									</div>
 									<div className="profile-usertitle-job">
 										{this.state.MedInfos[2]}
 									</div>
@@ -103,21 +105,31 @@ class MonMedecin extends Component {
 								<div className="text-center">
 									<img src={this.state.MedInfos[15] || "http://ssl.gstatic.com/accounts/ui/avatar_2x.png"} className="avatar img-circle img-thumbnail" alt="avatar" />
 								</div>
-								<div className="profile-userbuttons">
-									<button type="button" id="follow" onClick={() => { this.handleProfil() }}>Profil</button>
-									<button type="button" id="follow" onClick={() => { this.handleMessage() }}>Discussion</button>
+								<div className="profile-usertitle-name">
+										{this.state.MedInfos[18] + ' ' + this.state.MedInfos[19]}<span className="fa fa-envelope small pull-right"> </span>
 								</div>
+								<div className="profile-userbuttons">
+									<div>
+										<button type="button" className ="btn btn-primary" id="follow" onClick={() => { this.handleProfil() }}>Profil</button>
+									</div>
+									<div>
+										<button type="button" className ="btn btn-primary" id="follow" onClick={() => { this.handleMessage() }}>Discussion</button>
+									</div>
+								</div>
+<<<<<<< HEAD
 								
 							</div>
+=======
+>>>>>>> refs/remotes/origin/master
 						</div>
 						<div className="col-md-9">
-							<div className="profile-content">
+							<div className="profile-content" id="contPat">
 								{renderComp()}
-
 							</div>
 						</div>
 					</div>
-				</div>)
+				</div>
+				)
 			}
 		}
 

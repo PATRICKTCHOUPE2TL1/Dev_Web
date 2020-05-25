@@ -37,6 +37,7 @@ class NosMedecin extends Component {
 
     }
     return (
+<<<<<<< HEAD
       <section id="section">
         <div className="container">
           <h2 className="heading">Medecins disponibles sur le site</h2>
@@ -45,6 +46,17 @@ class NosMedecin extends Component {
           </div>
         </div>
       </section>
+=======
+      <div className="container bootstrap snippet">
+        <h2 className="heading">Medecins disponibles sur le site</h2>
+        <div className="row" id="row1">
+                    
+
+          {this.state.loaded === "true" ? arr : <p>not loaded</p>}
+
+        </div>
+      </div>
+>>>>>>> refs/remotes/origin/master
     )
   }
 }
