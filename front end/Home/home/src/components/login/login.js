@@ -17,7 +17,10 @@ class Login extends Component {
         super(props);
         this.state = {
             email : ' ',
-            password : ' '
+            password : ' ',
+            RedPat : false,
+            RedMed : false,
+            RedAdmin:false
         };
         this.handleUserNameChange = this.handleUserNameChange.bind(this);
         this.handlePasswordChange = this. handlePasswordChange.bind(this);
@@ -48,11 +51,28 @@ class Login extends Component {
                  console.log(reponse)
                  console.log(reponse.data)
                 if(reponse.data[0]==="patient"){
-
-                    this.props.history.push('/Patient');
+                    this.setState({
+                        RedPat : true
+                    })
+                    console.log("hahahahah")
+                    window.location.replace("/Patient");
+                   //this.props.history.push('/Patient');
                   }else if(reponse.data[0]==="medecin"){
+                    this.setState({
+                        RedMed : true
+                    })
+                    //this.props.history.push('/Medecin');
+                    window.location.replace("/medecin");
 
-                    this.props.history.push('/Medecin');
+
+                  }else if(reponse.data[0]==="Admin"){
+                      console.log('okokoko')
+                        this.setState({
+                            RedAdmin : true
+                        })
+                        //this.props.history.push('/Admin');
+                        window.location.replace("/Admin");
+
 
                   }else {
 
@@ -65,12 +85,26 @@ class Login extends Component {
              .catch(erreur =>{
                  console.log(erreur)
              })
+            // window.location.reload();
+
         
     };
 
     render(){
+        const login = () =>{
+            console.log(this.state.RedPat)
+            
+            if(this.state.RedPat === true){
+                return(<Redirect to ='/Patient' />)
+            }else if(this.state.RedMed === true){
+                return(<Redirect to ='/medecin' />)
+            }else if(this.state.RedAdmin === true){
+                return (<Redirect to ='/Admin' />)
+            }
+        }
         return(
             <div className="containe">
+                {/*login()*/}
             <div className="img">
                 <img src={infis} alt="infirmiéres"></img>
             </div>

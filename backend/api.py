@@ -18,18 +18,7 @@ CORS(app)
 
 @app.route('/',methods = ['GET','POST'])
 def getAll():
-    try:
-        script = 'select * from utilisateur join medecin join consultations join patient';
-        cur = mysql.connection.cursor()
-        cur.execute(script)
-        resultValue = cur.fetchall()
-        resp = jsonify(resultValue)
-        resp.status_code =200
-        return resp
-    except Exception as e:
-        print(e)
-    finally:
-        cur.close()
+   return "Hello Flask"
 
 @app.route('/<table>/',methods =['GET','POST'])
 def getTable(table):

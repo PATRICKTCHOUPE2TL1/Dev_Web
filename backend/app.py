@@ -45,13 +45,12 @@ def index():
         resultValue = cur2.fetchall()
         resp = jsonify(resultValue)
         resp.status_code=200
-        
         return resp
-         
     except Exception as e:
         print(e)
     finally:
         cur2.close()
+
 
 @app.route('/postdata',methods =['GET','POST'])
 @cross_origin(supports_credentials=True)
@@ -66,12 +65,9 @@ def recieve():
         for i in emails :
             if json_data.get("email") == i[0]:
                 notif = "cette utilisateur existe deja"
-                print(notif)
-                return(notif)
-            
+                return(notif)     
         if notif == ' ' :
-            cur.execute("INSERT INTO utilisateur(nom, prenom,email,motdepasse,statut) VALUES(%s,%s,%s,%s,%s)",(json_data.get('nom'),json_data.get('prenom'),json_data.get('email'),pw_hash,json_data.get('status')))
-            
+            cur.execute("INSERT INTO utilisateur(nom, prenom,email,motdepasse,statut) VALUES(%s,%s,%s,%s,%s)",(json_data.get('nom'),json_data.get('prenom'),json_data.get('email'),pw_hash,json_data.get('status')))         
             email = "'%s'" %json_data.get('email')
             cur.execute("select userId from utilisateur where email = {}".format(email))
             userId = cur.fetchall()
@@ -82,51 +78,100 @@ def recieve():
                 cur.close()
                 return "successPat"
             else:
-                cur.execute("insert into medecin(userId) VALUES({})".format(userId))
                 mysql.connection.commit()
-                cur.close()
-                return "successMed"
-                          
+                return jsonify(["successMed",userId])
+                        
+@app.route('/AddMed',methods =['GET','POST']) 
+def addMed():
+    json_data = request.get_json()
+    userId = json_data.get('userId')
+    carteId= json_data.get("MedCarteId")
+    preuvemed = json_data.get("preuveMed")
+    emailPrive =json_data.get("email")
+    userId = json_data.get("userId")
+    cur = mysql.connection.cursor() 
+    cur.execute("insert into attente(carteIdt,preuveMed,emailPrive,userId,statut)values(%s,%s,%s,%s,%s)",[carteId,preuvemed,emailPrive,userId,'true'])
+    mysql.connection.commit()
+    cur.close()
+    return ("insert success")
+
+@app.route('/validerStatus', methods =['GET','POST'])
+def confirmMed():
+    json_data = request.get_json()
+    userId = json_data.get('userId')
+    cur = mysql.connection.cursor()
+    cur.execute('update utilisateur set statut = "medecin" where userId =%s',[userId])
+    cur.execute('update attente set statut = "false" where userId =%s',[userId])
+    mysql.connection.commit()
+    cur.close()
+    return 'updateSuccess'
+
+@app.route('/validerRefus', methods =['GET','POST'])
+def validerRefus():
+    json_data = request.get_json()
+    userId = json_data.get('userId')
+    cur = mysql.connection.cursor()
+    cur.execute('update utilisateur set statut = "refus" where userId =%s',[userId])
+    mysql.connection.commit()
+    cur.close()
+    return 'refusSuccess'
+
+@app.route('/validerMed',methods =['GET','POST'])
+def validerMed():
+    json_data = request.get_json()
+    userId = json_data.get('userId')
+    cur=mysql.connection.cursor()
+    cur.execute("insert into medecin(userId) VALUES(%s)",[userId])
+    mysql.connection.commit()
+    cur.close()
+    return "successPat"
 
 
 @app.route('/login', methods =['GET','POST'])
 @cross_origin(supports_credentials=True)
 def login():
     if request.method =='POST' :
-        json_data = request.get_json()
-        
+        json_data = request.get_json()      
         value = json_data.get('email')
-        print("--------------------------------session length---------------------")
-        print(len(session))
-        print(session)
-        if len(session) >0 :
+        value2 = json_data.get('password')
+        if len(session) >0 and not session['username'] ==value :
             return "error"
         else :
-
-            cur = mysql.connection.cursor() 
-            cur.execute("select motdepasse from utilisateur where email = %s", [json_data.get('email')])
-            pwd = cur.fetchall()
-            pwd2 = pwd[0][0]
-            if bcrypt.check_password_hash(pwd2,json_data.get('password')) :
-                cur = mysql.connection.cursor() 
-                cur.execute("select userId from utilisateur where email = %s",[json_data.get('email')])
-                userId = cur.fetchall()
-                userId2 = userId[0][0]  
+            if value == "Admin@gmail.com" and value2 =="Admin" :
                 session['loggedin'] = True
-                session['id']= userId2
+                session['id']= 85550
                 session['username'] = value
-                cur.execute("select statut from utilisateur where email = %s",[json_data.get('email')])
-                state = cur.fetchall()
-                state = state[0][0]
-                state2 =[state,userId2]
-                state = jsonify(state2)
-                print('**********************************test session*********************************')
+                print('-----------------------***********')
                 print(session)
+                res =["Admin",85550]
+                return jsonify(res)
+                
+            
+            else :
+
+                cur = mysql.connection.cursor() 
+                cur.execute("select motdepasse from utilisateur where email = %s", [json_data.get('email')])
+                pwd = cur.fetchall()
+                pwd2 = pwd[0][0]
+                if bcrypt.check_password_hash(pwd2,json_data.get('password')) :
+                    cur = mysql.connection.cursor() 
+                    cur.execute("select userId from utilisateur where email = %s",[json_data.get('email')])
+                    userId = cur.fetchall()
+                    userId2 = userId[0][0]  
+                    session['loggedin'] = True
+                    session['id']= userId2
+                    session['username'] = value
+                    cur.execute("select statut from utilisateur where email = %s",[json_data.get('email')])
+                    state = cur.fetchall()
+                    state = state[0][0]
+                    state2 =[state,userId2]
+                    state = jsonify(state2)
+                    print(session)
 
            
-                return state
-            else :
-                return("L'utilisateur n'xiste pas veuillez verifier votre email ou motdepasse")
+                    return state
+                else :
+                    return("L'utilisateur n'xiste pas veuillez verifier votre email ou motdepasse")
 
 @app.route('/logout', methods =['GET','POST'])
 @cross_origin(supports_credentials=True)
@@ -153,6 +198,18 @@ def profil():
     else:
         return 'notIn'
                
+
+
+@app.route('/getMedAttente',methods =['GET'])
+def getTable():
+    
+    cur = mysql.connection.cursor()
+    cur.execute('select nom,prenom,utilisateur.userId,carteIdt,preuveMed,emailPrive from attente join utilisateur where attente.statut ="true" and utilisateur.userId = attente.userId')
+    resultValue = cur.fetchall()
+    resp = jsonify(resultValue)
+    resp.status_code=200
+    return resp
+  
 
 
 @app.route('/<table1>/<table2>/<parm1>/search')
@@ -186,107 +243,58 @@ backupMess = {room : []}
 
 @SocketIO.on('refresh')
 def handleRefresh():
-    print('----------------test refresh-----------')
     emit("refresh", "test")
     return None
 
 @SocketIO.on("username", namespace ='/private')
 def recieve_username(username):
-    print('------------------------------------------------------------')
-    print('sender email recieve successfully')
     i=0
 
     username1 = username['uerSessionName']
     if  username1 in users :
-        print("***************already here*****")
         return "already here"
     else :
-
-        
         cur =mysql.connection.cursor()
         cur.execute("select room from consultation where patId = %s",[username1])
         roomSql =cur.fetchall()
         roomSql =roomSql[0][0]
         while roomSql == " " :
-            print("*********infinite loop****************")
             i+=1
             if i>=2000:
-                break
-
-                
-        print("***************no looop**********")
+                break        
         users[username1] =roomSql
-        print(users)
-        print("*************result********")
         return "success"
 
 @SocketIO.on("message")
 def handleMessage(msg):
-    print('-------------------------------------------------------')
-    print(users)
-    print(users[msg['userId']])
-
     room =users[msg['userId']]
-    print(room)
     messages = msg['message']
-
     messageList =[messages]
-
-    
     join_room(room)
-    print("**************test backup*************")
-    print(backupMess)
-    print(len(backupMess))
-    print(messages)
 
     if messages == ' ':
         if len(backupMess) ==1 :
-
             backupMess[room] =messageList
-            print('-----------first connection----------')
-            print(backupMess)
             emit('message',{"messageRecieve" : messages, "recId" : msg['recId'] } ,room=room)
-        else :
-            print('---------------test else if-----------------')
-            print(len(backupMess))
-            print(backupMess)
-            print(backupMess[room])
-            
-            
+        else :            
             emit('message',backupMess[room] ,room=room)  
     else :
-        print("second connecrion")
         if len(backupMess[room]) <16  :
-            print("less than 16*******************")
-            
             backupMess[room].append({"messageRecieve" : messages,"recId" : msg['recId']})
             emit('message',{"messageRecieve":messages, 'recId' :msg['recId']} ,room=room)  
-
         elif len(backupMess[room]) >= 16 :
-            print("more than 16*******************")
-            
-            #messageList.pop(0)
-            #messageList.append(messages)
             backupMess[room].pop(0)
             backupMess[room].append({"messageRecieve" : messages,"recId" : msg['recId']})
             emit('message',{"messageRecieve":messages, 'recId' :msg['recId']} ,room=room)  
 
-    print('****************************************dfsdfs***********')
-    print(backupMess[room])
-    print(users)
-
     return None
-
-
-
-
-
         
 @app.route('/savedata',methods =['GET','POST'])
 def savedata():
     if request.method =='POST' :
         json_data = request.get_json()
         cur = mysql.connection.cursor() 
+        print('-------------------------')
         userIdt=session['id']
         Genre= json_data.get('Genre')
         DateNaiss=json_data.get('DateNaiss')
@@ -309,16 +317,12 @@ def savedata():
         cur.close()    
         return "update success"
 
-
 @app.route('/fetchPatCons',methods =['GET','POST'])
 def fetchPatCons():
     if request.method == 'POST':
         json_data = request.get_json()
-
         id = json_data.get('userIdt')
         cur = mysql.connection.cursor()
-        print("*************************************testfetchconspat********************")
-        print(id)
         cur.execute("select * from patient join utilisateur where patient.userId =%s and utilisateur.userId =%s",[id,id])
         patCons = cur.fetchall()
         patCons =jsonify(patCons)
@@ -349,8 +353,6 @@ def savedataMed():
             mysql.connection.commit()
             cur.close()    
             return "update Med success"
-
-
 
 @app.route('/get_MedList',methods=['GET','POST'])
 def get_Med():
@@ -390,7 +392,6 @@ def verifCons() :
         cur.execute("select medId from consultation where patId = %s",[idPat])
         medId = cur.fetchall()
         cur.close()
-
         if(len(medId) == 0) :
             return "noMed"
         else :
@@ -404,7 +405,6 @@ def getSessionUserName() :
     username =jsonify(username)
     return username
         
-
 @app.route('/getConsMed', methods =['GET','POST'])
 def consMed():
     json_data = request.get_json()
@@ -435,8 +435,6 @@ def getConsPat():
     consPat =jsonify(consPat)
     return consPat
         
-    
-
 @app.route('/get_Pat',methods =['GET','POST'])
 def get_Pat():
     json_data = request.get_json()
@@ -452,10 +450,6 @@ def get_Pat():
 def confCons():
     json_data = request.get_json()
     patId = json_data.get('id')
-    print("********************************************test confcons")
-    print(patId)
-    
-
     etat ="ok"
     cur = mysql.connection.cursor()
     cur.execute("update consultation set etat = %s where patId =%s",[etat,patId])

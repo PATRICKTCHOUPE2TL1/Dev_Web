@@ -13,6 +13,7 @@ class SignIn extends Component {
 
         super(props);
         this.state =  {
+            id : ' ',
             nom : ' ',
             prenom : ' ',
             email : ' ',
@@ -122,22 +123,28 @@ class SignIn extends Component {
     handleSubmit = event =>{ 
  
         event.preventDefault();
-      /* if(this.chkPassword() == false){
-            
-            this.getId('msg').style.display = "block";
-            
-            this.getId('password').focus()
-        }else{*/
-            console.log(true)
+      
             axios
              .post('http://127.0.0.1:5000/postdata', this.state)
              .then(reponse =>{
-                 console.log(reponse)
+                 console.log(reponse)  
+                 if(reponse.data[0] =="successMed"){
+                     this.setState({
+                         id : reponse.data[1]
+                     })
+                     console.log("test reponse ")
+                     console.log(this.state.id)
+                    this.props.history.push({
+                        pathname : '/confirmerMed',
+                        state :this.state.id
+                    })
+
+                 }
              })
              .catch(erreur =>{
                  console.log(erreur)
              })
-           // }
+           
         
       
     };
@@ -187,7 +194,7 @@ class SignIn extends Component {
             <span className="status">vous etes :</span>
 
             <label  id = "medecin" for="medecin">medecin</label>
-            <input type="radio" id="medecin2" name="status" value="medecin" onChange={this.handleStatusMedecin}/>
+            <input type="radio" id="medecin2" name="status" value="attente" onChange={this.handleStatusMedecin}/>
             
 
             <label  id = "patient" for="patient">patient</label>

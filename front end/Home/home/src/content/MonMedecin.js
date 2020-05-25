@@ -7,10 +7,7 @@ import io from "socket.io-client";
 import ls from "local-storage"
 
 
-
-
 class MonMedecin extends Component {
-
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -25,8 +22,7 @@ class MonMedecin extends Component {
 		this.handleProfil = this.handleProfil.bind(this)
 	}
 
-	componentDidMount() {
-			
+	componentDidMount() {		
 		axios
 			.post('http://127.0.0.1:5000/getConsMed',this.state)
 			.then(response => {
@@ -39,7 +35,6 @@ class MonMedecin extends Component {
 				this.setState({
 					MedInfos: response.data[0]
 				})
-				console.log(this.state.MedInfos)
 				axios
 				.get('http://127.0.0.1:5000/getSession')
 				.then(response => {
@@ -47,7 +42,6 @@ class MonMedecin extends Component {
 						uerSessionName: response.data
 					})
 					let private_mess = io.connect("http://localhost:5000/private")
-        			console.log('user email sent successfully')
         			private_mess.emit("username", this.state);
 	
 				})
@@ -61,39 +55,24 @@ class MonMedecin extends Component {
 				console.log(erreur)
 			})
 
-			
-
-	
-
-
-
 	}
 	handleProfil = () => {
-
 		this.setState({
 			renderProfil: true,
 			renderDiscuss: false
-
 		})
 
 	}
 	handleMessage = () => {
-
-
 		this.setState({
 			renderProfil: false,
 			renderDiscuss: true
 		})
 	}
-
-
 	render() {
-
-		
-
 		const renderComp = () => {
-
-			if (this.state.renderProfil === true) {
+		if (this.state.renderProfil === true) {
+			
 				return <ProfMed userId={this.state.MedInfos[17]} />
 			} else if (this.state.renderDiscuss === true) {
 				return <p><Discussion email={this.state.MedInfos[20]} userEmail ={this.state.uerSessionName} /></p>
@@ -103,15 +82,16 @@ class MonMedecin extends Component {
 		}
 
 		const renderComponent = () =>{
+			console.log('xxxxxxxxxxxxxxxxxxx')
+			
 			if(this.state.MedEnAttentent ==="yes"){
+
 				return(<p>Medecin En attente</p>)
 			}else {
 				return(<div className="container">
 					<div className="row profile">
 						<div className="col-md-3">
 							<div className="profile-sidebar">
-
-
 								<div className="profile-usertitle">
 									<div className="profile-usertitle-name">
 										{this.state.MedInfos[18] + ' ' + this.state.MedInfos[19]}<span className="fa fa-envelope small pull-right"> </span>
@@ -127,21 +107,7 @@ class MonMedecin extends Component {
 									<button type="button" id="follow" onClick={() => { this.handleProfil() }}>Profil</button>
 									<button type="button" id="follow" onClick={() => { this.handleMessage() }}>Discussion</button>
 								</div>
-								{/*<div className="profile-usermenu">
-									<ul className="nav">
-										
-										<li>
-											<a href="#" target="_blank">
-												<i className="glyphicon glyphicon-ok"></i>
-							Tasks </a>
-										</li>
-										<li>
-											<a href="#">
-												<i className="glyphicon glyphicon-flag"></i>
-							Help </a>
-										</li>
-									</ul>
-								</div>*/}
+								
 							</div>
 						</div>
 						<div className="col-md-9">
@@ -157,7 +123,6 @@ class MonMedecin extends Component {
 
 		return (
 			<div>
-				
 				{renderComponent()}
 				<center>
 				</center>

@@ -16,9 +16,15 @@ import EnteteMed from './../components3/header'
 import NosMedecin from './../content/NosMedecins'
 import MonMedecin from './../content/MonMedecin'
 import NavbarMed from  './../components3/Navbar'
+import Admin from './../Admin/Admin'
+import Medecinlist from './../Admin/Medecinlist'
+import EnteteAdmin from './../Admin/componentAdmin/header'
+import NavbarAdmin from './../Admin/componentAdmin/Navbar'
+import Dashboard from './../Admin/componentAdmin/Dashboard'
 
 
 import MesPatient from './../content2/MesPatient';
+import ConfirmId from './../ConfirmMed'
 
 
 
@@ -78,13 +84,19 @@ class Main extends Component {
         <Switch>
           <Route exact path='/' component={Accueil} />
           <Route exact path='/signin' component={Signin} />
+          <Route exact path='/confirmerMed' component={ConfirmId} />
+
           <Route exact path='/Login' component={Login} />
           {this.state.isLogIn  ? (<Route exact path='/Patient' render={(props) => <EspacePatient userId={this.state.id} />} />) : (<Redirect to='/Login' />)}
           {this.state.isLogIn ? (<Route exact path='/Medecin' render={(props) => <Fragment> <Medecin userId={this.state.id} /></Fragment>} />) : (<Redirect to='/Login' />)}
-
+          {this.state.isLogIn ? (<Route exact path='/Medecin' render={(props) => <Fragment> <Medecin userId={this.state.id} /></Fragment>} />) : (<Redirect to='/Login' />)}
+          {this.state.isLogIn ? (<Route exact path='/Admin' render={(props) => <Fragment> <Admin userId={this.state.id} /></Fragment>} />) : (<Redirect to='/Login' />)}
+          
           <Route exact path='/Patient/mesdonnées' render={(props) => <Fragment><EntetePat /> <NavBarPat /><DonneesPatient  {...props} userId={this.state.id}/></Fragment>} />
           <Route exact path='/Patient/nosmedecin' render={() => <Fragment><EntetePat /> <NavBarPat /><NosMedecin  userId={this.state.id}/></Fragment>} />
           <Route exact path='/Patient/monmedecin' render={() => <Fragment><EntetePat /> <NavBarPat /><MonMedecin  userId={this.state.id}/></Fragment>} />
+          <Route exact path='/Admin/medecinlist' render={() => <Fragment><EnteteAdmin /> <NavbarAdmin /><Medecinlist  userId={this.state.id}/></Fragment>} />
+          <Route exact path='/Admin/dashboard' render={() => <Fragment><EnteteAdmin /> <NavbarAdmin /><Dashboard  userId={this.state.id}/></Fragment>} />
 
           <Route path="/Medecin/Profile" userId={this.props.user}>
             <Fragment>
