@@ -15,8 +15,8 @@ class NavbarAdmin extends Component {
         return (
             <nav>
                 <ul>
-                    <Navitem item={<IoIosPeople color='rgb(128,255,255)'/>} tolink="/Admin/medecinlist" activec={this.activeitem}></Navitem>
-                    <Navitem item={<FaTasks color='rgb(128,255,255)'/>} tolink="/Admin/dashboard" activec={this.activeitem}></Navitem>
+                    <Navitem title="Medecin à valider" item={<IoIosPeople color='rgb(128,255,255)'/>} tolink="/Admin/medecinlist" activec={this.activeitem}></Navitem>
+                    <Navitem title="Dashboard" item={<FaTasks color='rgb(128,255,255)'/>} tolink="/Admin/dashboard" activec={this.activeitem}></Navitem>
                 </ul>
             </nav>
         )

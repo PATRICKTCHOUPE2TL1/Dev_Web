@@ -45,7 +45,7 @@ class EspacePatient extends Component {
                     <NavBarPat />
                 </div>
                 <div id="main2">
-                    <p>Bienvenue dans votre espace patient</p>
+                    <p className="heading">Bienvenue dans votre espace patient</p>
                 </div>
                 <div className="text-muted" id="bottom1">
                         &copy;{new Date().getFullYear()} TakeCare Web App - All rights reserved
