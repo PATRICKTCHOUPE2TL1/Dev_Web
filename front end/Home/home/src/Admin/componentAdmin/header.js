@@ -19,11 +19,9 @@ this.deconnecter = this.deconnecter.bind(this)
         axios
              .post('http://127.0.0.1:5000/logout', this.state,)
              .then(reponse =>{
-                 console.log(reponse)
                 if(reponse.data=="success"){
                     this.props.history.push('/Login');
                   }else {
-                      console.log(reponse)
                   }
                  
              })

@@ -52,7 +52,6 @@ class Login extends Component {
                     this.setState({
                         RedPat : true
                     })
-                    console.log("hahahahah")
                     window.location.replace("/Patient");
                    //this.props.history.push('/Patient');
                   }else if(reponse.data[0]==="medecin"){
@@ -64,7 +63,6 @@ class Login extends Component {
 
 
                   }else if(reponse.data[0]==="Admin"){
-                      console.log('okokoko')
                         this.setState({
                             RedAdmin : true
                         })
@@ -73,7 +71,6 @@ class Login extends Component {
 
 
                   }else {
-                      console.log("something went wrong")
                       document.getElementById("error").innerHTML ="<p>une erreur s'est produite</p>"
                   }
              })
@@ -87,7 +84,6 @@ class Login extends Component {
 
     render(){
         const login = () =>{
-            console.log(this.state.RedPat)
             
             if(this.state.RedPat === true){
                 return(<Redirect to ='/Patient' />)

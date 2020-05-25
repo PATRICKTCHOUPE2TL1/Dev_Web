@@ -79,7 +79,6 @@ class SignIn extends Component {
 
         }
         if(mdp != "" && mdp == confmdp) {
-            console.log("0")
 
             if(mdp < 6) {
                 this.getId('msg').style.display = 'block' 
@@ -137,6 +136,9 @@ class SignIn extends Component {
                         pathname : '/confirmerMed',
                         state :this.state.id
                     })
+
+                 }else {
+                    window.location.replace("/");
 
                  }
              })

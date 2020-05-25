@@ -66,7 +66,6 @@ class MesDonnees extends Component {
             .get('http://127.0.0.1:5000/medecin/utilisateur/' + date2 + '/search?args1=utilisateur.userId&args2=' + idMed + '&args3=medecin.userId&args4=' + idMed)
 
             .then(response => {
-                console.log(response.data)
                 let value = response.data
                 
                 this.setState(
