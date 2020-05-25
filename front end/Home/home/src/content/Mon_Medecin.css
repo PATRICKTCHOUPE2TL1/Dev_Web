@@ -49,14 +49,14 @@
   
   #contPat{
     padding: 10px;
-    background: linear-gradient(145deg,#bbd1c4,#db1e05);
+    background: linear-gradient(145deg,#f7b6a5,#e0e7e9);
     min-height: 460px;
     border-radius: 2%;
     border: 1px solid black;
   }
   #contMed{
     padding: 10px;
-    background: linear-gradient(145deg,#57c985,#184f68);
+    background: linear-gradient(145deg,#b7f1ce,#d5e6ee);
     min-height: 460px;
     border-radius: 2%;
     width: 100%;

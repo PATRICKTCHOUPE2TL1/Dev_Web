@@ -1,0 +1,39 @@
+*{
+    font-family: Arial;
+  }
+  #top2{
+    padding: 6px;
+    border-bottom: 1px solid black;
+    font-size: 1.4rem;
+    background: linear-gradient(145deg,#0ecbe4,#d3dadd);
+  }
+  #time{
+    margin-left: 1000px;
+  }
+  #bar2{
+    height: 642px;
+    width: 100px;
+    float: left;
+    background: linear-gradient(145deg,#0ecbe4,#d3dadd);
+    padding: 5px;
+  }
+  #bar2 li{
+    padding: 2.7rem;
+    width: 7.4rem;
+    height: 7.4rem;
+    font-size: 30px;
+    padding: 3rem;
+    list-style: none;
+  }
+  #bottom2{
+  background-color: #fff;
+  color: black;
+  text-align: center;
+  border-top: 1px solid black;
+  padding: 6px;
+  clear: both;
+  }
+  #main2{
+    overflow: auto;
+    height: 642px;
+  }

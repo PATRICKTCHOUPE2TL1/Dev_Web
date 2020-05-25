@@ -34,8 +34,6 @@ class ConfirmId  extends Component{
                     MedCarteId: url
                 })
             })
-console.log("upload success")
-console.log(this.state)
         })
     }
     
@@ -54,12 +52,9 @@ console.log(this.state)
                     preuveMed: url
                 })
             })
-            console.log("upload success")
-            console.log(this.state)
         })
     }
     handleCarteId = (e) => {
-        console.log(e.target.files[0])
         this.setState({
             selectedFile1: e.target.files[0]
         })
@@ -73,7 +68,6 @@ console.log(this.state)
     }
 
     handlehandlePreuveMed = (e) => {
-        console.log(e.target.files[0])
         this.setState({
             selectedFile2: e.target.files[0]
         })
@@ -83,10 +77,7 @@ console.log(this.state)
     handleSubmit = event =>{
         event.preventDefault();
         if((this.state.MedCarteId == " ")||(this.state.preuveMed === " " )||(this.state.email === " ")){
-            console.log(this.state.MedCarteId)
-            console.log(this.state.preuveMed)
-            console.log(this.state.email)
-            alert("veuiller donner tous les info")
+            alert("veuiller donner toutes les info")
         }else {
             axios
             .post('http://127.0.0.1:5000/AddMed', this.state)
@@ -105,36 +96,42 @@ console.log(this.state)
 
     render(){
         return(
-            <div>
+            <div className="container bootstrap snippet">
                 <div>
-{console.log(this.state)}
-                <h1>Message</h1>
-                <br />
-                <br />
-                <hr />
-
+                    <h1>Votre compte est en cours de création, veuillez fournir les informations suivantes pour finaliser sa création.</h1>
+                    <br />
+                    <br />
+                    <hr />
                 </div>
-                
                 <form onSubmit={this.handleSubmit}>
-                <div>
-                <input type="file" className="text-center center-block file-upload" accept = '.pdf,.jpg' onChange={this.handleCarteId} id="slctImg" />
-                <button type="button" onClick={() => { this.handleUploadCarte() }}  id="upldImg" >Upload1</button>
-                </div>
-                <div>
-                <input type="file" class="text-center center-block file-upload" accept = '.pdf,.jpg' onChange={this.handlehandlePreuveMed} id="slctImg" />
-                <button type="button" onClick={() => { this.handleUploadMed() }}  id="upldImg" >Upload2</button>
-                </div>
-                <div>
-                <input type="text" id="email" name="emailPers" placeholder="email" value={this.state.email} required onChange={this.handleEmailChange} />
-
-                </div>
-                <div>
-                </div>
-                <input type="submit" value="Enregistrer" id="save"  />
-
+                    <div className="form-row"> 
+                            <div className="form-group col-md-5">
+                                <label htmlFor="slctImg">Pièce d'identité (.pdf,.jpg)</label>
+                                <input type="file" className="form-control" accept = '.pdf,.jpg' onChange={this.handleCarteId} id="slctImg" />
+                            </div>
+                            <div className="form-group col-md-3">
+                                <button type="button" className="btn btn-success" onClick={() => { this.handleUploadCarte() }}  id="upldImg" >Upload 1</button>
+                            </div>
+                    </div>
+                    <div className="form-row">
+                        <div className="form-group col-md-5">
+                            <label htmlFor="slctImg">Certificat de médecine (.pdf,.jpg)</label>
+                            <input type="file"  className="form-control" accept = '.pdf,.jpg' onChange={this.handlehandlePreuveMed} id="slctImg" />
+                        </div>
+                        <div className="form-group col-md-3">
+                            <button type="button" className="btn btn-success" onClick={() => { this.handleUploadMed() }}  id="upldImg" >Upload 2</button>
+                        </div>
+                    </div>
+                    <div  className="form-row">
+                        <div className="form-group col-md-5">
+                            <label htmlFor="email">Email Pro</label>
+                            <input type="text" id="email" className="form-control" name="emailPers" placeholder="email" value={this.state.email} required onChange={this.handleEmailChange} />
+                        </div>
+                    </div>
+                    <div>
+                    </div>
+                        <input type="submit" className="btn btn-primary" value="Enregistrer" id="save"  />
                 </form>
-                <button type ="button">Retourner</button>
-
             </div>
         )
     }

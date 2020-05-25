@@ -50,7 +50,7 @@ class Medecinlist extends Component {
     return (
       <section id="section">
       <div className="container">
-        <h2 className="heading">Medecins En attente</h2>
+        <h2 className="heading">Medecins en attente de validation</h2>
         <div className="card-wrapper">
 
         {this.state.loaded === "true" ? arr : <p>not loaded</p>}

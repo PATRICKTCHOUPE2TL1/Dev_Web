@@ -54,7 +54,6 @@ class ProfMed extends Component {
             .then(response => {
                 let value = response.data
 
-
                 this.setState(
                     {
                         Civilite: value[0][1],
@@ -171,32 +170,40 @@ class ProfMed extends Component {
                             <div className="tab-content"></div>
                             <form id="profPatient" onSubmit={this.handleSubmit}>
 
-                                <div className="item">
-                                    <p>Profil</p>
-
-                                    <div className="city-item">
-                                        <input type="text" id="nom" name="name" placeholder="Nom" value={this.state.nom || ' '} required onChange={this.handleNomChange} disabled />
-                                        <input type="text" id="prenom" name="name" placeholder="Prenom" value={this.state.prenom || ' '} required onChange={this.handlePrenomChange} disabled />
-
-
-                                        <select required onChange={this.handleCiviliteChange} value={this.state.Civilite} id="civilite" disabled>
-
-                                            <option value="Docteur">Docteur</option>
-                                            <option value="Docteure">Docteure</option>
-                                            <option value="Professeur">Professeur</option>
-                                            <option value="Professeure">Professeure</option>
-                                            <option value="Monsieur">Monsieur</option>
-                                            <option value="Madame">Madame</option>
+                            <div className="item">
+                            <h4 id="titre">Profil</h4>
+                            <div className="form-row">
+                                    <div className="form-group col-md-3">
+                                        <label htmlFor="civilite">Civilité*</label>  
+                                        <select required onChange={this.handleCiviliteChange} value={this.state.Civilite} id="civilite" className="form-control" disabled>
+                                                <option >...</option>
+                                                <option value="Docteur">Docteur</option>
+                                                <option value="Docteure">Docteure</option>
+                                                <option value="Professeur">Professeur</option>
+                                                <option value="Professeure">Professeure</option>
+                                                <option value="Monsieur">Monsieur</option>
+                                                <option value="Madame">Madame</option>
                                         </select>
-                                        <input type="date" name="bdate" required value={this.state.DateNaiss || ''} onChange={this.handleDateNaissChange} readOnly />
-                                        <i className="fas fa-calendar-alt"></i>
+                                    </div>
+                                    <div  className="form-group col-md-3">
+                                            <label htmlFor="nom">Nom*</label>
+                                            <input type="text" id="nom" name="name" className="form-control" value={this.state.nom || ' '} required onChange={this.handleNomChange} disabled />
+                                    </div>
+                                    <div  className="form-group col-md-3">
+                                            <label htmlFor="prenom">Prenom*</label>
+                                            <input type="text" id="prenom" name="name" className="form-control" value={this.state.prenom || ' '} required onChange={this.handlePrenomChange} disabled />
+                                    </div>
+                                    <div  className="form-group col-md-4">
+                                            <label htmlFor="bdate">Date de naissance*</label>
+                                            <input type="date" name="bdate" required className="form-control" value={this.state.DateNaiss || ''} onChange={this.handleDateNaissChange} readOnly />
+                                            <i class="fas fa-calendar-alt"></i>
                                     </div>
                                 </div>
-
-                                <hr />
-                                <div className="city-item">
-                                    <select required onChange={this.handlespecialiteChange} value={this.state.specialite || ''} id="specialite" disabled>
-
+                            <div className="form-row">
+                                <div className="form-group col-md-3">
+                                    <label htmlFor="specialite">Spécialité*</label>
+                                    <select required onChange={this.handlespecialiteChange} value={this.state.specialite || ''} id="specialite" className="form-control" disabled>
+                                        <option>...</option>
                                         <option value="Generaliste">Generaliste</option>
                                         <option value="Psychiatre">Psychiatre</option>
                                         <option value="Sage-femme">Sage-femme</option>
@@ -204,8 +211,11 @@ class ProfMed extends Component {
                                         <option value="Dentiste">Dentiste</option>
                                         <option value="Ophthamologiste">Ophthamologiste</option>
                                     </select>
-                                    <select required onChange={this.handleConventionChange} value={this.state.Convention || ' '} id="convention" disabled>
-
+                                </div>
+                                <div className="form-group col-md-5">
+                                    <label htmlFor="convention">Convention*</label>
+                                    <select required onChange={this.handleConventionChange} value={this.state.Convention || ' '} id="convention" className="form-control" disabled>
+                                        <option>...</option>
                                         <option value="Generaliste Conventionné secteur 1">Generaliste Conventionné secteur 1</option>
                                         <option value="Generaliste Conventionné secteur 2">Generaliste Conventionné secteur 2</option>
                                         <option value="Conventionné Sage-femme">Conventionné Sage-femme</option>
@@ -215,20 +225,39 @@ class ProfMed extends Component {
                                         <option value="Non Conventionné">Non Conventionné</option>
                                     </select>
                                 </div>
-                                <hr />
-
-
-                                <div className="item">
-                                    <p>Address</p>
-                                    <input type="text" name="Rue" placeholder="Numero de Rue" value={this.state.NumeroRue || ''} required onChange={this.handleNumeroRueChange} readOnly />
-                                    <input type="text" name="Rue 2" placeholder="Numero de Rue  2" value={this.state.NumeroRue2 || ''} required onChange={this.handleNumeroRue2Change} readOnly />
-                                    <div className="city-item">
-                                        <input type="text" name="cite" placeholder="Cite" value={this.state.cite || ''} required onChange={this.handleciteChange} readOnly />
-                                        <input type="text" name="region" placeholder="Region" value={this.state.Region || ''} required onChange={this.handleRegionChange} readOnly />
-                                        <input type="number" name="codePostal" placeholder="Code Postal" value={this.state.codePostal || ''} required onChange={this.handlecodePostalChange} readOnly />
-                                        <select required value={this.state.Pays || ''} onChange={this.handlePaysChange} id="pays" disabled>
-                                            <option value="">Pays de Residence</option>
-                                            <option value="RoyaumeUnis">Royaume unis</option>
+                            </div>
+                            </div>
+                            <hr />
+                            <div className="item">
+                                <h4 id="titre">Adresse du cabinet</h4>
+                                <div className="form-row">
+                                    <div className="form-group col-md-3" >
+                                        <label htmlFor="inputstreet">Rue*</label>
+                                        <input type="text" name="Rue" id="inputstreet" className="form-control" value={this.state.NumeroRue || ''} required onChange={this.handleNumeroRueChange} readOnly />
+                                    </div>
+                                    <div className="form-group col-md-3">
+                                        <label htmlFor="inputstreet">Rue 2</label>
+                                        <input type="text" name="Rue 2" className="form-control" value={this.state.NumeroRue2 || ''} required onChange={this.handleNumeroRue2Change} readOnly />
+                                    </div>
+                                    <div className="form-group col-md-3">
+                                        <label htmlFor="inputcity">Ville*</label>
+                                        <input type="text" name="cite" id="inputcity" className="form-control" value={this.state.cite || ''} required onChange={this.handleciteChange} readOnly />
+                                    </div>
+                                </div>
+                                <div className="form-row">
+                                    <div className="form-group col-md-3">
+                                        <label htmlFor="inputcity">Region*</label>
+                                        <input type="text" name="region"  className="form-control" value={this.state.Region || ''} required onChange={this.handleRegionChange} readOnly />
+                                    </div>
+                                    <div className="form-group col-md-3"> 
+                                        <label htmlFor="inputcp">Code Postal*</label>
+                                        <input type="text" name="codePostal" id="inputctp" className="form-control" value={this.state.codePostal} required onChange={this.handlecodePostalChange} readOnly />
+                                    </div>  
+                                    <div className="form-group col-md-5">
+                                        <label htmlFor="pays">Pays de résidence*</label>
+                                        <select required value={this.state.Pays || ''} onChange={this.handlePaysChange} id="pays" className="form-control" disabled>
+                                            <option>...</option>
+                                            <option value="RoyaumeUnis">Royaume uni</option>
                                             <option value="Cameroun">Cameroun</option>
                                             <option value="Belgique">Belgique</option>
                                             <option value="France">France</option>
@@ -236,23 +265,20 @@ class ProfMed extends Component {
                                         </select>
                                     </div>
                                 </div>
-
-                                <div className="item">
-                                    <p>Phone</p>
-                                    <input type="text" name="phone" placeholder="### ### ####" value={this.state.Phone || ''} onChange={this.handlePhoneChange} readOnly />
+                                <div className="form-row">
+                                    <div className="form-group col-md-3">
+                                    <label htmlFor="inputphone">Téléphone Cabinet*</label>
+                                    <input type="text" name="phone" id="inputphone" className="form-control" value={this.state.Phone || ''} onChange={this.handlePhoneChange} readOnly />
+                                    </div>
                                 </div>
-                                <hr />
-
-
-                                <div className="item">
-                                    <p>A savoir sur vous</p>
-                                    <textarea rows="3" onChange={this.handleAutreChange} readOnly value={this.state.Autre || ''}></textarea>
+                            </div>   
+                            <hr />
+                            <div className="form-row">
+                                <div className="form-group col-md-7">
+                                    <label htmlFor="inputautre">A Savoir sur lui</label>
+                                    <textarea rows="3" id="inputautre" onChange={this.handleAutreChange} readOnly value={this.state.Autre || ''} className="form-control"></textarea>
                                 </div>
-                                <div className="btn-block">
-                                    <input type="submit" value="Enregistrer" id="save" style={{ display: 'none' }} />
-
-                                </div>
-
+                            </div>
                             </form>
 
                         </div>

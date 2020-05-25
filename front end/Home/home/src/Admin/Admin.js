@@ -1,7 +1,5 @@
 import React , {Component} from 'react';
 import axios from 'axios'
-
-
 import
 {
 BrowserRouter as Router,
@@ -9,6 +7,7 @@ Route,withRouter
 } from "react-router-dom";
 import NavbarAdmin from './componentAdmin/Navbar';
 import EnteteAdmin from './componentAdmin/header'
+import './Admin.css'
 
 
 class Admin extends Component {
@@ -46,15 +45,18 @@ class Admin extends Component {
 return (
  
 <div>
-<div id="top1">
-   <EnteteAdmin />
+  <div id="top2">
+    <EnteteAdmin />
    </div>
-   <div id="bar1">
-   <NavbarAdmin />
+   <div id="bar2">
+    <NavbarAdmin />
    </div>
-   <div id="main2">
-   <p>Medecin</p>
+   <div id="main3">
+    <p>Bienvenue dans votre espace administrateur</p>
    </div>
+   <div className="text-muted" id="bottom2">
+            &copy;{new Date().getFullYear()} TakeCare Web App - All rights reserved
+    </div>
 </div>
 )
     }

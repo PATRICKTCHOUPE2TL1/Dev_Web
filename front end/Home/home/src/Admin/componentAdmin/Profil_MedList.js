@@ -4,10 +4,6 @@ import couv from "./../../image/couv.jpg"
 import axios from 'axios'
 
 
-
-
-
-
 class MedListProfil extends Component {
   constructor(props) {
     super(props)
@@ -70,21 +66,17 @@ console.log("error")
   render() {
     return (
           <div>
-             
               <div className="card">
                   <img src={couv} alt="card background" className="bgImg"></img>
                   <img src={this.state.image || av} alt="profile image" className="profil"></img>
                   <h2>{this.props.nom + '   ' + this.props.prenom}</h2>
-                     <p>{this.state.email}</p>
-                
+                    <p>{this.state.email}</p>
                   <a href="#"  className ="btn btn-success" id="btn" onClick={() => this.handleConfirmMed()}>Valider</a>
-                  <a href="#"  className ="btn btn-success" id="btn" onClick={() => this.handleRefuserMed()}>Rejeter</a>
-
+                  <a href="#"  className ="btn btn-danger" id="btn" onClick={() => this.handleRefuserMed()}>Rejeter</a>
               </div>
               <div>
-              <a href={this.state.carteId} className ="btn btn-success" id="btn" download>telecharger CNI</a><br/><br/>
-              <a href={this.state.preuve}  className ="btn btn-success"  id="btn" download>telecharger PreuveMed</a>
-
+                  <a href={this.state.carteId} className ="btn btn-success" id="btn" download>Télécharger pièce d'identité</a><br/><br/>
+                  <a href={this.state.preuve}  className ="btn btn-success"  id="btn" download>Télécharger certificat de médecine</a>
               </div>
               </div>
     )

@@ -51,6 +51,9 @@ return (
    <div id="bar">
     <Navbar />
    </div>
+   <div id="main1">
+    <p>Bienvenue dans votre espace medecin</p>
+   </div>
    <div className="text-muted" id="bottom">
             &copy;{new Date().getFullYear()} TakeCare Web App - All rights reserved
     </div>
