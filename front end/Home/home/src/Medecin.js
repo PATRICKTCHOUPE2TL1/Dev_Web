@@ -26,7 +26,6 @@ class MedSpace extends Component {
           .post('http://127.0.0.1:5000/profil', this.state)
           .then(reponse => {
             if (reponse.data[1] === "patient") {
-                console.log("nono")
                 this.props.history.push('/login');
     
             } else {

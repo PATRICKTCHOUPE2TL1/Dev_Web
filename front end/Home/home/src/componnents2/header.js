@@ -23,7 +23,6 @@ this.deconnecter = this.deconnecter.bind(this)
                 if(reponse.data=="success"){
                     this.props.history.push('/Login');
                   }else {
-                      console.log(reponse)
                   }
              })
              .catch(erreur =>{
