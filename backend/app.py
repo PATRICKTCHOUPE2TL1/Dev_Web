@@ -294,7 +294,6 @@ def savedata():
     if request.method =='POST' :
         json_data = request.get_json()
         cur = mysql.connection.cursor() 
-        print('-------------------------')
         userIdt=session['id']
         Genre= json_data.get('Genre')
         DateNaiss=json_data.get('DateNaiss')
@@ -334,7 +333,7 @@ def savedataMed():
         if request.method =='POST' :
             json_data = request.get_json()
             cur = mysql.connection.cursor() 
-            userIdtMed=session['id']
+            userIdtMed=json_data.get('userIdtMed')
             Civilite= json_data.get('Civilite')
             DateNaiss= json_data.get('DateNaiss')
             NumeroRue=json_data.get('NumeroRue')

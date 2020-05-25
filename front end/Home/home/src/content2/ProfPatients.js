@@ -33,12 +33,12 @@ this.handleProfil =this.handleProfil.bind(this)
 
             
                     <div className="col-md-3" id="patient">
-                            <div class="text-center">
-                                <img src={this.state.image || "http://ssl.gstatic.com/accounts/ui/avatar_2x.png"} class="avatar img-circle img-thumbnail" alt="avatar" />
+                            <div className="text-center">
+                                <img src={this.state.image || "http://ssl.gstatic.com/accounts/ui/avatar_2x.png"} className="avatar img-circle img-thumbnail" alt="avatar" />
                             </div>
                             <div className="profile-usertitle">
                                 <div className="profile-usertitle-name">
-                                    {this.state.nom + ' ' + this.state.prenom}<span class="fa fa-envelope small pull-right"> </span>
+                                    {this.state.nom + ' ' + this.state.prenom}<span className="fa fa-envelope small pull-right"> </span>
                                 </div>
                             </div>
                             <div className="profile-userbuttons">

@@ -11,44 +11,44 @@ class MonMedecin extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			userId : ls.get("userId"),
+			userId: ls.get("userId"),
 			MedInfos: " ",
 			renderProfil: false,
 			renderDiscuss: false,
 			uerSessionName: "  ",
-			MedEnAttentent : " "
+			MedEnAttentent: " "
 		}
 		this.handleMessage = this.handleMessage.bind(this)
 		this.handleProfil = this.handleProfil.bind(this)
 	}
 
-	componentDidMount() {		
+	componentDidMount() {
 		axios
-			.post('http://127.0.0.1:5000/getConsMed',this.state)
+			.post('http://127.0.0.1:5000/getConsMed', this.state)
 			.then(response => {
-				if(response.data ==="attente"){
-						this.setState({
-							MedEnAttentent : "yes"
-						})
-				}else{
-				
-				this.setState({
-					MedInfos: response.data[0]
-				})
-				axios
-				.get('http://127.0.0.1:5000/getSession')
-				.then(response => {
+				if (response.data === "attente") {
 					this.setState({
-						uerSessionName: response.data
+						MedEnAttentent: "yes"
 					})
-					let private_mess = io.connect("http://localhost:5000/private")
-        			private_mess.emit("username", this.state);
-	
-				})
-				.catch(erreur => {
-					console.log(erreur)
-				})
-			}
+				} else {
+
+					this.setState({
+						MedInfos: response.data[0]
+					})
+					axios
+						.get('http://127.0.0.1:5000/getSession')
+						.then(response => {
+							this.setState({
+								uerSessionName: response.data
+							})
+							let private_mess = io.connect("http://localhost:5000/private")
+							private_mess.emit("username", this.state);
+
+						})
+						.catch(erreur => {
+							console.log(erreur)
+						})
+				}
 
 			})
 			.catch(erreur => {
@@ -71,64 +71,55 @@ class MonMedecin extends Component {
 	}
 	render() {
 		const renderComp = () => {
-		if (this.state.renderProfil === true) {
-			
-				return <ProfMed userId={this.state.MedInfos[17]} />
+
+
+			if (this.state.renderProfil === true) {
+
+				return <ProfMed userId={this.state.MedInfos[14]} />
 			} else if (this.state.renderDiscuss === true) {
-				return <p><Discussion email={this.state.MedInfos[20]} userEmail ={this.state.uerSessionName} /></p>
+				return <p><Discussion email={this.state.MedInfos[19]} userEmail={this.state.uerSessionName} /></p>
 			} else {
 				return <p>Notification</p>
 			}
 		}
 
-		const renderComponent = () =>{
-			console.log('xxxxxxxxxxxxxxxxxxx')
-			
-			if(this.state.MedEnAttentent ==="yes"){
+		const renderComponent = () => {
 
-				return(<p>Medecin En attente</p>)
-			}else {
-				return(
-				<div className="container">
-					<div className="row profile">
-<<<<<<< HEAD
-						<div className="col-md-3">
-							<div className="profile-sidebar">
-=======
-						<div className="col-md-3" id="medecin"> 
->>>>>>> refs/remotes/origin/master
+			if (this.state.MedEnAttentent === "yes") {
+
+				return (<p>Medecin En attente</p>)
+			} else {
+				return (
+					<div className="container">
+						<div className="row profile">
+							<div className="col-md-3" id="medecin">
 								<div className="profile-usertitle">
 									<div className="profile-usertitle-job">
 										{this.state.MedInfos[2]}
 									</div>
 								</div>
 								<div className="text-center">
-									<img src={this.state.MedInfos[15] || "http://ssl.gstatic.com/accounts/ui/avatar_2x.png"} className="avatar img-circle img-thumbnail" alt="avatar" />
+									<img src={this.state.MedInfos[13] || "http://ssl.gstatic.com/accounts/ui/avatar_2x.png"} className="avatar img-circle img-thumbnail" alt="avatar" />
 								</div>
 								<div className="profile-usertitle-name">
-										{this.state.MedInfos[18] + ' ' + this.state.MedInfos[19]}<span className="fa fa-envelope small pull-right"> </span>
+									{this.state.MedInfos[17] + ' ' + this.state.MedInfos[18]}<span className="fa fa-envelope small pull-right"> </span>
 								</div>
 								<div className="profile-userbuttons">
 									<div>
-										<button type="button" className ="btn btn-primary" id="follow" onClick={() => { this.handleProfil() }}>Profil</button>
+										<button type="button" className="btn btn-primary" id="follow" onClick={() => { this.handleProfil() }}>Profil</button>
 									</div>
 									<div>
-										<button type="button" className ="btn btn-primary" id="follow" onClick={() => { this.handleMessage() }}>Discussion</button>
+										<button type="button" className="btn btn-primary" id="follow" onClick={() => { this.handleMessage() }}>Discussion</button>
 									</div>
 								</div>
-<<<<<<< HEAD
-								
 							</div>
-=======
->>>>>>> refs/remotes/origin/master
-						</div>
-						<div className="col-md-9">
-							<div className="profile-content" id="contPat">
-								{renderComp()}
+							<div className="col-md-9">
+								<div className="profile-content" id="contPat">
+									{renderComp()}
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
 				)
 			}
 		}

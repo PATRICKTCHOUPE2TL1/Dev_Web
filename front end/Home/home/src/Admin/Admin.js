@@ -46,9 +46,15 @@ class Admin extends Component {
 return (
  
 <div>
+<div id="top1">
    <EnteteAdmin />
+   </div>
+   <div id="bar1">
    <NavbarAdmin />
+   </div>
+   <div id="main2">
    <p>Medecin</p>
+   </div>
 </div>
 )
     }

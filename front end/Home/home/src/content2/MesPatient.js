@@ -61,20 +61,7 @@ class MesPatient extends Component {
                         MedInfos : response.data,
                         loaded :"true"
 					})
-				/*axios
-				.get('http://127.0.0.1:5000/getSession')
-				.then(response => {
-					this.setState({
-						uerSessionName: response.data
-					})
-					let private_mess = io.connect("http://localhost:5000/private")
-        			console.log('user email sent successfully')
-        			private_mess.emit("username", this.state);
-	
-				})
-				.catch(erreur => {
-					console.log(erreur)
-				})*/
+				
 			
 
 			})
@@ -137,14 +124,14 @@ class MesPatient extends Component {
 
         const arr = []
         for(let i=0; i<this.state.MedInfos.length;i++){
-          arr.push(<ProfPatients idElt ={i} nom ={this.state.MedInfos[i][6]} prenom ={this.state.MedInfos[i][7]} image ={this.state.MedInfos[i][27]} userId={this.state.MedInfos[i][1]} email ={this.state.MedInfos[i][8]} callback  ={this.myCallBack}/>)
+          arr.push(<ProfPatients key={i} idElt ={i} nom ={this.state.MedInfos[i][6]} prenom ={this.state.MedInfos[i][7]} image ={this.state.MedInfos[i][27]} userId={this.state.MedInfos[i][1]} email ={this.state.MedInfos[i][8]} callback  ={this.myCallBack}/>)
         
 	  }
 	  
 		return (
 
 	
-		<div class="container"> 
+		<div className="container"> 
 			<div className="row profile">               
 				{this.state.loaded ==="true" ? arr : <p>not loaded</p>}
 			</div>

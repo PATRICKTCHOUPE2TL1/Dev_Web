@@ -28,7 +28,7 @@ class DonneesPatient extends Component {
             Autre: " ",
             selectedFile: " ",
             imageUrl: " ",
-            loaded : true,
+            loaded: true,
 
         }
 
@@ -58,24 +58,23 @@ class DonneesPatient extends Component {
     }
 
     componentDidMount() {
-        let idPat =0
+        let idPat = 0
         try {
-             idPat =ls.get("userId")
+            idPat = ls.get("userId")
             this.setState({
-                userIdt : idPat
+                userIdt: idPat
             })
         } catch (error) {
             console.log(error)
         }
 
-        let date ='date_format(dateNaiss, "%Y-%m-%d")'
+        let date = 'date_format(dateNaiss, "%Y-%m-%d")'
 
 
         axios
-            .get('http://127.0.0.1:5000/patient/utilisateur/'+date+'/search?args1=utilisateur.userId&args2='+idPat+'&args3=patient.userId&args4='+idPat)
+            .get('http://127.0.0.1:5000/patient/utilisateur/' + date + '/search?args1=utilisateur.userId&args2=' + idPat + '&args3=patient.userId&args4=' + idPat)
             .then(response => {
                 let value = response.data
-
 
                 this.setState(
                     {
@@ -94,8 +93,8 @@ class DonneesPatient extends Component {
                         allergies: value[0][13],
                         autreAllergie: value[0][14],
                         Autre: value[0][15],
-                        nom: value[0][18],
-                        prenom: value[0][19],
+                        nom: value[0][19],
+                        prenom: value[0][20],
                         imageUrl: value[0][16]
                     })
             })
@@ -251,6 +250,7 @@ class DonneesPatient extends Component {
 
     }
     handleUpload = () => {
+
         const image = this.state.selectedFile
         const uploadTask = storage.ref(`images/${image.name}`).put(image)
         uploadTask.on('state_changed', (snapshot) => {
@@ -278,146 +278,146 @@ class DonneesPatient extends Component {
                         <div className="text-center">
                             <img src={this.state.imageUrl || "http://ssl.gstatic.com/accounts/ui/avatar_2x.png"} className="avatar img-circle img-thumbnail" alt="avatar" />
                             <input type="file" className="text-center center-block file-upload" onChange={this.handlePorfile} id="slctImg" style={{ display: 'none' }} />
-                            <button type="button" className ="btn btn-success" onClick={() => { this.handleUpload() }} style={{ display: 'none' }} id="upldImg" >Upload</button>
+                            <button type="button" className="btn btn-success" onClick={() => { this.handleUpload() }} style={{ display: 'none' }} id="upldImg" >Upload</button>
                         </div><hr /><br />
                     </div>
                     <div className="col-sm-9">
-                    <div className="tab-content">
-                    <form id="profPatient" onSubmit={this.handleSubmit}>
-                            <div className="item">
-                                <h3 id="titre1">Profil</h3>
-                                <div className="form-row">
-                                    <div className="form-group col-md-3">
-                                        <label for="genre">Genre</label>
-                                        <select required onChange={this.handleGenreChange}  className="form-control" value={this.state.Genre || ''} id="genre" disabled>
-                                            <option>...</option>
-                                            <option value="Masculin">Masculin</option>
-                                            <option value="Feminin">Feminin</option>
-                                            <option value="Autre">Autre</option>
-                                        </select>
-                                    </div>
-                                    <div className="form-group col-md-3">
-                                        <label for="nom">Nom</label>
-                                        <input type="text" id="nom" name="name"  className="form-control" value={this.state.nom || ''} disabled />
-                                    </div>
-                                    <div className="form-group col-md-3">
-                                        <label for="prenom">Prénom</label>
-                                        <input type="text" id="prenom" name="name" className="form-control" value={this.state.prenom || ''} required disabled />
-                                    </div>
-                                    <div className="form-group col-md-3">
-                                        <label for="the_date">Date de naissance</label>
-                                        <input type="date" name="the_date" className="form-control" value={this.state.DateNaiss || ''} onChange={this.handleDateNaissChange} readOnly />
+                        <div className="tab-content">
+                            <form id="profPatient" onSubmit={this.handleSubmit}>
+                                <div className="item">
+                                    <h3 id="titre1">Profil</h3>
+                                    <div className="form-row">
+                                        <div className="form-group col-md-3">
+                                            <label htmlFor="genre">Genre</label>
+                                            <select required onChange={this.handleGenreChange} className="form-control" value={this.state.Genre || ''} id="genre" disabled>
+                                                <option>...</option>
+                                                <option value="Masculin">Masculin</option>
+                                                <option value="Feminin">Feminin</option>
+                                                <option value="Autre">Autre</option>
+                                            </select>
+                                        </div>
+                                        <div className="form-group col-md-3">
+                                            <label htmlFor="nom">Nom</label>
+                                            <input type="text" id="nom" name="name" className="form-control" value={this.state.nom || ''} disabled />
+                                        </div>
+                                        <div className="form-group col-md-3">
+                                            <label htmlFor="prenom">Prénom</label>
+                                            <input type="text" id="prenom" name="name" className="form-control" value={this.state.prenom || ''} required disabled />
+                                        </div>
+                                        <div className="form-group col-md-3">
+                                            <label htmlFor="the_date">Date de naissance</label>
+                                            <input type="date" name="the_date" className="form-control" value={this.state.DateNaiss || ''} onChange={this.handleDateNaissChange} readOnly />
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <hr />
-                            <div className="item">
-                                <h3 id="titre1">Adresse</h3>
-                                <div className="form-row">
-                                    <div className="form-group col-md-3">
-                                        <label for="rue">Rue</label>
-                                        <input type="text" name="rue"  className="form-control" value={this.state.NumeroRue || ''} onChange={this.handleNumeroRueChange} readOnly />
+                                <hr />
+                                <div className="item">
+                                    <h3 id="titre1">Adresse</h3>
+                                    <div className="form-row">
+                                        <div className="form-group col-md-3">
+                                            <label htmlFor="rue">Rue</label>
+                                            <input type="text" name="rue" className="form-control" value={this.state.NumeroRue || ''} onChange={this.handleNumeroRueChange} readOnly />
+                                        </div>
+                                        <div className="form-group col-md-3">
+                                            <label htmlFor="rue2">Rue 2</label>
+                                            <input type="text" name="rue2" className="form-control" value={this.state.NumeroRue2 || ''} onChange={this.handleNumeroRue2Change} readOnly />
+                                        </div>
+                                        <div className="form-group col-md-3">
+                                            <label htmlFor="cite">Ville</label>
+                                            <input type="text" name="cite" className="form-control" value={this.state.cite || ''} required onChange={this.handleciteChange} readOnly />
+                                        </div>
                                     </div>
-                                    <div className="form-group col-md-3">
-                                        <label for="rue2">Rue 2</label>
-                                        <input type="text" name="rue2" className="form-control" value={this.state.NumeroRue2 || ''} onChange={this.handleNumeroRue2Change} readOnly />
-                                    </div>
-                                    <div className="form-group col-md-3">
-                                        <label for="cite">Ville</label>
-                                        <input type="text" name="cite"  className="form-control" value={this.state.cite || ''} required onChange={this.handleciteChange} readOnly />
-                                    </div>  
-                                </div>
-                                <div className="form-row">
-                                    <div className="form-group col-md-3">
-                                        <label for="region">Region</label>
-                                        <input type="text" name="region" className="form-control"  value={this.state.Region || ''} required onChange={this.handleRegionChange} readOnly />
-                                    </div>
-                                    <div className="form-group col-md-3">
-                                        <label for="codePostal">Code Postal</label>
-                                        <input type="number" name="codePostal" className="form-control"  value={this.state.codePostal || ''} required onChange={this.handlecodePostalChange} readOnly />
-                                    </div>
-                                    <div className="form-group col-md-3">
-                                        <label for="pays">Pays de résidence</label>
-                                        <select required value={this.state.Pays || ''} className="form-control"  onChange={this.handlePaysChange} id="pays" disabled>
+                                    <div className="form-row">
+                                        <div className="form-group col-md-3">
+                                            <label htmlFor="region">Region</label>
+                                            <input type="text" name="region" className="form-control" value={this.state.Region || ''} required onChange={this.handleRegionChange} readOnly />
+                                        </div>
+                                        <div className="form-group col-md-3">
+                                            <label htmlFor="codePostal">Code Postal</label>
+                                            <input type="number" name="codePostal" className="form-control" value={this.state.codePostal || ''} required onChange={this.handlecodePostalChange} readOnly />
+                                        </div>
+                                        <div className="form-group col-md-3">
+                                            <label htmlFor="pays">Pays de résidence</label>
+                                            <select required value={this.state.Pays || ''} className="form-control" onChange={this.handlePaysChange} id="pays" disabled>
                                                 <option>...</option>
                                                 <option value="RoyaumeUnis">Royaume unis</option>
                                                 <option value="Cameroun">Cameroun</option>
                                                 <option value="Belgique">Belgique</option>
                                                 <option value="France">France</option>
 
-                                        </select>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div className="form-row">
+                                        <div className="form-group col-md-3">
+                                            <label htmlFor="phone">Téléphone</label>
+                                            <input type="text" name="phone" className="form-control" value={this.state.Phone || ''} onChange={this.handlePhoneChange} readOnly />
+                                        </div>
                                     </div>
                                 </div>
-                                <div className="form-row">
-                                    <div className="form-group col-md-3">
-                                        <label for="phone">Téléphone</label>
-                                        <input type="text" name="phone" className="form-control"  value={this.state.Phone || ''} onChange={this.handlePhoneChange} readOnly />
-                                    </div>
-                                </div>
-                            </div>
-                            <hr />
+                                <hr />
 
-                            <div className="item">
-                                <h3 id="titre1">Carnet Medical</h3> 
-                                <div className="form-row">
-                                    <div className="form-group col-md-3">
-                                        <label for="poids">Poids</label>
-                                        <input type="text" name="poids" className="form-control" value={this.state.Poids || ''} onChange={this.handlePoidsChange} readOnly />
-                                    </div>
-                                    <div className="form-group col-md-3">
-                                        <label for="taille">Taille</label>
-                                        <input type="text" name="taille" className="form-control" value={this.state.Taille || ''} onChange={this.handleTailleChange} readOnly />
-                                    </div>
-                                    <div className="form-group col-md-3">
-                                        <label for="bloodGrp">Groupe</label>
-                                        <select id="bloodGrp" value={this.state.GroupeSanguin || ''} className="form-control" onChange={this.handleGroupeSanguinChange} disabled>
-                                            <option>...</option>
-                                            <option value="AB+">AB+</option>
-                                            <option value="AB-">AB-</option>
-                                            <option value="A+">A+</option>
-                                            <option value="A-">A-</option>
-                                            <option value="B+">B+</option>
-                                            <option value="B-">B-</option>
-                                            <option value="O+">O+</option>
-                                            <option value="O-">O-</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="question">
-                                <p>Avez vous des allergies ?</p>
-                                <div className="question-answer">
-                                    <div className="form-check form-check-inline" >
-                                        <label htmlFor="radio_1" className="form-check-label"><span>Oui</span></label>
-                                        <input type="radio" value="Oui" id="radio_1" className="form-check-input" name="allergie" onChange={this.handleallergiesChange} disabled />
-                                    </div>
-                                    <div className="form-check form-check-inline">
-                                        <label htmlFor="radio_2" className="form-check-label"><span>Non</span></label>
-                                        <input type="radio" value="Non" id="radio_2" className="form-check-input" name="allergie" onChange={this.handleallergiesChange} disabled />
+                                <div className="item">
+                                    <h3 id="titre1">Carnet Medical</h3>
+                                    <div className="form-row">
+                                        <div className="form-group col-md-3">
+                                            <label htmlFor="poids">Poids</label>
+                                            <input type="text" name="poids" className="form-control" value={this.state.Poids || ''} onChange={this.handlePoidsChange} readOnly />
+                                        </div>
+                                        <div className="form-group col-md-3">
+                                            <label htmlFor="taille">Taille</label>
+                                            <input type="text" name="taille" className="form-control" value={this.state.Taille || ''} onChange={this.handleTailleChange} readOnly />
+                                        </div>
+                                        <div className="form-group col-md-3">
+                                            <label htmlFor="bloodGrp">Groupe</label>
+                                            <select id="bloodGrp" value={this.state.GroupeSanguin || ''} className="form-control" onChange={this.handleGroupeSanguinChange} disabled>
+                                                <option>...</option>
+                                                <option value="AB+">AB+</option>
+                                                <option value="AB-">AB-</option>
+                                                <option value="A+">A+</option>
+                                                <option value="A-">A-</option>
+                                                <option value="B+">B+</option>
+                                                <option value="B-">B-</option>
+                                                <option value="O+">O+</option>
+                                                <option value="O-">O-</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="form-row" style={{ display: "none" }} id="autreAlleg">
-                                <div className="form-group col-md-5">
-                                    <label for="otherAl">A quoi êtes vous allergiques ?</label>
-                                    <input type="text" id="otherAl" className="form-control" onChange={this.handleautreAllergieChange} value={this.state.autreAllergie || ''} readOnly />
+                                <div className="question">
+                                    <p>Avez vous des allergies ?</p>
+                                    <div className="question-answer">
+                                        <div className="form-check form-check-inline" >
+                                            <label htmlFor="radio_1" className="form-check-label"><span>Oui</span></label>
+                                            <input type="radio" value="Oui" id="radio_1" className="form-check-input" name="allergie" onChange={this.handleallergiesChange} disabled />
+                                        </div>
+                                        <div className="form-check form-check-inline">
+                                            <label htmlFor="radio_2" className="form-check-label"><span>Non</span></label>
+                                            <input type="radio" value="Non" id="radio_2" className="form-check-input" name="allergie" onChange={this.handleallergiesChange} disabled />
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+                                <div className="form-row" style={{ display: "none" }} id="autreAlleg">
+                                    <div className="form-group col-md-5">
+                                        <label htmlFor="otherAl">A quoi êtes vous allergiques ?</label>
+                                        <input type="text" id="otherAl" className="form-control" onChange={this.handleautreAllergieChange} value={this.state.autreAllergie || ''} readOnly />
+                                    </div>
+                                </div>
 
-                            <div className="form-row">
-                                <div className="form-group col-md-5">
-                                    <label for="other">A savoir sur vous</label>
-                                    <textarea rows="3" id="other" onChange={this.handleAutreChange} className="form-control" readOnly value={this.state.Autre || ''}></textarea>
+                                <div className="form-row">
+                                    <div className="form-group col-md-5">
+                                        <label htmlFor="other">A savoir sur vous</label>
+                                        <textarea rows="3" id="other" onChange={this.handleAutreChange} className="form-control" readOnly value={this.state.Autre || ''}></textarea>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="btn-block">
-                                <button type="button" id="modifier" className ="btn btn-danger"  onClick={this.editerForm} >Modifier</button>
-                                <input type="submit" value="Enregistrer" className ="btn btn-primary"  id="save" style={{ display: 'none' }} />
-                            </div>
-                     </form>
-                </div>
-                </div>
+                                <div className="btn-block">
+                                    <button type="button" id="modifier" className="btn btn-danger" onClick={this.editerForm} >Modifier</button>
+                                    <input type="submit" value="Enregistrer" className="btn btn-primary" id="save" style={{ display: 'none' }} />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
 
                 </div>
             </div>

@@ -118,15 +118,11 @@ class SignIn extends Component {
     handleSubmit = event =>{ 
  
         event.preventDefault();
-<<<<<<< HEAD
-      
-=======
       if(this.chkPassword() == false){
           /* Action si pas de mail valide ou mot de passe non correspondants*/
             this.getId('password').focus()
         }else{
             console.log(true)
->>>>>>> refs/remotes/origin/master
             axios
              .post('http://127.0.0.1:5000/postdata', this.state)
              .then(reponse =>{
@@ -147,15 +143,8 @@ class SignIn extends Component {
              .catch(erreur =>{
                  console.log(erreur)
              })
-<<<<<<< HEAD
-           
-        
-      
-    };
-=======
     }
 }
->>>>>>> refs/remotes/origin/master
     getId = id=>{
         return document.getElementById(id);
     }
@@ -173,58 +162,6 @@ class SignIn extends Component {
     render() {
         
         return (
-<<<<<<< HEAD
-            <main>
-            
-            <form  className="formSign" onSubmit={this.handleSubmit} >
-                <fieldset>
-            <img src ={Avatar2} alt ="loginimage" className="avatar"/>
-              
-            <div>
-                <legend className="signup">Créer un Compte</legend>
-            </div>
-            <div id="ident">
-               
-                <input type ="text" id = 'nom' placeholder= "Nom *"   onChange={this.handleNomChange} className="nom"/>
-          
-                <input type ="text" id ='prenom' placeholder= "Prenom * "   onChange={this.handlePrenomChange} className="prenom"/>
-            </div>
-            <div>
-               
-                <input type ="text" id='email' placeholder= "Adresse Email *"   onChange={this.handleEmailChange} className="email2"/>
-            </div>
-            <div>
-                
-                <input type ="password" id="password" placeholder= "Mot de passe *" onChange={this.handlePasswordChange} className ="password"/>
-            
-                <input type ="password" id="confpassword" placeholder= "Confirmer mot de passe *"  className="confmtp"/>
-            </div>
-            <div className="sts">
-            <span className="status">vous etes :</span>
-
-            <label  id = "medecin" for="medecin">medecin</label>
-            <input type="radio" id="medecin2" name="status" value="attente" onChange={this.handleStatusMedecin}/>
-            
-
-            <label  id = "patient" for="patient">patient</label>
-
-            <input type="radio" id="patient2" name="status" value="patient"  onChange = {this.handleStatusPatient}/>
-            </div>
-            
-            <div className="valider1" >
-                <input type="submit"  id="mySubmit" value ="Valider" className="creer"/>
-            </div>
-            <hr className="ligne"></hr>
-           
-            <div>
-                <textarea id ="msg" className="signlog" >
-
-                </textarea>
-            </div>
-            </fieldset>
-             </form>
-             </main>
-=======
             <div className="containers">
                      <div className="img1">
                         <img src={infis} alt="infirmiéres"></img>
@@ -285,7 +222,6 @@ class SignIn extends Component {
               </form>
              </div>
           </div>
->>>>>>> refs/remotes/origin/master
         )
 
     }

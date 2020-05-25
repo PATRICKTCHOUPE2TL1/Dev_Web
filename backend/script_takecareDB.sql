@@ -48,9 +48,9 @@ codePostal int null,
 pays varchar(120) null,
 phone int null,
 autre varchar(360) null,
-carteIdt varchar(360) null,
-preuveMed varchar(360) null
+imageUrl varchar(300) null,
 userId int not null,
+emailPrive varchar(60) null,
 primary key(idMed),
 foreign key(userId) references utilisateur(userId));
 
@@ -77,17 +77,45 @@ groupeSanguin varchar(6) null,
 allergies varchar(10) null,
 autreAllergie varchar(360) null,
 autre varchar(360) null,
+imageUrl varchar(300) null,
 userId int not null,
 primary key(idPat),
 foreign key(userId) references utilisateur(userId));
-
-
-
-
 -- -----------------------------------------------------
 -- Table `takecare`.`consultations`
 -- -----------------------------------------------------
 
+CREATE TABLE IF NOT EXISTS `takecare`.`consultation` (
+consId int not null auto_increment,
+patId int not null,
+medId int not null,
+room int ,
+etat varchar(30),
+primary key(consId),
+foreign key(patId) references patient(userId),
+foreign key(medId) references medecin(userId));
+  
+  
+
+
+
+
+-- -----------------------------------------------------
+-- Table `takecare`.`attente`
+-- -----------------------------------------------------
+
+
+CREATE TABLE IF NOT EXISTS `takecare`.`attente` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `carteIdt` VARCHAR(300) ,
+  `preuveMed` VARCHAR(300) ,
+  `emailPrive` VARCHAR(300) ,
+  `userId` int  NOT NULL,
+  `statut` VARCHAR(45),
+  PRIMARY KEY (`id`)
+  foreign key('userId') references utilisateur('userId'),
+  )
+ENGINE = InnoDB;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

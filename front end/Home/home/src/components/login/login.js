@@ -98,32 +98,6 @@ class Login extends Component {
             }
         }
         return(
-<<<<<<< HEAD
-            <div className="containe">
-                {/*login()*/}
-            <div className="img">
-                <img src={infis} alt="infirmiéres"></img>
-            </div>
-            <div className="login-container">
-                    <form onSubmit={this.handleOnsubit}>
-                        <img className="avatar" src={ava} alt="avatar"></img>
-                        <h2>Mon espace sante</h2>
-                        <div className="input-div one focus">
-                            <div>
-                                <input className="email" placeholder= "Adresse email"  type="text" name = "email" required  onChange={this.handleUserNameChange}></input>
-                            </div>
-                        </div>
-                        <div className="input-div two foc">
-                            <div>
-                                <input className="mdp" type="password" placeholder= "Mot de passe"required onChange={this.handlePasswordChange}></input>
-                            </div>
-                        </div>
-                        <Link to ='/'><a href="#" className="lglk">Mot de passe oublié ?</a></Link><br></br>
-                        <Link to ='/signin'><a href="#" className="lglk">Créer un compte ?</a></Link><br></br>
-
-                        <input type="submit" className="login" value="Se connecter"></input>
-                        <div id ="error"></div>
-=======
             <div className="container1">
                     <div className="img2">
                         <img src={docs} alt="infirmiéres"></img>
@@ -145,7 +119,6 @@ class Login extends Component {
                                         </div>
                                     </div>
                                     <Link to ='/signin'><a href="#" className="lglk">Créer un compte ?</a></Link><br></br>
->>>>>>> refs/remotes/origin/master
 
                                     <input type="submit" id="login"  className ="btn btn-success" value="Se connecter"></input>
                                     <div id ="error"></div>

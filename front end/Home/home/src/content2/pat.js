@@ -248,7 +248,7 @@ class Pat extends Component {
                                 <h3 id="titre1">Profil</h3>
                                 <div className="form-row">
                                     <div className="form-group col-md-3">
-                                        <label for="genre">Genre</label>
+                                        <label htmlFor="genre">Genre</label>
                                         <select required onChange={this.handleGenreChange}  className="form-control" value={this.state.Genre || ''} id="genre" disabled>
                                             <option>...</option>
                                             <option value="Masculin">Masculin</option>
@@ -257,15 +257,15 @@ class Pat extends Component {
                                         </select>
                                     </div>
                                     <div className="form-group col-md-3">
-                                        <label for="nom">Nom</label>
+                                        <label htmlFor="nom">Nom</label>
                                         <input type="text" id="nom" name="name"  className="form-control" value={this.state.nom || ''} disabled />
                                     </div>
                                     <div className="form-group col-md-3">
-                                        <label for="prenom">Prénom</label>
+                                        <label htmlFor="prenom">Prénom</label>
                                         <input type="text" id="prenom" name="name" className="form-control" value={this.state.prenom || ''} required disabled />
                                     </div>
                                     <div className="form-group col-md-5">
-                                        <label for="the_date">Date de naissance</label>
+                                        <label htmlFor="the_date">Date de naissance</label>
                                         <input type="date" name="the_date" className="form-control" value={this.state.DateNaiss || ''} onChange={this.handleDateNaissChange} readOnly />
                                     </div>
                                 </div>
@@ -276,29 +276,29 @@ class Pat extends Component {
                                 <h3 id="titre1">Adresse</h3>
                                 <div className="form-row">
                                     <div className="form-group col-md-3">
-                                        <label for="rue">Rue</label>
+                                        <label htmlFor="rue">Rue</label>
                                         <input type="text" name="rue"  className="form-control" value={this.state.NumeroRue || ''} onChange={this.handleNumeroRueChange} readOnly />
                                     </div>
                                     <div className="form-group col-md-3">
-                                        <label for="rue2">Rue 2</label>
+                                        <label htmlFor="rue2">Rue 2</label>
                                         <input type="text" name="rue2" className="form-control" value={this.state.NumeroRue2 || ''} onChange={this.handleNumeroRue2Change} readOnly />
                                     </div>
                                     <div className="form-group col-md-3">
-                                        <label for="cite">Ville</label>
+                                        <label htmlFor="cite">Ville</label>
                                         <input type="text" name="cite"  className="form-control" value={this.state.cite || ''} required onChange={this.handleciteChange} readOnly />
                                     </div>  
                                 </div>
                                 <div className="form-row">
                                     <div className="form-group col-md-3">
-                                        <label for="region">Region</label>
+                                        <label htmlFor="region">Region</label>
                                         <input type="text" name="region" className="form-control"  value={this.state.Region || ''} required onChange={this.handleRegionChange} readOnly />
                                     </div>
                                     <div className="form-group col-md-3">
-                                        <label for="codePostal">Code Postal</label>
+                                        <label htmlFor="codePostal">Code Postal</label>
                                         <input type="number" name="codePostal" className="form-control"  value={this.state.codePostal || ''} required onChange={this.handlecodePostalChange} readOnly />
                                     </div>
                                     <div className="form-group col-md-5">
-                                        <label for="pays">Pays de résidence</label>
+                                        <label htmlFor="pays">Pays de résidence</label>
                                         <select required value={this.state.Pays || ''} className="form-control"  onChange={this.handlePaysChange} id="pays" disabled>
                                                 <option>...</option>
                                                 <option value="RoyaumeUnis">Royaume unis</option>
@@ -311,7 +311,7 @@ class Pat extends Component {
                                 </div>
                                 <div className="form-row">
                                     <div className="form-group col-md-3">
-                                        <label for="phone">Téléphone</label>
+                                        <label htmlFor="phone">Téléphone</label>
                                         <input type="text" name="phone" className="form-control"  value={this.state.Phone || ''} onChange={this.handlePhoneChange} readOnly />
                                     </div>
                                 </div>
@@ -322,15 +322,15 @@ class Pat extends Component {
                                 <h3 id="titre1">Carnet Medical</h3> 
                                 <div className="form-row">
                                     <div className="form-group col-md-3">
-                                        <label for="poids">Poids</label>
+                                        <label htmlFor="poids">Poids</label>
                                         <input type="text" name="poids" className="form-control" value={this.state.Poids || ''} onChange={this.handlePoidsChange} readOnly />
                                     </div>
                                     <div className="form-group col-md-3">
-                                        <label for="taille">Taille</label>
+                                        <label htmlFor="taille">Taille</label>
                                         <input type="text" name="taille" className="form-control" value={this.state.Taille || ''} onChange={this.handleTailleChange} readOnly />
                                     </div>
                                     <div className="form-group col-md-3">
-                                        <label for="bloodGrp">Groupe</label>
+                                        <label htmlFor="bloodGrp">Groupe</label>
                                         <select id="bloodGrp" value={this.state.GroupeSanguin || ''} className="form-control" onChange={this.handleGroupeSanguinChange} disabled>
                                             <option>...</option>
                                             <option value="AB+">AB+</option>
@@ -360,14 +360,14 @@ class Pat extends Component {
                             </div>
                             <div className="form-row" style={{ display: "none" }} id="autreAlleg">
                                 <div className="form-group col-md-5">
-                                    <label for="otherAl">A quoi êtes vous allergiques ?</label>
+                                    <label htmlFor="otherAl">A quoi êtes vous allergiques ?</label>
                                     <input type="text" id="otherAl" className="form-control" onChange={this.handleautreAllergieChange} value={this.state.autreAllergie || ''} readOnly />
                                 </div>
                             </div>
 
                             <div className="form-row">
                                 <div className="form-group col-md-5">
-                                    <label for="other">A savoir sur vous</label>
+                                    <label htmlFor="other">A savoir sur vous</label>
                                     <textarea rows="3" id="other" onChange={this.handleAutreChange} className="form-control" readOnly value={this.state.Autre || ''}></textarea>
                                 </div>
                             </div>
