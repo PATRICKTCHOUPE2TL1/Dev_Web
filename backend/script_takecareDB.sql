@@ -113,7 +113,7 @@ CREATE TABLE IF NOT EXISTS `takecare`.`attente` (
   `userId` int  NOT NULL,
   `statut` VARCHAR(45),
   PRIMARY KEY (`id`),
-  foreign key('userId') references utilisateur('userId'),
+  foreign key (`userId`) references utilisateur(`userId`)
   )
 ENGINE = InnoDB;
 
