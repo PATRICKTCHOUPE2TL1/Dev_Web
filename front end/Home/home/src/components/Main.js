@@ -76,6 +76,7 @@ class Main extends Component {
           <Route exact path='/confirmerMed' component={ConfirmId} />
 
           <Route exact path='/Login' component={Login} />
+          {console.log(this.state.isLogIn)}
             {this.state.isLogIn ? (<Route exact path='/Patient' render={(props) => <EspacePatient userId={this.state.id} />} />) : (<Redirect to='/Login' />)}
             {this.state.isLogIn ? (<Route exact path='/Medecin' render={(props) => <Fragment> <Medecin userId={this.state.id} /></Fragment>} />) : (<Redirect to='/Login' />)}
             {this.state.isLogIn ? (<Route exact path='/Admin' render={(props) => <Fragment> <Admin userId={this.state.id} /></Fragment>} />) : (<Redirect to='/Login' />)}

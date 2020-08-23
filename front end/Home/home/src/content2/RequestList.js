@@ -26,8 +26,6 @@ class DemandeAss extends Component{
     axios
     .post('http://127.0.0.1:5000/get_Pat', this.state)
     .then(response =>{
-      console.log("test get_Pat")
-        console.log(response)
         this.setState({
           db : response.data,
           loaded : "true"

@@ -33,7 +33,7 @@ class NosMedecin extends Component {
 
     const arr = []
     for (let i = 0; i < this.state.db.length; i++) {
-      arr.push(<Profil key={i} id={this.state.db[i][0]} nom={this.state.db[i][1]} prenom={this.state.db[i][2]} specialite={this.state.db[i][3]} autre={this.state.db[i][4]} image={this.state.db[i][5]} callBackFromParent={this.myCallBack} />)
+      arr.push(<Profil key={i} id={this.state.db[i][0]} nom={this.state.db[i][1]}  prenom={this.state.db[i][2]} specialite={this.state.db[i][3]} autre={this.state.db[i][4]} image={this.state.db[i][5]} pays ={this.state.db[i][6]} callBackFromParent={this.myCallBack} />)
 
     }
     return (

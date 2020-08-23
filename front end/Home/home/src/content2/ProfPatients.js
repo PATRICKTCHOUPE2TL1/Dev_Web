@@ -18,8 +18,7 @@ this.handleProfil =this.handleProfil.bind(this)
     }
 
     handleDiscussion =() =>{
-        let private_mess = io.connect("http://localhost:5000/private")
-        			console.log('user email sent successfully')
+        let private_mess = io.connect("http://127.0.0.1:5000/private")
         			private_mess.emit("username", {uerSessionName : this.state.id});
 
         this.props.callback("message",this.state.id,this.state.email)

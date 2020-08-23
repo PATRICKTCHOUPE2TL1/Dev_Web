@@ -13,6 +13,7 @@ class Profil extends Component {
       speciality: this.props.specialite,
       others: this.props.autre,
       image: this.props.image,
+      pays : this.props.pays,
       room: Math.floor(1 + Math.random() * 10000)
 
     }
@@ -54,9 +55,9 @@ class Profil extends Component {
         <img src={couv} alt="card background" className="bgImg"></img>
         <img src={this.state.image || av} alt="profile image" className="profil"></img>
         <h2>{this.props.nom + '   ' + this.props.prenom}</h2>
-        <p className="post">{this.props.specialite}</p>
+        <p className="post">{this.props.specialite || "specialite"}</p>
         <p className="about">
-          Adresse cabinet
+          {this.props.pays || "pays"}
                   </p>
         <a href="#" className="btn btn-success" id="btn" onClick={() => this.handleContact()}>Contact</a>
         <div id={this.state.id}></div>

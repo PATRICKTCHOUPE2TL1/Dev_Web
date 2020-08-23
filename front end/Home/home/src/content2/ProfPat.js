@@ -22,8 +22,6 @@ class ProfilPat extends Component {
    axios
       .post('http://127.0.0.1:5000/confCons', this.state)
       .then(response => {
-          console.log("test")
-          console.log(response)
         
       })
       .catch(erreur => {
@@ -31,10 +29,6 @@ class ProfilPat extends Component {
       })
    
   }
-
- 
-
-
 
 
   render() {

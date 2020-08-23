@@ -6,7 +6,6 @@ import docs from "../../image/docs.svg"
 import { Link,Redirect } from "react-router-dom"
 import axios from 'axios'
 import EspacePatient from './../../EspacePatient'
-import io from "socket.io-client";
 import ls from 'local-storage'
 
 
@@ -46,6 +45,7 @@ class Login extends Component {
         axios
              .post('http://127.0.0.1:5000/login', this.state,)
              .then(reponse =>{
+                 console.log(reponse.data);
                 ls.set('userId', reponse.data[1])
                 
                 if(reponse.data[0]==="patient"){
@@ -103,18 +103,18 @@ class Login extends Component {
                                     <img className="avatar" src={ava} alt="avatar"></img>
                                     <h2>Mon espace sante</h2>
                                     <div className="form-group row">
-                                        <label for="email" className="col-sm-3 col-form-label">Email*</label>
+                                        <label htmlFor="email" className="col-sm-3 col-form-label">Email*</label>
                                         <div className="col-sm-7">
                                             <input type ="text" id = 'email' name = "email"  required   onChange={this.handleUserNameChange} className="form-control"/>
                                         </div> 
                                     </div>
                                     <div className="form-group row">
-                                        <label for="mdp" className="col-sm-3 col-form-label">Password*</label>
+                                        <label htmlFor="mdp" className="col-sm-3 col-form-label">Password*</label>
                                         <div className="col-sm-7">
                                             <input type ="password" id ='mdp' required   onChange={this.handlePasswordChange} className="form-control"/>
                                         </div>
                                     </div>
-                                    <Link to ='/signin'><a href="#" className="lglk">Créer un compte ?</a></Link><br></br>
+                                    <Link to ='/signin'><a href=" " className="lglk">Créer un compte ?</a></Link><br></br>
 
                                     <input type="submit" id="login"  className ="btn btn-success" value="Se connecter"></input>
                                     <div id ="error"></div>

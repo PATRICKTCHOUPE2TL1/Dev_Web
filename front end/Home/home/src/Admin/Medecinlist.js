@@ -20,7 +20,7 @@ class Medecinlist extends Component {
 
   componentDidMount() {
     axios
-      .get('http://localhost:5000/getMedAttente')
+      .get('http://127.0.0.1:5000/getMedAttente')
       .then(response => {
         this.setState({
           db: response.data,

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import io from "socket.io-client";
 
-let endPoint = "http://localhost:5000";
+let endPoint = "http://127.0.0.1:5000/";
 let socket = io.connect(`${endPoint}`);
 
 class Discussion extends Component {
@@ -42,7 +42,6 @@ class Discussion extends Component {
         
       
       } else {
-        console.log("third option")
 
         this.setState({
 
@@ -64,8 +63,6 @@ class Discussion extends Component {
 
   onClick = () => {
     const { message } = this.state;
-    {console.log("test sender")}
-{console.log(this.state.sender)}
     if (message !== "") {
       this.setState({
         message: ""
@@ -83,8 +80,6 @@ class Discussion extends Component {
     const { messages, message } = this.state;
     return (
       <div>
-        {console.log("test props")}
-        {console.log(this.state.sender)}
         {messages.length > 0 &&
           messages.map(msg => (
             

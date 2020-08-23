@@ -110,7 +110,7 @@ class MesDonnees extends Component {
 
     handleCiviliteChange = event => {
         this.setState({
-            Genre: event.target.value
+            Civilite: event.target.value
         })
     }
 

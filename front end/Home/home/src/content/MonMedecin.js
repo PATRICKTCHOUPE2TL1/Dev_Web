@@ -41,7 +41,7 @@ class MonMedecin extends Component {
 							this.setState({
 								uerSessionName: response.data
 							})
-							let private_mess = io.connect("http://localhost:5000/private")
+							let private_mess = io.connect("http://127.0.0.1:5000/private")
 							private_mess.emit("username", this.state);
 
 						})

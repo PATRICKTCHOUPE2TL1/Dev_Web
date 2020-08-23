@@ -196,7 +196,7 @@ class ProfMed extends Component {
                                     <div  className="form-group col-md-4">
                                             <label htmlFor="bdate">Date de naissance*</label>
                                             <input type="date" name="bdate" required className="form-control" value={this.state.DateNaiss || ''} onChange={this.handleDateNaissChange} readOnly />
-                                            <i class="fas fa-calendar-alt"></i>
+                                            <i className="fas fa-calendar-alt"></i>
                                     </div>
                                 </div>
                             <div className="form-row">

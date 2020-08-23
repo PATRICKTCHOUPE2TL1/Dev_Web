@@ -57,7 +57,6 @@ class Pat extends Component {
         axios
             .post('http://127.0.0.1:5000/fetchPatCons',this.state)
             .then(response => {
-                console.log(response)
                 let value = response.data
 
                 this.setState(
@@ -191,7 +190,6 @@ class Pat extends Component {
         axios
             .post('http://127.0.0.1:5000/savedata', this.state)
             .then(reponse => {
-                console.log(reponse)
             })
             .catch(erreur => {
                 console.log(erreur)
@@ -239,10 +237,10 @@ class Pat extends Component {
     render() {
         return (
 
-            <div class="container bootstrap snippet">
-                <div class="row">
-                    <div class="col-sm-9">
-                        <div class="tab-content">
+            <div className="container bootstrap snippet">
+                <div className="row">
+                    <div className="col-sm-9">
+                        <div className="tab-content">
                             <form id="profPatient" onSubmit={this.handleSubmit}>
                             <div className="item">
                                 <h3 id="titre1">Profil</h3>

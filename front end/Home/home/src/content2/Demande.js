@@ -25,12 +25,9 @@ class NosMedecin extends Component{
     axios
     .post('http://127.0.0.1:5000/get_Pat', this.state)
     .then(response =>{
-        console.log(response)
         this.setState({
           db : response.data
         })
-        console.log('test')
-        console.log(this.state.db)
     })
     .catch(erreur =>{
         console.log(erreur)
@@ -41,7 +38,7 @@ class NosMedecin extends Component{
 
     const arr = []
     for(let i=0; i<this.state.db.length;i++){
-      arr.push(<ProfilPat id ={this.state.db[i][0]} nom={this.state.db[i][1]} prenom ={this.state.db[i][2]} image={this.state.db[i][3]}  callBackFromParent ={this.myCallBack}/>)
+      arr.push(<ProfilPat key={i} id ={this.state.db[i][0]} nom={this.state.db[i][1]} prenom ={this.state.db[i][2]} image={this.state.db[i][3]}  callBackFromParent ={this.myCallBack}/>)
     
   }
   

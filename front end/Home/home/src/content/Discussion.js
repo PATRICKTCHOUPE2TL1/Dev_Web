@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import io from "socket.io-client";
 
-let endPoint = "http://localhost:5000";
+let endPoint = "http://127.0.0.1:5000/";
 let socket = io.connect(`${endPoint}`);
 
 class Discussion extends Component {
@@ -21,32 +21,22 @@ class Discussion extends Component {
     socket.emit('message', { 'message': " ", 'userId': this.state.sender ,"recId":this.state.sender})
 
     socket.on("message", msg => {
-      console.log("message")
-      console.log(msg)
-      console.log(msg.length)
+    
     
       let dictMess = msg
       let len = Object.keys(dictMess).length
-      console.log(len)
       if (dictMess["messageRecieve"] === " ") {
-        console.log("first connection")
-        console.log(true)
+       
 
       }else if((dictMess["messageRecieve"] !==" ")&&(len ===2)){
-        console.log("not first connection")
-        console.log(dictMess)
+        
         this.setState({
 
           messages: [...this.state.messages, dictMess],
 
         });
         
-       /* for (let i in dictMess) {
-          this.setState({
-            messages: [...this.state.messages, dictMess[i]],
-            lastMess: dictMess[lengthArr - 1]
-          });
-        }*/
+    
       } else {
         console.log("third option")
 
@@ -74,8 +64,7 @@ class Discussion extends Component {
       this.setState({
         message: ""
       });
-      {console.log("test sender")}
-      {console.log(this.state.sender)}
+      
       socket.emit("message", { 'message': message, 'userId': this.state.sender ,"recId":this.state.sender });
 
     } else {
@@ -92,8 +81,7 @@ class Discussion extends Component {
           messages.map(msg => (
             
             <div id="message" style={msg["recId"] === this.state.sender ? { backgroundColor: 'red',marginLeft : '60%' } : { backgroundColor: 'blue', marginRight:'100px'}}>
-              {console.log("test result")}
-              {console.log(msg)}
+              
               <p>{msg["messageRecieve"]}</p>
             </div>
           ))}
